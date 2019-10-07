@@ -18,3 +18,8 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 Route::get('/status', 'ApplicationStatusController@show')->name('status');
+
+
+// Ingredients Routes
+
+Route::post('/ingredients', 'IngredientsController@store');
