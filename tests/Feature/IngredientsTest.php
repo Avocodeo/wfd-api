@@ -29,13 +29,13 @@ class IngredientsTest extends TestCase
     public function testCanViewIngredients()
     {
         $this->withoutExceptionHandling();
-        $ingredient = factory(Ingredient::class)->create();
+        factory(Ingredient::class)->create();
 
         $this->get("/api/ingredients")
             ->assertStatus(200);
     }
 
-    public function testCanViewAnIngredient()
+    public function testCanViewIngredient()
     {
         $this->withoutExceptionHandling();
 
@@ -46,7 +46,7 @@ class IngredientsTest extends TestCase
     }
 
 
-    public function testCanUpdateAnIngredient()
+    public function testCanUpdateIngredient()
     {
         $this->withoutExceptionHandling();
 
@@ -62,7 +62,7 @@ class IngredientsTest extends TestCase
         $this->assertDatabaseHas('ingredients', ['name' => 'salt']);
     }
 
-    public function testCanDeleteAnIngredient()
+    public function testCanDeleteIngredient()
     {
         $ingredient = factory(Ingredient::class)->create();
 
@@ -70,6 +70,5 @@ class IngredientsTest extends TestCase
 
         $this->assertDatabaseMissing('ingredients', ['id' => $ingredient->id]);
     }
-
 
 }

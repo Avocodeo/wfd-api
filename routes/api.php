@@ -26,3 +26,10 @@ Route::post('/ingredients', 'IngredientsController@store');
 Route::get('/ingredients/{ingredient}', 'IngredientsController@show');
 Route::patch('/ingredients/{ingredient}', 'IngredientsController@update');
 Route::delete('/ingredients/{ingredient}', 'IngredientsController@destroy');
+
+// Measurements Routes
+Route::get('/measurements', 'MeasurementsController@index');
+Route::post('/measurements', 'MeasurementsController@store');
+Route::get('/measurements/{measurement}', 'MeasurementsController@show');
+Route::patch('/measurements/{measurement}', 'MeasurementsController@update');
+Route::delete('/measurements/{measurement}', 'MeasurementsController@destroy');

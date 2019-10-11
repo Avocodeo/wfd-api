@@ -2,9 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Ingredient;
-use Illuminate\Validation\Rules\In;
 
 class IngredientsController extends Controller
 {
