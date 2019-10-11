@@ -4,17 +4,18 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Ingredient;
+use Illuminate\Validation\Rules\In;
 
 class IngredientsController extends Controller
 {
     public function index()
     {
-
+        return Ingredient::all();
     }
 
-    public function show()
+    public function show(Ingredient $ingredient)
     {
-
+        return $ingredient;
     }
 
     public function create()
@@ -36,13 +37,26 @@ class IngredientsController extends Controller
         ]);
     }
 
-    public function update()
+    public function update(Ingredient $ingredient)
     {
+        $attributes = request()->validate([
+            'name' => 'required',
+        ]);
 
+        $ingredient->update($attributes);
+
+        return response()->json([
+            'ingredient' => $ingredient->name,
+            'message' => 'ingredient updated'
+        ]);
     }
 
-    public function destroy()
+    public function destroy(Ingredient $ingredient)
     {
+        $ingredient->delete();
 
+        return response()->json([
+            'message' => 'ingredient was successfully deleted'
+        ]);
     }
 }
