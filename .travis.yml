@@ -25,5 +25,6 @@ notifications:
       - moore12w@uwindsor.ca
       - ouell117@uwindsor.ca
       - verma11@uwindsor.ca
+      - stantonn@uwindsor.ca
     on_success: always
     on_failure: always
