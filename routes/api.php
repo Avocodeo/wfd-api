@@ -33,3 +33,10 @@ Route::post('/measurements', 'MeasurementsController@store');
 Route::get('/measurements/{measurement}', 'MeasurementsController@show');
 Route::patch('/measurements/{measurement}', 'MeasurementsController@update');
 Route::delete('/measurements/{measurement}', 'MeasurementsController@destroy');
+
+// Users Routes
+Route::get('/users', 'UsersController@index');
+Route::post('/users', 'UsersController@store');
+Route::get('/users/{user}', 'UsersController@show');
+Route::patch('/users/{user}', 'UsersController@update');
+Route::delete('/users/{user}', 'UsersController@destroy');
