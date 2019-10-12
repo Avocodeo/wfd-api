@@ -18,3 +18,18 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 Route::get('/status', 'ApplicationStatusController@show')->name('status');
+
+
+// Ingredients Routes
+Route::get('/ingredients', 'IngredientsController@index');
+Route::post('/ingredients', 'IngredientsController@store');
+Route::get('/ingredients/{ingredient}', 'IngredientsController@show');
+Route::patch('/ingredients/{ingredient}', 'IngredientsController@update');
+Route::delete('/ingredients/{ingredient}', 'IngredientsController@destroy');
+
+// Measurements Routes
+Route::get('/measurements', 'MeasurementsController@index');
+Route::post('/measurements', 'MeasurementsController@store');
+Route::get('/measurements/{measurement}', 'MeasurementsController@show');
+Route::patch('/measurements/{measurement}', 'MeasurementsController@update');
+Route::delete('/measurements/{measurement}', 'MeasurementsController@destroy');
