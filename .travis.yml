@@ -16,7 +16,7 @@ before_script:
   - yarn run prod
   
 script:
-  - vendor/bin/phpunit
+  - vendor/bin/phpunit --testdox
   
 cache:
   directories:
