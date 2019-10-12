@@ -18,43 +18,48 @@ class UsersController extends Controller
 
     public function create()
     {
-        return view('user.create');
+        return view('users.create');
     }
 
-    //     public function store()
-    //     {
-    //         $attributes = request()->validate([
-    //             'name' => 'required',
-    //             'measurement_id' => 'required',
-    //         ]);
+    public function store()
+    {
+        $attributes = request()->validate([
+            'name' => 'required',
+            'email' => 'required',
+            'password' => 'required',
+        ]);
 
-    //         $ingredient = Ingredient::create($attributes);
-    //         return response()->json([
-    //             'id' => $ingredient->id,
-    //             'message' => 'ingredient was successfully created'
-    //         ]);
-    //     }
+        $user = User::create($attributes);
+        return response()->json([
+            'name' => $user->name,
+            'email' => $user->email,
+            'password' => $user->password,
+            'message' => 'user was successfully created'
+        ]);
+    }
 
-    //     public function update(Ingredient $ingredient)
-    //     {
-    //         $attributes = request()->validate([
-    //             'name' => 'required',
-    //         ]);
+    public function update(User $user)
+    {
+        $attributes = request()->validate([
+            'name' => 'required',
+            'email' => 'required',
+            'password' => 'required',
+        ]);
 
-    //         $ingredient->update($attributes);
+        $user->update($attributes);
 
-    //         return response()->json([
-    //             'ingredient' => $ingredient->name,
-    //             'message' => 'ingredient updated'
-    //         ]);
-    //     }
+        return response()->json([
+            'name' => $user->name,
+            'message' => 'user updated'
+        ]);
+    }
 
-    //     public function destroy(Ingredient $ingredient)
-    //     {
-    //         $ingredient->delete();
+    public function destroy(User $user)
+    {
+        $user->delete();
 
-    //         return response()->json([
-    //             'message' => 'ingredient was successfully deleted'
-    //         ]);
-    //     }
+        return response()->json([
+            'message' => 'User was successfully deleted'
+        ]);
+    }
 }
