@@ -19,7 +19,6 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 Route::get('/status', 'ApplicationStatusController@show')->name('status');
 
-
 // Ingredients Routes
 Route::get('/ingredients', 'IngredientsController@index');
 Route::post('/ingredients', 'IngredientsController@store');
@@ -33,6 +32,12 @@ Route::post('/measurements', 'MeasurementsController@store');
 Route::get('/measurements/{measurement}', 'MeasurementsController@show');
 Route::patch('/measurements/{measurement}', 'MeasurementsController@update');
 Route::delete('/measurements/{measurement}', 'MeasurementsController@destroy');
+
+Route::get('/categories', 'CategoriesController@index');
+Route::post('/categories', 'CategoriesController@store');
+Route::get('/categories/{category}', 'CategoriesController@show');
+Route::patch('/categories/{category}', 'CategoriesController@update');
+Route::delete('/categories/{category}', 'CategoriesController@destroy');
 
 // Users Routes
 Route::get('/users', 'UsersController@index');

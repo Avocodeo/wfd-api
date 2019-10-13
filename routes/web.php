@@ -20,3 +20,4 @@ Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/ingredients/create', 'IngredientsController@create');
 Route::get('/measurements/create', 'MeasurementsController@create');
 Route::get('/users/create', 'UsersController@create');
+Route::get('/categories/create', 'CategoriesController@create');
