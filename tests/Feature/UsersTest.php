@@ -22,16 +22,11 @@ class UsersTest extends TestCase
     {
         $this->withoutExceptionHandling();
 
-        // $attributes = [
-        //     'type_id' => $this->faker->numberBetween(1, 5),
-        //     'name' => $this->faker->name,
-        //     'abbreviation' => $this->faker->randomLetter,
-        // ];
         $attributes = [
             'name' => $this->faker->name,
-            // 'email' => $this->faker->unique()->safeEmail,
+            'email' => $this->faker->unique()->safeEmail,
             // 'email_verified_at' => now(),
-            // 'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
+            'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
             // 'remember_token' => Str::random(10),
         ];
 
@@ -60,22 +55,22 @@ class UsersTest extends TestCase
             ->assertStatus(200);
     }
 
-    // public function testCanUpdateUser()
-    // {
-    //     $this->withoutExceptionHandling();
+    public function testCanUpdateUser()
+    {
+        $this->withoutExceptionHandling();
 
-    //     $attributes = [
-    //         'name' => 'test',
-    //         'email' => 'testEmail',
-    //         'password' => '$TESTpassw0rd',
-    //     ];
+        $attributes = [
+            'name' => 'test',
+            'email' => 'testEmail',
+            'password' => '$TESTpassw0rd',
+        ];
 
-    //     $user = factory(User::class)->create();
+        $user = factory(User::class)->create();
 
-    //     $this->patch("/api/users/$user->name", $attributes);
+        $this->patch("/api/users/$user->name", $attributes);
 
-    //     $this->assertDatabaseHas('users', ['name' => 'test']);
-    // }
+        $this->assertDatabaseHas('users', ['name' => 'test']);
+    }
 
     public function testCanDeleteUser()
     {

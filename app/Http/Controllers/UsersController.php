@@ -50,6 +50,8 @@ class UsersController extends Controller
 
         return response()->json([
             'name' => $user->name,
+            'email' => $user->email,
+            'password' => $user->password,
             'message' => 'user updated'
         ]);
     }
