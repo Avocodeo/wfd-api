@@ -7,9 +7,7 @@ import Vue from 'vue'
 import Vuetify from 'vuetify'
 Vue.use(Vuetify)
 const vuetifyOpts = {
-    theme: {
-        dark: true
-    },
+
 }
 
 // const files = require.context('./', true, /\.vue$/i)
