@@ -25,7 +25,7 @@ Route::get('/recipes', 'RecipesController@index');
 Route::post('/recipes', 'RecipesController@store');
 Route::get('/recipes/{recipe}', 'RecipesController@show');
 Route::patch('/recipes/{recipe}', 'RecipesController@update');
-Route::delete('/recipes/{recipe}', 'RecipesController@destroy');
+Route::delete('/recipes/{recipe}','RecipesController@destroy');
 
 // Ingredients Routes
 Route::get('/ingredients', 'IngredientsController@index');
