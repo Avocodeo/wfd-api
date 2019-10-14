@@ -3,7 +3,7 @@
 use Illuminate\Database\Seeder;
 use App\Recipe;
 
-class RecipesSeeder extends Seeder
+class RecipesTableSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -13,14 +13,14 @@ class RecipesSeeder extends Seeder
     public function run()
     {
         $recipes = collect([
-           ['name' => 'Fried Chicken'],
-           ['name' => 'Chicken Soup'],
-           ['name' => 'Steak and Fries'],
-           ['name' => 'Caesar Salad'],
-           ['name' => 'Pumpkin Pie'],
-           ['name' => 'Brownies'],
-           ['name' => 'Hamburger and Fries'],
-           ['name' => 'Sweet and Sour Chicken'],
+           ['name' => 'Fried Chicken', 'category_id' => 1],
+           ['name' => 'Chicken Soup', 'category_id' => 1],
+           ['name' => 'Steak and Fries', 'category_id' => 1],
+           ['name' => 'Caesar Salad', 'category_id' => 1],
+           ['name' => 'Pumpkin Pie', 'category_id' => 1],
+           ['name' => 'Brownies', 'category_id' => 1],
+           ['name' => 'Hamburger and Fries', 'category_id' => 1],
+           ['name' => 'Sweet and Sour Chicken', 'category_id' => 1],
         ]);
 
         $recipes->each(function($recipe) {

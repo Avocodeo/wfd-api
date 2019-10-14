@@ -18,6 +18,7 @@ class RecipesTest extends TestCase
 
         $attributes = [
             'name' => $this->faker->name,
+            'category_id' => $this->faker->numberBetween(1, 5),
         ];
 
         $this->get('/recipes/create')->assertStatus(200); // they can access a create page
@@ -51,6 +52,7 @@ class RecipesTest extends TestCase
 
         $attributes = [
             'name' => 'Butter Chicken',
+            'category_id' => '2'
         ];
 
         $recipe = factory(Recipe::class)->create();
