@@ -25,6 +25,7 @@ class RecipesController extends Controller
     {
         $attributes = request()->validate([
             'name' => 'required',
+            'category_id' => 'required',
         ]);
 
         $recipe = Recipe::create($attributes);

@@ -13,14 +13,14 @@ class RecipesTableSeeder extends Seeder
     public function run()
     {
         $recipes = collect([
-           ['name' => 'Fried Chicken'],
-           ['name' => 'Chicken Soup'],
-           ['name' => 'Steak and Fries'],
-           ['name' => 'Caesar Salad'],
-           ['name' => 'Pumpkin Pie'],
-           ['name' => 'Brownies'],
-           ['name' => 'Hamburger and Fries'],
-           ['name' => 'Sweet and Sour Chicken'],
+           ['name' => 'Fried Chicken', 'category_id' => 1],
+           ['name' => 'Chicken Soup', 'category_id' => 1],
+           ['name' => 'Steak and Fries', 'category_id' => 1],
+           ['name' => 'Caesar Salad', 'category_id' => 1],
+           ['name' => 'Pumpkin Pie', 'category_id' => 1],
+           ['name' => 'Brownies', 'category_id' => 1],
+           ['name' => 'Hamburger and Fries', 'category_id' => 1],
+           ['name' => 'Sweet and Sour Chicken', 'category_id' => 1],
         ]);
 
         $recipes->each(function($recipe) {
