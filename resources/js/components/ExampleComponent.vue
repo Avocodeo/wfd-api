@@ -6,7 +6,7 @@
                     <div class="card-header">Example Component</div>
 
                     <div class="card-body">
-                        I'm an example component.
+                        <v-alert dark="true" color="success">Hell this is it working</v-alert>
                     </div>
                 </div>
             </div>
