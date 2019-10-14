@@ -19,6 +19,14 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 Route::get('/status', 'ApplicationStatusController@show')->name('status');
 
+
+// Recipes Routes
+Route::get('/recipes', 'RecipesController@index');
+Route::post('/recipes', 'RecipesController@store');
+Route::get('/recipes/{recipe}', 'RecipesController@show');
+Route::patch('/recipes/{recipe}', 'RecipesController@update');
+Route::delete('/recipes/{recipe}','RecipesController@destroy');
+
 // Ingredients Routes
 Route::get('/ingredients', 'IngredientsController@index');
 Route::post('/ingredients', 'IngredientsController@store');
@@ -33,6 +41,7 @@ Route::get('/measurements/{measurement}', 'MeasurementsController@show');
 Route::patch('/measurements/{measurement}', 'MeasurementsController@update');
 Route::delete('/measurements/{measurement}', 'MeasurementsController@destroy');
 
+// Categories Routes
 Route::get('/categories', 'CategoriesController@index');
 Route::post('/categories', 'CategoriesController@store');
 Route::get('/categories/{category}', 'CategoriesController@show');
