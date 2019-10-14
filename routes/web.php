@@ -21,3 +21,4 @@ Route::get('/ingredients/create', 'IngredientsController@create');
 Route::get('/measurements/create', 'MeasurementsController@create');
 Route::get('/users/create', 'UsersController@create');
 Route::get('/categories/create', 'CategoriesController@create');
+Route::get('/recipes/create', 'RecipesController@create');
