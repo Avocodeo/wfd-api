@@ -21,6 +21,9 @@
 </head>
 <body>
     <div id="app">
+        <v-app id="inspire">
+            <menus></menus>
+
         {{--<nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">--}}
             {{--<div class="container">--}}
                 {{--<a class="navbar-brand" href="{{ url('/') }}">--}}
@@ -71,10 +74,16 @@
                 {{--</div>--}}
             {{--</div>--}}
         {{--</nav>--}}
-
-        <main>
-            @yield('content')
-        </main>
+            <main>
+                @yield('content')
+            </main>
+            <v-footer
+                color="indigo"
+                app
+            >
+                <span class="white--text">&copy; 2019</span>
+            </v-footer>
+        </v-app>
     </div>
 </body>
 </html>
