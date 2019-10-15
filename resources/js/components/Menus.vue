@@ -29,7 +29,19 @@
             dark
         >
             <v-app-bar-nav-icon @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
-            <v-toolbar-title>Application</v-toolbar-title>
+
+            <v-toolbar-title>Whats For Dinner</v-toolbar-title>
+
+            <v-spacer></v-spacer>
+
+            <v-avatar color="teal" size="48">
+                <span class="white--text headline">UR</span>
+            </v-avatar>
+
+            <v-btn icon>
+                <v-icon href="/logout">mdi-login</v-icon>
+            </v-btn>
+
         </v-app-bar>
     </div>
 </template>

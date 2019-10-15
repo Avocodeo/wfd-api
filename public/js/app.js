@@ -1874,6 +1874,18 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -37255,7 +37267,24 @@ var render = function() {
             }
           }),
           _vm._v(" "),
-          _c("v-toolbar-title", [_vm._v("Application")])
+          _c("v-toolbar-title", [_vm._v("Whats For Dinner")]),
+          _vm._v(" "),
+          _c("v-spacer"),
+          _vm._v(" "),
+          _c("v-avatar", { attrs: { color: "teal", size: "48" } }, [
+            _c("span", { staticClass: "white--text headline" }, [_vm._v("UR")])
+          ]),
+          _vm._v(" "),
+          _c(
+            "v-btn",
+            { attrs: { icon: "" } },
+            [
+              _c("v-icon", { attrs: { href: "/logout" } }, [
+                _vm._v("mdi-login")
+              ])
+            ],
+            1
+          )
         ],
         1
       )
@@ -86831,8 +86860,8 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! /Users/jamesm/Documents/laravel-sites/wfd-api/resources/js/app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! /Users/jamesm/Documents/laravel-sites/wfd-api/resources/sass/app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! C:\Users\jmoore\Code\wfd-api\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! C:\Users\jmoore\Code\wfd-api\resources\sass\app.scss */"./resources/sass/app.scss");
 
 
 /***/ })
