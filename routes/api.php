@@ -28,11 +28,11 @@ Route::patch('/recipes/{recipe}', 'RecipesController@update');
 Route::delete('/recipes/{recipe}','RecipesController@destroy');
 
 // Ingredients Routes
-Route::get('/ingredients', 'IngredientsController@index');
-Route::post('/ingredients', 'IngredientsController@store');
-Route::get('/ingredients/{ingredient}', 'IngredientsController@show');
-Route::patch('/ingredients/{ingredient}', 'IngredientsController@update');
-Route::delete('/ingredients/{ingredient}', 'IngredientsController@destroy');
+Route::get('/ingredients', 'API\IngredientsController@index');
+Route::post('/ingredients', 'API\IngredientsController@store');
+Route::get('/ingredients/{ingredient}', 'API\IngredientsController@show');
+Route::patch('/ingredients/{ingredient}', 'API\IngredientsController@update');
+Route::delete('/ingredients/{ingredient}', 'API\IngredientsController@destroy');
 
 // Measurements Routes
 Route::get('/measurements', 'MeasurementsController@index');
