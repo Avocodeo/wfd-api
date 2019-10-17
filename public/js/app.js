@@ -1930,6 +1930,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -1941,7 +1942,7 @@ __webpack_require__.r(__webpack_exports__);
         value: 'name'
       }, {
         text: 'Measurement',
-        value: 'measurement_id'
+        value: 'measurement.name'
       }, {
         text: 'Created At',
         value: 'created_at'
@@ -1950,7 +1951,8 @@ __webpack_require__.r(__webpack_exports__);
         value: 'updated_at'
       }],
       ingredients: [],
-      loading: true
+      loading: true,
+      dialog: false
     };
   },
   created: function created() {
@@ -87057,7 +87059,7 @@ __webpack_require__.r(__webpack_exports__);
 /*!********************************************************************************************!*\
   !*** ./resources/js/components/Pages/Ingredients/Index.vue?vue&type=template&id=d5efcc42& ***!
   \********************************************************************************************/
-/*! exports provided: render, staticRenderFns */
+/*! no static exports found */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";

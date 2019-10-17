@@ -18,7 +18,8 @@
                     :search="search"
                     :loading="loading"
                     loading-text="Loading Ingredients... Please wait"
-            ></v-data-table>
+            >
+            </v-data-table>
         </v-card>
     </v-content>
 </template>
@@ -35,12 +36,13 @@
                         sortable: false,
                         value: 'name',
                     },
-                    { text: 'Measurement', value: 'measurement_id' },
+                    { text: 'Measurement', value: 'measurement.name' },
                     { text: 'Created At', value: 'created_at' },
                     { text: 'Updated At', value: 'updated_at' }
                 ],
                 ingredients: [],
                 loading: true,
+                dialog: false
             }
         },
         created() {

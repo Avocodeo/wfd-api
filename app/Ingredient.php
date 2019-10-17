@@ -8,7 +8,10 @@ class Ingredient extends Model
 {
     protected $guarded = [];
 
-    public function measurement() {
+    protected $with = ['measurement'];
+
+    public function measurement()
+    {
         return $this->belongsTo(Measurement::class);
     }
 }
