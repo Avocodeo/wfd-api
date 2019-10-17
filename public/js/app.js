@@ -1931,6 +1931,59 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -1949,6 +2002,10 @@ __webpack_require__.r(__webpack_exports__);
       }, {
         text: 'Updated At',
         value: 'updated_at'
+      }, {
+        text: 'Actions',
+        value: 'action',
+        sortable: false
       }],
       ingredients: [],
       loading: true,
@@ -37444,8 +37501,193 @@ var render = function() {
               search: _vm.search,
               loading: _vm.loading,
               "loading-text": "Loading Ingredients... Please wait"
-            }
-          })
+            },
+            scopedSlots: _vm._u([
+              {
+                key: "item.action",
+                fn: function(ref) {
+                  var item = ref.item
+                  return [
+                    _c(
+                      "v-icon",
+                      {
+                        staticClass: "mr-2",
+                        attrs: { small: "" },
+                        on: { click: function($event) {} }
+                      },
+                      [
+                        _vm._v(
+                          "\n                    mdi-food-apple\n                "
+                        )
+                      ]
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "v-icon",
+                      {
+                        attrs: { small: "" },
+                        on: { click: function($event) {} }
+                      },
+                      [
+                        _vm._v(
+                          "\n                    mdi-delete\n                "
+                        )
+                      ]
+                    )
+                  ]
+                }
+              }
+            ])
+          }),
+          _vm._v(" "),
+          _c(
+            "v-dialog",
+            {
+              attrs: { "max-width": "500px" },
+              scopedSlots: _vm._u([
+                {
+                  key: "activator",
+                  fn: function(ref) {
+                    var on = ref.on
+                    return [
+                      _c(
+                        "v-btn",
+                        _vm._g(
+                          {
+                            staticClass: "mb-2",
+                            attrs: { color: "primary", dark: "" }
+                          },
+                          on
+                        ),
+                        [_vm._v("New Item")]
+                      )
+                    ]
+                  }
+                }
+              ]),
+              model: {
+                value: _vm.dialog,
+                callback: function($$v) {
+                  _vm.dialog = $$v
+                },
+                expression: "dialog"
+              }
+            },
+            [
+              _vm._v(" "),
+              _c(
+                "v-card",
+                [
+                  _c("v-card-title", [
+                    _c("span", { staticClass: "headline" }, [
+                      _vm._v("Create Ingredient")
+                    ])
+                  ]),
+                  _vm._v(" "),
+                  _c(
+                    "v-card-text",
+                    [
+                      _c(
+                        "v-container",
+                        [
+                          _c(
+                            "v-row",
+                            [
+                              _c(
+                                "v-col",
+                                { attrs: { cols: "12", sm: "6", md: "4" } },
+                                [
+                                  _c("v-text-field", {
+                                    attrs: { label: "Dessert name" }
+                                  })
+                                ],
+                                1
+                              ),
+                              _vm._v(" "),
+                              _c(
+                                "v-col",
+                                { attrs: { cols: "12", sm: "6", md: "4" } },
+                                [
+                                  _c("v-text-field", {
+                                    attrs: { label: "Calories" }
+                                  })
+                                ],
+                                1
+                              ),
+                              _vm._v(" "),
+                              _c(
+                                "v-col",
+                                { attrs: { cols: "12", sm: "6", md: "4" } },
+                                [
+                                  _c("v-text-field", {
+                                    attrs: { label: "Fat (g)" }
+                                  })
+                                ],
+                                1
+                              ),
+                              _vm._v(" "),
+                              _c(
+                                "v-col",
+                                { attrs: { cols: "12", sm: "6", md: "4" } },
+                                [
+                                  _c("v-text-field", {
+                                    attrs: { label: "Carbs (g)" }
+                                  })
+                                ],
+                                1
+                              ),
+                              _vm._v(" "),
+                              _c(
+                                "v-col",
+                                { attrs: { cols: "12", sm: "6", md: "4" } },
+                                [
+                                  _c("v-text-field", {
+                                    attrs: { label: "Protein (g)" }
+                                  })
+                                ],
+                                1
+                              )
+                            ],
+                            1
+                          )
+                        ],
+                        1
+                      )
+                    ],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "v-card-actions",
+                    [
+                      _c("v-spacer"),
+                      _vm._v(" "),
+                      _c(
+                        "v-btn",
+                        {
+                          attrs: { color: "blue darken-1", text: "" },
+                          on: { click: function($event) {} }
+                        },
+                        [_vm._v("Cancel")]
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "v-btn",
+                        {
+                          attrs: { color: "blue darken-1", text: "" },
+                          on: { click: function($event) {} }
+                        },
+                        [_vm._v("Save")]
+                      )
+                    ],
+                    1
+                  )
+                ],
+                1
+              )
+            ],
+            1
+          )
         ],
         1
       )
