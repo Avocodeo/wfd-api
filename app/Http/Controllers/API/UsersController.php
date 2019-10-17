@@ -21,4 +21,12 @@ class UsersController extends Controller
     {
         return view('user.create');
     }
+    
+     public function destroy(User $user)
+    {
+        $user->delete();
+        return response()->json([
+            'message' => 'User was successfully deleted'
+        ]);
+    }
 }
