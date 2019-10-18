@@ -23,17 +23,20 @@
                     <v-icon
                             small
                             class="mr-2"
-                            @click="editItem"
+                            @click="editItem(item)"
                     >
                         mdi-pencil
                     </v-icon>
                     <v-icon
                             small
-                            @click="deleteItem"
+                            @click="deleteItem(item)"
                     >
                         mdi-delete
                     </v-icon>
                 </template>
+            <template v-slot:no-data>
+                <v-btn color="primary" @click="initialize">Reset</v-btn>
+            </template>
             </v-data-table>
             <v-dialog v-model="dialog" max-width="500px">
                 <template v-slot:activator="{ on }">

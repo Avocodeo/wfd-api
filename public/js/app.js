@@ -1975,6 +1975,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -37574,7 +37577,11 @@ var render = function() {
                       {
                         staticClass: "mr-2",
                         attrs: { small: "" },
-                        on: { click: _vm.editItem }
+                        on: {
+                          click: function($event) {
+                            return _vm.editItem(item)
+                          }
+                        }
                       },
                       [
                         _vm._v(
@@ -37585,7 +37592,14 @@ var render = function() {
                     _vm._v(" "),
                     _c(
                       "v-icon",
-                      { attrs: { small: "" }, on: { click: _vm.deleteItem } },
+                      {
+                        attrs: { small: "" },
+                        on: {
+                          click: function($event) {
+                            return _vm.deleteItem(item)
+                          }
+                        }
+                      },
                       [
                         _vm._v(
                           "\n                    mdi-delete\n                "
@@ -37594,6 +37608,22 @@ var render = function() {
                     )
                   ]
                 }
+              },
+              {
+                key: "no-data",
+                fn: function() {
+                  return [
+                    _c(
+                      "v-btn",
+                      {
+                        attrs: { color: "primary" },
+                        on: { click: _vm.initialize }
+                      },
+                      [_vm._v("Reset")]
+                    )
+                  ]
+                },
+                proxy: true
               }
             ])
           }),
