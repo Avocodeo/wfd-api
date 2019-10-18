@@ -17,10 +17,15 @@ Route::get('/', function () {
 
 Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
-// Ingredients routes
-Route::get('/ingredients', 'IngredientsController@index');
 
+// Ingredients Routes
+Route::get('/ingredients', 'IngredientsController@index');
 Route::get('/ingredients/create', 'IngredientsController@create');
+
+
+// Measurements Routes
+Route::get('/measurements', 'MeasurementsController@index');
+
 Route::get('/measurements/create', 'MeasurementsController@create');
 Route::get('/categories/create', 'CategoriesController@create');
 Route::get('/recipes/create', 'RecipesController@create');
