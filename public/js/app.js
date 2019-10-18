@@ -1978,6 +1978,19 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -2016,7 +2029,10 @@ __webpack_require__.r(__webpack_exports__);
         measurement_id: ''
       },
       loading: true,
-      dialog: false
+      dialog: false,
+      snackbar: false,
+      snackbarText: '',
+      snackbarTimeout: 2000
     };
   },
   computed: {
@@ -2059,10 +2075,11 @@ __webpack_require__.r(__webpack_exports__);
       this.dialog = true;
     },
     deleteItem: function deleteItem(item) {
-      console.log(item);
       var index = this.ingredients.indexOf(item);
       confirm('Are you sure you want to delete this ingredient?') && this.ingredients.splice(index, 1);
       axios["delete"]('api/ingredients/' + item.id);
+      this.snackbarText = "Ingredient deleted";
+      this.snackbar = true;
     },
     close: function close() {
       var _this3 = this;
@@ -2076,6 +2093,8 @@ __webpack_require__.r(__webpack_exports__);
     save: function save() {
       if (this.editedIndex > -1) {
         Object.assign(this.ingredients[this.editedIndex], this.editedItem);
+        this.snackbarText = "Ingredient updated";
+        this.snackbar = true;
         axios.patch('api/ingredients/' + this.editedItem.id, {
           name: this.editedItem.name,
           measurement_id: this.editedItem.measurement.id
@@ -2093,6 +2112,8 @@ __webpack_require__.r(__webpack_exports__);
           'name': this.editedItem.name,
           'measurement.name': this.editedItem.measurement.name
         });
+        this.snackbar = true;
+        this.snackbarText = "Ingredient created";
       }
 
       this.close();
@@ -37419,6 +37440,7 @@ var render = function() {
               _c(
                 "v-list-item",
                 {
+                  staticClass: "text-decoration-none",
                   attrs: { href: "/home" },
                   on: { click: function($event) {} }
                 },
@@ -37445,6 +37467,7 @@ var render = function() {
               _c(
                 "v-list-item",
                 {
+                  staticClass: "text-decoration-none",
                   attrs: { href: "/ingredients" },
                   on: { click: function($event) {} }
                 },
@@ -37771,6 +37794,38 @@ var render = function() {
                   )
                 ],
                 1
+              )
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c(
+            "v-snackbar",
+            {
+              attrs: { timeout: _vm.snackbarTimeout },
+              model: {
+                value: _vm.snackbar,
+                callback: function($$v) {
+                  _vm.snackbar = $$v
+                },
+                expression: "snackbar"
+              }
+            },
+            [
+              _vm._v(
+                "\n            " + _vm._s(_vm.snackbarText) + "\n            "
+              ),
+              _c(
+                "v-btn",
+                {
+                  attrs: { color: "blue", text: "" },
+                  on: {
+                    click: function($event) {
+                      _vm.snackbar = false
+                    }
+                  }
+                },
+                [_vm._v("\n                Close\n            ")]
               )
             ],
             1

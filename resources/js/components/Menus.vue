@@ -5,7 +5,7 @@
             app
         >
             <v-list dense>
-                <v-list-item @click="" href="/home">
+                <v-list-item @click="" href="/home" class="text-decoration-none">
                     <v-list-item-action>
                         <v-icon color="blue">mdi-home</v-icon>
                     </v-list-item-action>
@@ -13,7 +13,7 @@
                         <v-list-item-title>Home</v-list-item-title>
                     </v-list-item-content>
                 </v-list-item>
-                <v-list-item @click="" href="/ingredients">
+                <v-list-item @click="" href="/ingredients" class="text-decoration-none">
                     <v-list-item-action>
                         <v-icon color="red">mdi-food-apple</v-icon>
                     </v-list-item-action>

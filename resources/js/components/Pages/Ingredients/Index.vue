@@ -67,6 +67,19 @@
                     </v-card-actions>
                 </v-card>
             </v-dialog>
+            <v-snackbar
+                    v-model="snackbar"
+                    :timeout="snackbarTimeout"
+            >
+                {{ snackbarText }}
+                <v-btn
+                        color="blue"
+                        text
+                        @click="snackbar = false"
+                >
+                    Close
+                </v-btn>
+            </v-snackbar>
         </v-card>
     </v-content>
 </template>
@@ -103,7 +116,10 @@
                     measurement_id: '',
                 },
                 loading: true,
-                dialog: false
+                dialog: false,
+                snackbar: false,
+                snackbarText: '',
+                snackbarTimeout: 2000,
             }
         },
         computed: {
@@ -149,10 +165,11 @@
             },
 
             deleteItem (item) {
-                console.log(item);
                 const index = this.ingredients.indexOf(item);
                 confirm('Are you sure you want to delete this ingredient?') && this.ingredients.splice(index, 1);
                 axios.delete('api/ingredients/' + item.id);
+                this.snackbarText = "Ingredient deleted";
+                this.snackbar = true;
             },
 
             close () {
@@ -166,6 +183,8 @@
             save () {
                 if (this.editedIndex > -1) {
                     Object.assign(this.ingredients[this.editedIndex], this.editedItem);
+                    this.snackbarText = "Ingredient updated";
+                    this.snackbar = true;
                     axios.patch('api/ingredients/' + this.editedItem.id, {
                         name: this.editedItem.name,
                         measurement_id: this.editedItem.measurement.id
@@ -182,6 +201,8 @@
                         console.log(response);
                     });
                     this.ingredients.push({'name' :  this.editedItem.name, 'measurement.name' : this.editedItem.measurement.name });
+                    this.snackbar = true;
+                    this.snackbarText = "Ingredient created";
                 }
                 this.close()
             },
