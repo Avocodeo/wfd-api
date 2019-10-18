@@ -1984,6 +1984,13 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -2008,12 +2015,39 @@ __webpack_require__.r(__webpack_exports__);
         sortable: false
       }],
       ingredients: [],
+      measurements: [{
+        text: 'Gallons',
+        value: 1
+      }],
+      editedIndex: -1,
+      editedItem: {
+        name: '',
+        measurement: ''
+      },
+      defaultItem: {
+        name: '',
+        measurement_id: ''
+      },
       loading: true,
-      dialog: false
+      dialog: false,
+      snackbar: false,
+      snackbarText: '',
+      snackbarTimeout: 2000
     };
+  },
+  computed: {
+    formTitle: function formTitle() {
+      return this.editedIndex === -1 ? 'New Ingredient' : 'Edit Ingredient';
+    }
+  },
+  watch: {
+    dialog: function dialog(val) {
+      val || this.close();
+    }
   },
   created: function created() {
     this.getIngredients();
+    this.getMeasurements();
   },
   methods: {
     getIngredients: function getIngredients() {
@@ -2025,6 +2059,64 @@ __webpack_require__.r(__webpack_exports__);
       })["catch"](function (error) {
         console.log(error);
       });
+    },
+    getMeasurements: function getMeasurements() {
+      var _this2 = this;
+
+      axios.get('api/measurements').then(function (response) {
+        _this2.measurements = response.data;
+      })["catch"](function (error) {
+        console.log(error);
+      });
+    },
+    editItem: function editItem(item) {
+      this.editedIndex = this.ingredients.indexOf(item);
+      this.editedItem = Object.assign({}, item);
+      this.dialog = true;
+    },
+    deleteItem: function deleteItem(item) {
+      var index = this.ingredients.indexOf(item);
+      confirm('Are you sure you want to delete this ingredient?') && this.ingredients.splice(index, 1);
+      axios["delete"]('api/ingredients/' + item.id);
+      this.snackbarText = "Ingredient deleted";
+      this.snackbar = true;
+    },
+    close: function close() {
+      var _this3 = this;
+
+      this.dialog = false;
+      setTimeout(function () {
+        _this3.editedItem = Object.assign({}, _this3.defaultItem);
+        _this3.editedIndex = -1;
+      }, 300);
+    },
+    save: function save() {
+      if (this.editedIndex > -1) {
+        Object.assign(this.ingredients[this.editedIndex], this.editedItem);
+        this.snackbarText = "Ingredient updated";
+        this.snackbar = true;
+        axios.patch('api/ingredients/' + this.editedItem.id, {
+          name: this.editedItem.name,
+          measurement_id: this.editedItem.measurement.id
+        }).then(function (response) {
+          console.log(response);
+        });
+      } else {
+        axios.post('api/ingredients', {
+          name: this.editedItem.name,
+          measurement_id: this.editedItem.measurement.id
+        }).then(function (response) {
+          console.log(response);
+        });
+        this.ingredients.push({
+          'name': this.editedItem.name,
+          'measurement.name': this.editedItem.measurement.name
+        });
+        this.snackbar = true;
+        this.snackbarText = "Ingredient created";
+      }
+
+      this.close();
     }
   }
 });
@@ -37348,6 +37440,7 @@ var render = function() {
               _c(
                 "v-list-item",
                 {
+                  staticClass: "text-decoration-none",
                   attrs: { href: "/home" },
                   on: { click: function($event) {} }
                 },
@@ -37374,6 +37467,7 @@ var render = function() {
               _c(
                 "v-list-item",
                 {
+                  staticClass: "text-decoration-none",
                   attrs: { href: "/ingredients" },
                   on: { click: function($event) {} }
                 },
@@ -37513,11 +37607,15 @@ var render = function() {
                       {
                         staticClass: "mr-2",
                         attrs: { small: "" },
-                        on: { click: function($event) {} }
+                        on: {
+                          click: function($event) {
+                            return _vm.editItem(item)
+                          }
+                        }
                       },
                       [
                         _vm._v(
-                          "\n                    mdi-food-apple\n                "
+                          "\n                    mdi-pencil\n                "
                         )
                       ]
                     ),
@@ -37526,7 +37624,11 @@ var render = function() {
                       "v-icon",
                       {
                         attrs: { small: "" },
-                        on: { click: function($event) {} }
+                        on: {
+                          click: function($event) {
+                            return _vm.deleteItem(item)
+                          }
+                        }
                       },
                       [
                         _vm._v(
@@ -37536,6 +37638,22 @@ var render = function() {
                     )
                   ]
                 }
+              },
+              {
+                key: "no-data",
+                fn: function() {
+                  return [
+                    _c(
+                      "v-btn",
+                      {
+                        attrs: { color: "primary" },
+                        on: { click: _vm.initialize }
+                      },
+                      [_vm._v("Reset")]
+                    )
+                  ]
+                },
+                proxy: true
               }
             ])
           }),
@@ -37580,7 +37698,7 @@ var render = function() {
                 [
                   _c("v-card-title", [
                     _c("span", { staticClass: "headline" }, [
-                      _vm._v("Create Ingredient")
+                      _vm._v(_vm._s(_vm.formTitle))
                     ])
                   ]),
                   _vm._v(" "),
@@ -37595,10 +37713,17 @@ var render = function() {
                             [
                               _c(
                                 "v-col",
-                                { attrs: { cols: "12", sm: "6", md: "4" } },
+                                { attrs: { cols: "12", md: "6" } },
                                 [
                                   _c("v-text-field", {
-                                    attrs: { label: "Dessert name" }
+                                    attrs: { label: "Ingredient Name" },
+                                    model: {
+                                      value: _vm.editedItem.name,
+                                      callback: function($$v) {
+                                        _vm.$set(_vm.editedItem, "name", $$v)
+                                      },
+                                      expression: "editedItem.name"
+                                    }
                                   })
                                 ],
                                 1
@@ -37606,43 +37731,28 @@ var render = function() {
                               _vm._v(" "),
                               _c(
                                 "v-col",
-                                { attrs: { cols: "12", sm: "6", md: "4" } },
+                                { attrs: { cols: "12", md: "6" } },
                                 [
-                                  _c("v-text-field", {
-                                    attrs: { label: "Calories" }
-                                  })
-                                ],
-                                1
-                              ),
-                              _vm._v(" "),
-                              _c(
-                                "v-col",
-                                { attrs: { cols: "12", sm: "6", md: "4" } },
-                                [
-                                  _c("v-text-field", {
-                                    attrs: { label: "Fat (g)" }
-                                  })
-                                ],
-                                1
-                              ),
-                              _vm._v(" "),
-                              _c(
-                                "v-col",
-                                { attrs: { cols: "12", sm: "6", md: "4" } },
-                                [
-                                  _c("v-text-field", {
-                                    attrs: { label: "Carbs (g)" }
-                                  })
-                                ],
-                                1
-                              ),
-                              _vm._v(" "),
-                              _c(
-                                "v-col",
-                                { attrs: { cols: "12", sm: "6", md: "4" } },
-                                [
-                                  _c("v-text-field", {
-                                    attrs: { label: "Protein (g)" }
+                                  _c("v-select", {
+                                    attrs: {
+                                      items: _vm.measurements,
+                                      label: "Measurement",
+                                      "item-text": "name",
+                                      "item-value": "id",
+                                      "return-object": "",
+                                      "prepend-icon": "mdi-scale-balance"
+                                    },
+                                    model: {
+                                      value: _vm.editedItem.measurement,
+                                      callback: function($$v) {
+                                        _vm.$set(
+                                          _vm.editedItem,
+                                          "measurement",
+                                          $$v
+                                        )
+                                      },
+                                      expression: "editedItem.measurement"
+                                    }
                                   })
                                 ],
                                 1
@@ -37666,7 +37776,7 @@ var render = function() {
                         "v-btn",
                         {
                           attrs: { color: "blue darken-1", text: "" },
-                          on: { click: function($event) {} }
+                          on: { click: _vm.close }
                         },
                         [_vm._v("Cancel")]
                       ),
@@ -37675,7 +37785,7 @@ var render = function() {
                         "v-btn",
                         {
                           attrs: { color: "blue darken-1", text: "" },
-                          on: { click: function($event) {} }
+                          on: { click: _vm.save }
                         },
                         [_vm._v("Save")]
                       )
@@ -37684,6 +37794,38 @@ var render = function() {
                   )
                 ],
                 1
+              )
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c(
+            "v-snackbar",
+            {
+              attrs: { timeout: _vm.snackbarTimeout },
+              model: {
+                value: _vm.snackbar,
+                callback: function($$v) {
+                  _vm.snackbar = $$v
+                },
+                expression: "snackbar"
+              }
+            },
+            [
+              _vm._v(
+                "\n            " + _vm._s(_vm.snackbarText) + "\n            "
+              ),
+              _c(
+                "v-btn",
+                {
+                  attrs: { color: "blue", text: "" },
+                  on: {
+                    click: function($event) {
+                      _vm.snackbar = false
+                    }
+                  }
+                },
+                [_vm._v("\n                Close\n            ")]
               )
             ],
             1
@@ -87301,7 +87443,7 @@ __webpack_require__.r(__webpack_exports__);
 /*!********************************************************************************************!*\
   !*** ./resources/js/components/Pages/Ingredients/Index.vue?vue&type=template&id=d5efcc42& ***!
   \********************************************************************************************/
-/*! no static exports found */
+/*! exports provided: render, staticRenderFns */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";

@@ -40,6 +40,7 @@ class IngredientsController extends Controller
     {
         $attributes = request()->validate([
             'name' => 'required',
+            'measurement_id' => 'sometimes'
         ]);
 
         $ingredient->update($attributes);
