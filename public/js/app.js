@@ -1886,10 +1886,13 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
-      drawer: null
+      // drawer: null,
+      mini: true
     };
   }
 });
@@ -37423,13 +37426,15 @@ var render = function() {
       _c(
         "v-navigation-drawer",
         {
-          attrs: { app: "" },
-          model: {
-            value: _vm.drawer,
-            callback: function($$v) {
-              _vm.drawer = $$v
+          staticClass: "accent-4",
+          attrs: { "mini-variant": _vm.mini, app: "", permanent: "" },
+          on: {
+            "update:miniVariant": function($event) {
+              _vm.mini = $event
             },
-            expression: "drawer"
+            "update:mini-variant": function($event) {
+              _vm.mini = $event
+            }
           }
         },
         [
@@ -37448,7 +37453,7 @@ var render = function() {
                   _c(
                     "v-list-item-action",
                     [
-                      _c("v-icon", { attrs: { color: "blue" } }, [
+                      _c("v-icon", { attrs: { color: "blue", size: "48" } }, [
                         _vm._v("mdi-home")
                       ])
                     ],
@@ -37475,7 +37480,7 @@ var render = function() {
                   _c(
                     "v-list-item-action",
                     [
-                      _c("v-icon", { attrs: { color: "red" } }, [
+                      _c("v-icon", { attrs: { color: "red", size: "48" } }, [
                         _vm._v("mdi-food-apple")
                       ])
                     ],
@@ -37505,7 +37510,7 @@ var render = function() {
             on: {
               click: function($event) {
                 $event.stopPropagation()
-                _vm.drawer = !_vm.drawer
+                _vm.mini = !_vm.mini
               }
             }
           }),
