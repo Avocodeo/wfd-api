@@ -2062,6 +2062,7 @@ __webpack_require__.r(__webpack_exports__);
       console.log(item);
       var index = this.ingredients.indexOf(item);
       confirm('Are you sure you want to delete this ingredient?') && this.ingredients.splice(index, 1);
+      axios["delete"]('api/ingredients/' + item.id);
     },
     close: function close() {
       var _this3 = this;
@@ -2075,6 +2076,12 @@ __webpack_require__.r(__webpack_exports__);
     save: function save() {
       if (this.editedIndex > -1) {
         Object.assign(this.ingredients[this.editedIndex], this.editedItem);
+        axios.patch('api/ingredients/' + this.editedItem.id, {
+          name: this.editedItem.name,
+          measurement_id: this.editedItem.measurement.id
+        }).then(function (response) {
+          console.log(response);
+        });
       } else {
         axios.post('api/ingredients', {
           name: this.editedItem.name,
