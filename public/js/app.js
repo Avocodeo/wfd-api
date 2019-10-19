@@ -2228,6 +2228,10 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -2237,12 +2241,30 @@ __webpack_require__.r(__webpack_exports__);
         align: 'left',
         sortable: false,
         value: 'name'
+      }, {
+        text: 'Abbreviation',
+        value: 'abbreviation'
+      }, {
+        text: 'Type',
+        value: 'type.name'
+      }, {
+        text: 'Created at',
+        value: 'created_at'
+      }, {
+        text: 'Updated at',
+        value: 'updated_at'
+      }, {
+        text: 'Actions',
+        value: 'action',
+        sortable: false
       }],
-      ingredients: [],
       measurements: [],
+      types: [],
       editedIndex: -1,
       editedItem: {
-        name: ''
+        name: '',
+        abbreviation: '',
+        type: ''
       },
       defaultItem: {
         name: ''
@@ -2266,6 +2288,7 @@ __webpack_require__.r(__webpack_exports__);
   },
   created: function created() {
     this.getMeasurements();
+    this.getTypes();
   },
   methods: {
     getMeasurements: function getMeasurements() {
@@ -2278,25 +2301,34 @@ __webpack_require__.r(__webpack_exports__);
         console.log(error);
       });
     },
+    getTypes: function getTypes() {
+      var _this2 = this;
+
+      axios.get('api/measurement_types').then(function (response) {
+        _this2.types = response.data;
+      })["catch"](function (error) {
+        console.log(error);
+      });
+    },
     editItem: function editItem(item) {
-      this.editedIndex = this.ingredients.indexOf(item);
+      this.editedIndex = this.measurements.indexOf(item);
       this.editedItem = Object.assign({}, item);
       this.dialog = true;
     },
     deleteItem: function deleteItem(item) {
-      var index = this.ingredients.indexOf(item);
+      var index = this.measurements.indexOf(item);
       confirm('Are you sure you want to delete this measurement') && this.measurements.splice(index, 1);
       axios["delete"]('api/measurements/' + item.id);
       this.snackbarText = "Measurement deleted";
       this.snackbar = true;
     },
     close: function close() {
-      var _this2 = this;
+      var _this3 = this;
 
       this.dialog = false;
       setTimeout(function () {
-        _this2.editedItem = Object.assign({}, _this2.defaultItem);
-        _this2.editedIndex = -1;
+        _this3.editedItem = Object.assign({}, _this3.defaultItem);
+        _this3.editedIndex = -1;
       }, 300);
     },
     save: function save() {
@@ -2305,18 +2337,24 @@ __webpack_require__.r(__webpack_exports__);
         this.snackbarText = "Measurement updated";
         this.snackbar = true;
         axios.patch('api/measurements/' + this.editedItem.id, {
-          name: this.editedItem.name
+          name: this.editedItem.name,
+          abbreviation: this.editedItem.abbreviation,
+          type_id: this.editedItem.type.id
         }).then(function (response) {
           console.log(response);
         });
       } else {
         axios.post('api/measurements', {
-          name: this.editedItem.name
+          name: this.editedItem.name,
+          abbreviation: this.editedItem.abbreviation,
+          type_id: this.editedItem.typeId
         }).then(function (response) {
           console.log(response);
         });
         this.measurements.push({
-          'name': this.editedItem.name
+          'name': this.editedItem.name,
+          'abbreviation': this.editedItem.abbreviation,
+          'type.name': this.editedItem.type.name
         });
         this.snackbar = true;
         this.snackbarText = "Measurement created";
@@ -38253,7 +38291,7 @@ var render = function() {
                                 { attrs: { cols: "12", md: "6" } },
                                 [
                                   _c("v-text-field", {
-                                    attrs: { label: "Measurement Name" },
+                                    attrs: { label: "Name" },
                                     model: {
                                       value: _vm.editedItem.name,
                                       callback: function($$v) {
@@ -38266,7 +38304,51 @@ var render = function() {
                                 1
                               ),
                               _vm._v(" "),
-                              _c("v-col", { attrs: { cols: "12", md: "6" } })
+                              _c(
+                                "v-col",
+                                { attrs: { cols: "12", md: "6" } },
+                                [
+                                  _c("v-text-field", {
+                                    attrs: { label: "Abbreviation" },
+                                    model: {
+                                      value: _vm.editedItem.abbreviation,
+                                      callback: function($$v) {
+                                        _vm.$set(
+                                          _vm.editedItem,
+                                          "abbreviation",
+                                          $$v
+                                        )
+                                      },
+                                      expression: "editedItem.abbreviation"
+                                    }
+                                  })
+                                ],
+                                1
+                              ),
+                              _vm._v(" "),
+                              _c(
+                                "v-col",
+                                { attrs: { cols: "12", md: "6" } },
+                                [
+                                  _c("v-select", {
+                                    attrs: {
+                                      items: _vm.types,
+                                      label: "Type",
+                                      "item-text": "name",
+                                      "item-value": "id",
+                                      "return-object": ""
+                                    },
+                                    model: {
+                                      value: _vm.editedItem.type,
+                                      callback: function($$v) {
+                                        _vm.$set(_vm.editedItem, "type", $$v)
+                                      },
+                                      expression: "editedItem.type"
+                                    }
+                                  })
+                                ],
+                                1
+                              )
                             ],
                             1
                           )

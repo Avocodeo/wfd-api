@@ -51,9 +51,13 @@
                         <v-container>
                             <v-row>
                                 <v-col cols="12" md="6">
-                                    <v-text-field v-model="editedItem.name" label="Measurement Name"></v-text-field>
+                                    <v-text-field v-model="editedItem.name" label="Name"></v-text-field>
                                 </v-col>
                                 <v-col cols="12" md="6">
+                                    <v-text-field v-model="editedItem.abbreviation" label="Abbreviation"></v-text-field>
+                                </v-col>
+                                <v-col cols="12" md="6">
+                                    <v-select v-model="editedItem.type" :items="types" label="Type" item-text="name" item-value="id" return-object></v-select>
                                 </v-col>
                             </v-row>
                         </v-container>
@@ -95,12 +99,19 @@
                         sortable: false,
                         value: 'name',
                     },
+                    { text: 'Abbreviation', value: 'abbreviation' },
+                    { text: 'Type', value: 'type.name'},
+                    { text: 'Created at', value: 'created_at' },
+                    { text: 'Updated at', value: 'updated_at' },
+                    { text: 'Actions', value: 'action', sortable: false },
                 ],
-                ingredients: [],
                 measurements: [],
+                types: [],
                 editedIndex: -1,
                 editedItem: {
                     name: '',
+                    abbreviation: '',
+                    type: ''
                 },
                 defaultItem: {
                     name: '',
@@ -124,27 +135,36 @@
         },
         created() {
             this.getMeasurements();
+            this.getTypes();
         },
         methods: {
             getMeasurements:function () {
                 axios.get('api/measurements')
                     .then((response) => {
-                        this.loading = false; 
+                        this.loading = false;
                         this.measurements = response.data;
                     })
                     .catch(function (error) {
                         console.log(error);
                     });
             },
-
+            getTypes:function () {
+                axios.get('api/measurement_types')
+                    .then((response) => {
+                        this.types = response.data;
+                    })
+                    .catch(function (error) {
+                        console.log(error);
+                    });
+            },
             editItem (item) {
-                this.editedIndex = this.ingredients.indexOf(item);
+                this.editedIndex = this.measurements.indexOf(item);
                 this.editedItem = Object.assign({}, item);
                 this.dialog = true
             },
 
             deleteItem (item) {
-                const index = this.ingredients.indexOf(item);
+                const index = this.measurements.indexOf(item);
                 confirm('Are you sure you want to delete this measurement') && this.measurements.splice(index, 1);
                 axios.delete('api/measurements/' + item.id);
                 this.snackbarText = "Measurement deleted";
@@ -166,6 +186,8 @@
                     this.snackbar = true;
                     axios.patch('api/measurements/' + this.editedItem.id, {
                         name: this.editedItem.name,
+                        abbreviation: this.editedItem.abbreviation,
+                        type_id: this.editedItem.type.id
                     })
                         .then(function (response) {
                             console.log(response);
@@ -173,11 +195,13 @@
                 } else {
                     axios.post('api/measurements', {
                         name: this.editedItem.name,
+                        abbreviation: this.editedItem.abbreviation,
+                        type_id: this.editedItem.typeId
                     })
                         .then(function (response) {
                             console.log(response);
                         });
-                    this.measurements.push({'name' :  this.editedItem.name});
+                    this.measurements.push({'name' :  this.editedItem.name, 'abbreviation' : this.editedItem.abbreviation, 'type.name' : this.editedItem.type.name});
                     this.snackbar = true;
                     this.snackbarText = "Measurement created";
                 }

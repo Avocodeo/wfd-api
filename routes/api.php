@@ -41,6 +41,13 @@ Route::get('/measurements/{measurement}', 'API\MeasurementsController@show');
 Route::patch('/measurements/{measurement}', 'API\MeasurementsController@update');
 Route::delete('/measurements/{measurement}', 'API\MeasurementsController@destroy');
 
+// Measurement Types Routes
+Route::get('/measurement_types', 'API\MeasurementTypesController@index');
+Route::post('/measurement_types', 'API\MeasurementTypesController@store');
+Route::get('/measurement_types/{measurementType}', 'API\MeasurementTypesController@show');
+Route::patch('/measurement_types/{measurementType}', 'API\MeasurementTypesController@update');
+Route::delete('/measurement_types/{measurementType}', 'API\MeasurementTypesController@destroy');
+
 // Categories Routes
 Route::get('/categories', 'API\CategoriesController@index');
 Route::post('/categories', 'API\CategoriesController@store');

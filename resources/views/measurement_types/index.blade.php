@@ -1,0 +1,1 @@
+<p>measurement types view</p>
