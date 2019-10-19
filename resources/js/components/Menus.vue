@@ -1,24 +1,26 @@
 <template>
     <div>
         <v-navigation-drawer
-            v-model="drawer"
+            class="accent-4"
+            :mini-variant.sync="mini"
             app
+            permanent
         >
             <v-list dense>
-                <v-list-item @click="">
+                <v-list-item @click="" href="/home" class="text-decoration-none">
                     <v-list-item-action>
-                        <v-icon>mdi-home</v-icon>
+                        <v-icon color="blue" size="48">mdi-home</v-icon>
                     </v-list-item-action>
                     <v-list-item-content>
                         <v-list-item-title>Home</v-list-item-title>
                     </v-list-item-content>
                 </v-list-item>
-                <v-list-item @click="">
+                <v-list-item @click="" href="/ingredients" class="text-decoration-none">
                     <v-list-item-action>
-                        <v-icon>mdi-contact-mail</v-icon>
+                        <v-icon color="red" size="48">mdi-food-apple</v-icon>
                     </v-list-item-action>
                     <v-list-item-content>
-                        <v-list-item-title>Contact</v-list-item-title>
+                        <v-list-item-title>Ingredients</v-list-item-title>
                     </v-list-item-content>
                 </v-list-item>
             </v-list>
@@ -28,7 +30,7 @@
             color="indigo"
             dark
         >
-            <v-app-bar-nav-icon @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
+            <v-app-bar-nav-icon @click.stop="mini = !mini"></v-app-bar-nav-icon>
 
             <v-toolbar-title>Whats For Dinner</v-toolbar-title>
 
@@ -49,7 +51,8 @@
 <script>
     export default {
         data: () => ({
-            drawer: null,
-        }),
+            // drawer: null,
+            mini: true,
+        })
     }
 </script>
