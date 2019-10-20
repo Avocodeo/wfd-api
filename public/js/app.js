@@ -2376,6 +2376,8 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 //
 //
 //
@@ -2452,7 +2454,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
-    return {
+    var _ref;
+
+    return _ref = {
       search: "",
       headers: [{
         text: "Name",
@@ -2460,8 +2464,8 @@ __webpack_require__.r(__webpack_exports__);
         sortable: false,
         value: "name"
       }, {
-        text: "Measurement",
-        value: "measurement.name"
+        text: "User",
+        value: "user.name"
       }, {
         text: "Created At",
         value: "created_at"
@@ -2473,30 +2477,21 @@ __webpack_require__.r(__webpack_exports__);
         value: "action",
         sortable: false
       }],
-      ingredients: [],
-      measurements: [{
-        text: "Gallons",
-        value: 1
-      }],
-      editedIndex: -1,
-      editedItem: {
-        name: "",
-        measurement: ""
-      },
-      defaultItem: {
-        name: "",
-        measurement_id: ""
-      },
-      loading: true,
-      dialog: false,
-      snackbar: false,
-      snackbarText: "",
-      snackbarTimeout: 2000
-    };
+      users: []
+    }, _defineProperty(_ref, "users", [{
+      text: "Gallons",
+      value: 1
+    }]), _defineProperty(_ref, "editedIndex", -1), _defineProperty(_ref, "editedItem", {
+      name: "",
+      user: ""
+    }), _defineProperty(_ref, "defaultItem", {
+      name: "",
+      measurement_id: ""
+    }), _defineProperty(_ref, "loading", true), _defineProperty(_ref, "dialog", false), _defineProperty(_ref, "snackbar", false), _defineProperty(_ref, "snackbarText", ""), _defineProperty(_ref, "snackbarTimeout", 2000), _ref;
   },
   computed: {
     formTitle: function formTitle() {
-      return this.editedIndex === -1 ? "New Ingredient" : "Edit Ingredient";
+      return this.editedIndex === -1 ? "New User" : "Edit User";
     }
   },
   watch: {
@@ -2505,15 +2500,15 @@ __webpack_require__.r(__webpack_exports__);
     }
   },
   created: function created() {
-    this.getIngredients();
+    this.getUsers();
     this.getMeasurements();
   },
   methods: {
-    getIngredients: function getIngredients() {
+    getUsers: function getUsers() {
       var _this = this;
 
-      axios.get("api/ingredients").then(function (response) {
-        _this.ingredients = response.data;
+      axios.get("api/users").then(function (response) {
+        _this.users = response.data;
         _this.loading = false;
       })["catch"](function (error) {
         console.log(error);
@@ -2529,15 +2524,15 @@ __webpack_require__.r(__webpack_exports__);
       });
     },
     editItem: function editItem(item) {
-      this.editedIndex = this.ingredients.indexOf(item);
+      this.editedIndex = this.users.indexOf(item);
       this.editedItem = Object.assign({}, item);
       this.dialog = true;
     },
     deleteItem: function deleteItem(item) {
-      var index = this.ingredients.indexOf(item);
-      confirm("Are you sure you want to delete this ingredient?") && this.ingredients.splice(index, 1);
-      axios["delete"]("api/ingredients/" + item.id);
-      this.snackbarText = "Ingredient deleted";
+      var index = this.users.indexOf(item);
+      confirm("Are you sure you want to delete this user?") && this.users.splice(index, 1);
+      axios["delete"]("api/users/" + item.id);
+      this.snackbarText = "User deleted";
       this.snackbar = true;
     },
     close: function close() {
@@ -2551,28 +2546,28 @@ __webpack_require__.r(__webpack_exports__);
     },
     save: function save() {
       if (this.editedIndex > -1) {
-        Object.assign(this.ingredients[this.editedIndex], this.editedItem);
-        this.snackbarText = "Ingredient updated";
+        Object.assign(this.users[this.editedIndex], this.editedItem);
+        this.snackbarText = "User updated";
         this.snackbar = true;
-        axios.patch("api/ingredients/" + this.editedItem.id, {
+        axios.patch("api/users/" + this.editedItem.id, {
           name: this.editedItem.name,
-          measurement_id: this.editedItem.measurement.id
+          measurement_id: this.editedItem.user.id
         }).then(function (response) {
           console.log(response);
         });
       } else {
-        axios.post("api/ingredients", {
+        axios.post("api/users", {
           name: this.editedItem.name,
-          measurement_id: this.editedItem.measurement.id
+          measurement_id: this.editedItem.user.id
         }).then(function (response) {
           console.log(response);
         });
-        this.ingredients.push({
+        this.users.push({
           name: this.editedItem.name,
-          "measurement.name": this.editedItem.measurement.name
+          "user.name": this.editedItem.user.name
         });
         this.snackbar = true;
-        this.snackbarText = "Ingredient created";
+        this.snackbarText = "User created";
       }
 
       this.close();
@@ -38675,7 +38670,7 @@ var render = function() {
           _c(
             "v-card-title",
             [
-              _vm._v("\n      Ingredients\n      "),
+              _vm._v("\n      Users\n      "),
               _c("v-spacer"),
               _vm._v(" "),
               _c("v-text-field", {
@@ -38700,10 +38695,10 @@ var render = function() {
           _c("v-data-table", {
             attrs: {
               headers: _vm.headers,
-              items: _vm.ingredients,
+              items: _vm.users,
               search: _vm.search,
               loading: _vm.loading,
-              "loading-text": "Loading Ingredients... Please wait"
+              "loading-text": "Loading Users... Please wait"
             },
             scopedSlots: _vm._u([
               {
@@ -38817,7 +38812,7 @@ var render = function() {
                                 { attrs: { cols: "12", md: "6" } },
                                 [
                                   _c("v-text-field", {
-                                    attrs: { label: "Ingredient Name" },
+                                    attrs: { label: "User Name" },
                                     model: {
                                       value: _vm.editedItem.name,
                                       callback: function($$v) {
@@ -38836,23 +38831,19 @@ var render = function() {
                                 [
                                   _c("v-select", {
                                     attrs: {
-                                      items: _vm.measurements,
-                                      label: "Measurement",
+                                      items: _vm.users,
+                                      label: "User",
                                       "item-text": "name",
                                       "item-value": "id",
                                       "return-object": "",
                                       "prepend-icon": "mdi-scale-balance"
                                     },
                                     model: {
-                                      value: _vm.editedItem.measurement,
+                                      value: _vm.editedItem.user,
                                       callback: function($$v) {
-                                        _vm.$set(
-                                          _vm.editedItem,
-                                          "measurement",
-                                          $$v
-                                        )
+                                        _vm.$set(_vm.editedItem, "user", $$v)
                                       },
-                                      expression: "editedItem.measurement"
+                                      expression: "editedItem.user"
                                     }
                                   })
                                 ],
