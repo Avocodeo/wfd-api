@@ -2,7 +2,7 @@
   <v-content>
     <v-card>
       <v-card-title>
-        Users
+        Categories
         <v-spacer></v-spacer>
         <v-text-field
           v-model="search"
@@ -14,10 +14,10 @@
       </v-card-title>
       <v-data-table
         :headers="headers"
-        :items="users"
+        :items="categories"
         :search="search"
         :loading="loading"
-        loading-text="Loading Users... Please wait"
+        loading-text="Loading Categories... Please wait"
       >
         <template v-slot:item.action="{ item }">
           <v-icon small class="mr-2" @click="editItem(item)">mdi-pencil</v-icon>
@@ -40,23 +40,17 @@
             <v-container>
               <v-row>
                 <v-col cols="12" md="6">
-                  <v-text-field v-model="editedItem.name" label="User Name"></v-text-field>
-                </v-col>
-                <v-col cols="12" md="6">
-                  <v-text-field v-model="editedItem.isAdmin" label="isAdmin"></v-text-field>
-                </v-col>
-                <v-col cols="12" md="6">
-                  <v-text-field v-model="editedItem.email" label="Email"></v-text-field>
+                  <v-text-field v-model="editedItem.name" label="Category Name"></v-text-field>
                 </v-col>
                 <v-col cols="12" md="6">
                   <v-select
-                    v-model="editedItem.user"
-                    :items="users"
-                    label="User"
+                    v-model="editedItem.measurement"
+                    :items="measurements"
+                    label="Measurement"
                     item-text="name"
                     item-value="id"
                     return-object
-                    prepend-icon="mdi-account-circle-outline"
+                    prepend-icon="mdi-scale-balance"
                   ></v-select>
                 </v-col>
               </v-row>
@@ -90,27 +84,26 @@ export default {
           sortable: false,
           value: "name"
         },
-        { text: "isAdmin", value: "user.isAdmin" },
-        { text: "email", value: "user.email" },
+        { text: "Measurement", value: "measurement.name" },
         { text: "Created At", value: "created_at" },
         { text: "Updated At", value: "updated_at" },
         { text: "Actions", value: "action", sortable: false }
       ],
-      users: [],
-      users: [
+      categories: [],
+      measurements: [
         {
-          text: "",
+          text: "Gallons",
           value: 1
         }
       ],
       editedIndex: -1,
       editedItem: {
         name: "",
-        user: ""
+        measurement: ""
       },
       defaultItem: {
         name: "",
-        user_id: ""
+        measurement_id: ""
       },
       loading: true,
       dialog: false,
@@ -121,7 +114,7 @@ export default {
   },
   computed: {
     formTitle() {
-      return this.editedIndex === -1 ? "New User" : "Edit User";
+      return this.editedIndex === -1 ? "New Category" : "Edit Category";
     }
   },
   watch: {
@@ -130,14 +123,15 @@ export default {
     }
   },
   created() {
-    this.getUsers();
+    this.getIngredients();
+    this.getMeasurements();
   },
   methods: {
-    getUsers: function() {
+    getIngredients: function() {
       axios
-        .get("api/users")
+        .get("api/categories")
         .then(response => {
-          this.users = response.data;
+          this.categories = response.data;
           this.loading = false;
         })
         .catch(function(error) {
@@ -145,22 +139,30 @@ export default {
         });
     },
 
+    getMeasurements: function() {
+      axios
+        .get("api/measurements")
+        .then(response => {
+          this.measurements = response.data;
+        })
+        .catch(function(error) {
+          console.log(error);
+        });
+    },
+
     editItem(item) {
-      this.editedIndex = this.users.indexOf(item);
+      this.editedIndex = this.categories.indexOf(item);
       this.editedItem = Object.assign({}, item);
       this.dialog = true;
     },
 
     deleteItem(item) {
-      const index = this.users.indexOf(item);
-      if (
-        confirm("Are you sure you want to delete this user?") &&
-        this.users.splice(index, 1)
-      ) {
-        axios.delete("api/users/" + item.id);
-        this.snackbarText = "User deleted";
-        this.snackbar = true;
-      }
+      const index = this.categories.indexOf(item);
+      confirm("Are you sure you want to delete this category?") &&
+        this.categories.splice(index, 1);
+      axios.delete("api/categories/" + item.id);
+      this.snackbarText = "Category deleted";
+      this.snackbar = true;
     },
 
     close() {
@@ -173,32 +175,32 @@ export default {
 
     save() {
       if (this.editedIndex > -1) {
-        Object.assign(this.users[this.editedIndex], this.editedItem);
-        this.snackbarText = "User updated";
+        Object.assign(this.categories[this.editedIndex], this.editedItem);
+        this.snackbarText = "Category updated";
         this.snackbar = true;
         axios
-          .patch("api/users/" + this.editedItem.id, {
+          .patch("api/categories/" + this.editedItem.id, {
             name: this.editedItem.name,
-            user_id: this.editedItem.user.id
+            measurement_id: this.editedItem.measurement.id
           })
           .then(function(response) {
             console.log(response);
           });
       } else {
         axios
-          .post("api/users", {
+          .post("api/categories", {
             name: this.editedItem.name,
-            user_id: this.editedItem.user.id
+            measurement_id: this.editedItem.measurement.id
           })
           .then(function(response) {
             console.log(response);
           });
-        this.users.push({
+        this.categories.push({
           name: this.editedItem.name,
-          "user.name": this.editedItem.user.name
+          "measurement.name": this.editedItem.measurement.name
         });
         this.snackbar = true;
-        this.snackbarText = "User created";
+        this.snackbarText = "Category created";
       }
       this.close();
     }
