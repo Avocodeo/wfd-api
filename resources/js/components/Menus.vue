@@ -31,6 +31,14 @@
                         <v-list-item-title>Measurements</v-list-item-title>
                     </v-list-item-content>
                 </v-list-item>
+                <v-list-item @click="" href="/users" class="text-decoration-none">
+                    <v-list-item-action>
+                        <v-icon color="green" size="48">mdi-account-circle-outline</v-icon>
+                    </v-list-item-action>
+                    <v-list-item-content>
+                        <v-list-item-title>Users</v-list-item-title>
+                    </v-list-item-content>
+                </v-list-item>
             </v-list>
         </v-navigation-drawer>
         <v-app-bar

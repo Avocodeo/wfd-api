@@ -139,17 +139,6 @@ export default {
         });
     },
 
-    getMeasurements: function() {
-      axios
-        .get("api/measurements")
-        .then(response => {
-          this.measurements = response.data;
-        })
-        .catch(function(error) {
-          console.log(error);
-        });
-    },
-
     editItem(item) {
       this.editedIndex = this.users.indexOf(item);
       this.editedItem = Object.assign({}, item);

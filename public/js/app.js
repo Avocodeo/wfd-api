@@ -1896,6 +1896,14 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -2514,15 +2522,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         console.log(error);
       });
     },
-    getMeasurements: function getMeasurements() {
-      var _this2 = this;
-
-      axios.get("api/measurements").then(function (response) {
-        _this2.measurements = response.data;
-      })["catch"](function (error) {
-        console.log(error);
-      });
-    },
     editItem: function editItem(item) {
       this.editedIndex = this.users.indexOf(item);
       this.editedItem = Object.assign({}, item);
@@ -2536,12 +2535,12 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       this.snackbar = true;
     },
     close: function close() {
-      var _this3 = this;
+      var _this2 = this;
 
       this.dialog = false;
       setTimeout(function () {
-        _this3.editedItem = Object.assign({}, _this3.defaultItem);
-        _this3.editedIndex = -1;
+        _this2.editedItem = Object.assign({}, _this2.defaultItem);
+        _this2.editedIndex = -1;
       }, 300);
     },
     save: function save() {
@@ -37968,6 +37967,33 @@ var render = function() {
                   _c(
                     "v-list-item-content",
                     [_c("v-list-item-title", [_vm._v("Measurements")])],
+                    1
+                  )
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c(
+                "v-list-item",
+                {
+                  staticClass: "text-decoration-none",
+                  attrs: { href: "/users" },
+                  on: { click: function($event) {} }
+                },
+                [
+                  _c(
+                    "v-list-item-action",
+                    [
+                      _c("v-icon", { attrs: { color: "green", size: "48" } }, [
+                        _vm._v("mdi-account-circle-outline")
+                      ])
+                    ],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "v-list-item-content",
+                    [_c("v-list-item-title", [_vm._v("Users")])],
                     1
                   )
                 ],
