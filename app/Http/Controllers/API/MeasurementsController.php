@@ -41,6 +41,8 @@ class MeasurementsController extends Controller
     {
         $attributes = request()->validate([
             'name' => 'required',
+            'abbreviation' => 'required',
+            'type_id' => 'sometimes'
         ]);
 
         $measurement->update($attributes);

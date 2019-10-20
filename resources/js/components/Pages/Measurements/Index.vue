@@ -2,7 +2,7 @@
     <v-content>
         <v-card>
             <v-card-title>
-                Ingredients
+                Measurements
                 <v-spacer></v-spacer>
                 <v-text-field
                         v-model="search"
@@ -14,10 +14,10 @@
             </v-card-title>
             <v-data-table
                     :headers="headers"
-                    :items="ingredients"
+                    :items="measurements"
                     :search="search"
                     :loading="loading"
-                    loading-text="Loading Ingredients... Please wait"
+                    loading-text="Loading Measurements... Please wait"
             >
                 <template v-slot:item.action="{ item }">
                     <v-icon
@@ -34,9 +34,9 @@
                         mdi-delete
                     </v-icon>
                 </template>
-            <template v-slot:no-data>
-                <v-btn color="primary" @click="initialize">Reset</v-btn>
-            </template>
+                <template v-slot:no-data>
+                    <v-btn color="primary" @click="initialize">Reset</v-btn>
+                </template>
             </v-data-table>
             <v-dialog v-model="dialog" max-width="500px">
                 <template v-slot:activator="{ on }">
@@ -51,10 +51,13 @@
                         <v-container>
                             <v-row>
                                 <v-col cols="12" md="6">
-                                    <v-text-field v-model="editedItem.name" label="Ingredient Name"></v-text-field>
+                                    <v-text-field v-model="editedItem.name" label="Name"></v-text-field>
                                 </v-col>
                                 <v-col cols="12" md="6">
-                                    <v-select v-model="editedItem.measurement" :items="measurements" label="Measurement" item-text="name" item-value="id" return-object prepend-icon="mdi-scale-balance"></v-select>
+                                    <v-text-field v-model="editedItem.abbreviation" label="Abbreviation"></v-text-field>
+                                </v-col>
+                                <v-col cols="12" md="6">
+                                    <v-select v-model="editedItem.type" :items="types" label="Type" item-text="name" item-value="id" return-object></v-select>
                                 </v-col>
                             </v-row>
                         </v-container>
@@ -96,24 +99,22 @@
                         sortable: false,
                         value: 'name',
                     },
-                    { text: 'Measurement', value: 'measurement.name' },
-                    { text: 'Created At', value: 'created_at' },
-                    { text: 'Updated At', value: 'updated_at' },
+                    { text: 'Abbreviation', value: 'abbreviation' },
+                    { text: 'Type', value: 'type.name'},
+                    { text: 'Created at', value: 'created_at' },
+                    { text: 'Updated at', value: 'updated_at' },
                     { text: 'Actions', value: 'action', sortable: false },
                 ],
-                ingredients: [],
-                measurements: [{
-                    text: 'Gallons',
-                    value: 1
-                }],
+                measurements: [],
+                types: [],
                 editedIndex: -1,
                 editedItem: {
                     name: '',
-                    measurement: '',
+                    abbreviation: '',
+                    type: ''
                 },
                 defaultItem: {
                     name: '',
-                    measurement_id: '',
                 },
                 loading: true,
                 dialog: false,
@@ -124,7 +125,7 @@
         },
         computed: {
             formTitle () {
-                return this.editedIndex === -1 ? 'New Ingredient' : 'Edit Ingredient'
+                return this.editedIndex === -1 ? 'New Measurement' : 'Edit Measurement'
             },
         },
         watch: {
@@ -133,42 +134,40 @@
             },
         },
         created() {
-            this.getIngredients();
             this.getMeasurements();
+            this.getTypes();
         },
         methods: {
-            getIngredients:function () {
-                axios.get('api/ingredients')
-                    .then((response) => {
-                        this.ingredients = response.data;
-                        this.loading = false;
-                    })
-                    .catch(function (error) {
-                        console.log(error);
-                    });
-            },
-
             getMeasurements:function () {
                 axios.get('api/Measurements')
                     .then((response) => {
+                        this.loading = false;
                         this.measurements = response.data;
                     })
                     .catch(function (error) {
                         console.log(error);
                     });
             },
-
+            getTypes:function () {
+                axios.get('api/measurement_types')
+                    .then((response) => {
+                        this.types = response.data;
+                    })
+                    .catch(function (error) {
+                        console.log(error);
+                    });
+            },
             editItem (item) {
-                this.editedIndex = this.ingredients.indexOf(item);
+                this.editedIndex = this.measurements.indexOf(item);
                 this.editedItem = Object.assign({}, item);
                 this.dialog = true
             },
 
             deleteItem (item) {
-                const index = this.ingredients.indexOf(item);
-                confirm('Are you sure you want to delete this ingredient?') && this.ingredients.splice(index, 1);
-                axios.delete('api/ingredients/' + item.id);
-                this.snackbarText = "Ingredient deleted";
+                const index = this.measurements.indexOf(item);
+                confirm('Are you sure you want to delete this measurement') && this.measurements.splice(index, 1);
+                axios.delete('api/Measurements/' + item.id);
+                this.snackbarText = "Measurement deleted";
                 this.snackbar = true;
             },
 
@@ -182,27 +181,29 @@
 
             save () {
                 if (this.editedIndex > -1) {
-                    Object.assign(this.ingredients[this.editedIndex], this.editedItem);
-                    this.snackbarText = "Ingredient updated";
+                    Object.assign(this.measurements[this.editedIndex], this.editedItem);
+                    this.snackbarText = "Measurement updated";
                     this.snackbar = true;
-                    axios.patch('api/ingredients/' + this.editedItem.id, {
+                    axios.patch('api/Measurements/' + this.editedItem.id, {
                         name: this.editedItem.name,
-                        measurement_id: this.editedItem.measurement.id
+                        abbreviation: this.editedItem.abbreviation,
+                        type_id: this.editedItem.type.id
                     })
                         .then(function (response) {
                             console.log(response);
                         })
                 } else {
-                    axios.post('api/ingredients', {
+                    axios.post('api/Measurements', {
                         name: this.editedItem.name,
-                        measurement_id: this.editedItem.measurement.id
+                        abbreviation: this.editedItem.abbreviation,
+                        type_id: this.editedItem.typeId
                     })
-                    .then(function (response) {
-                        console.log(response);
-                    });
-                    this.ingredients.push({'name' :  this.editedItem.name, 'measurement.name' : this.editedItem.measurement.name });
+                        .then(function (response) {
+                            console.log(response);
+                        });
+                    this.measurements.push({'name' :  this.editedItem.name, 'abbreviation' : this.editedItem.abbreviation, 'type.name' : this.editedItem.type.name});
                     this.snackbar = true;
-                    this.snackbarText = "Ingredient created";
+                    this.snackbarText = "Measurement created";
                 }
                 this.close()
             },

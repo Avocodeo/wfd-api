@@ -16,6 +16,7 @@ const vuetifyOpts = {
 // Vue.component('example-component', require('./components/ExampleComponent.vue').default);
 Vue.component('menus', require('./components/Menus.vue').default);
 Vue.component('ingredients-index', require('./components/Pages/Ingredients/Index.vue').default);
+Vue.component('measurements-index', require('./components/Pages/Measurements/Index.vue').default);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
