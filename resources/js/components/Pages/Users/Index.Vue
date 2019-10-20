@@ -124,9 +124,10 @@ export default {
   created() {
     this.getIngredients();
     this.getMeasurements();
+    this.getUsers();
   },
   methods: {
-    getIngredients: function() {
+    getUsers: function() {
       axios
         .get("api/users")
         .then(response => {
@@ -137,12 +138,23 @@ export default {
           console.log(error);
         });
     },
+    getIngredients: function() {
+      axios
+        .get("api/ingredients")
+        .then(response => {
+          this.ingredients = response.data;
+          this.loading = false;
+        })
+        .catch(function(error) {
+          console.log(error);
+        });
+    },
 
     getMeasurements: function() {
       axios
-        .get("api/users")
+        .get("api/measurements")
         .then(response => {
-          this.users = response.data;
+          this.measurements = response.data;
         })
         .catch(function(error) {
           console.log(error);
@@ -150,15 +162,15 @@ export default {
     },
 
     editItem(item) {
-      this.editedIndex = this.ingredients.indexOf(item);
+      this.editedIndex = this.users.indexOf(item);
       this.editedItem = Object.assign({}, item);
       this.dialog = true;
     },
 
     deleteItem(item) {
-      const index = this.ingredients.indexOf(item);
+      const index = this.users.indexOf(item);
       confirm("Are you sure you want to delete this user?") &&
-        this.ingredients.splice(index, 1);
+        this.users.splice(index, 1);
       axios.delete("api/users/" + item.id);
       this.snackbarText = "User deleted";
       this.snackbar = true;
@@ -189,14 +201,14 @@ export default {
         axios
           .post("api/users", {
             name: this.editedItem.name,
-            user_id: this.editedItem.measurement.id
+            user_id: this.editedItem.user.id
           })
           .then(function(response) {
             console.log(response);
           });
-        this.ingredients.push({
+        this.users.push({
           name: this.editedItem.name,
-          "users.name": this.editedItem.measurement.name
+          "users.name": this.editedItem.user.name
         });
         this.snackbar = true;
         this.snackbarText = "User created";
