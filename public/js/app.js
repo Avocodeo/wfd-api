@@ -2074,7 +2074,7 @@ __webpack_require__.r(__webpack_exports__);
     getMeasurements: function getMeasurements() {
       var _this2 = this;
 
-      axios.get('api/Measurements').then(function (response) {
+      axios.get('api/measurements').then(function (response) {
         _this2.measurements = response.data;
       })["catch"](function (error) {
         console.log(error);
@@ -2294,7 +2294,7 @@ __webpack_require__.r(__webpack_exports__);
     getMeasurements: function getMeasurements() {
       var _this = this;
 
-      axios.get('api/Measurements').then(function (response) {
+      axios.get('api/measurements').then(function (response) {
         _this.loading = false;
         _this.measurements = response.data;
       })["catch"](function (error) {
@@ -2318,7 +2318,7 @@ __webpack_require__.r(__webpack_exports__);
     deleteItem: function deleteItem(item) {
       var index = this.measurements.indexOf(item);
       confirm('Are you sure you want to delete this measurement') && this.measurements.splice(index, 1);
-      axios["delete"]('api/Measurements/' + item.id);
+      axios["delete"]('api/measurements/' + item.id);
       this.snackbarText = "Measurement deleted";
       this.snackbar = true;
     },
@@ -2336,7 +2336,7 @@ __webpack_require__.r(__webpack_exports__);
         Object.assign(this.measurements[this.editedIndex], this.editedItem);
         this.snackbarText = "Measurement updated";
         this.snackbar = true;
-        axios.patch('api/Measurements/' + this.editedItem.id, {
+        axios.patch('api/measurements/' + this.editedItem.id, {
           name: this.editedItem.name,
           abbreviation: this.editedItem.abbreviation,
           type_id: this.editedItem.type.id
@@ -2344,7 +2344,7 @@ __webpack_require__.r(__webpack_exports__);
           console.log(response);
         });
       } else {
-        axios.post('api/Measurements', {
+        axios.post('api/measurements', {
           name: this.editedItem.name,
           abbreviation: this.editedItem.abbreviation,
           type_id: this.editedItem.typeId
@@ -36932,7 +36932,7 @@ var modifiers = {
  * @property {Object} data.styles Any CSS property defined here will be applied to the popper. It expects the JavaScript nomenclature (eg. `marginBottom`)
  * @property {Object} data.arrowStyles Any CSS property defined here will be applied to the popper arrow. It expects the JavaScript nomenclature (eg. `marginBottom`)
  * @property {Object} data.boundaries Offsets of the popper boundaries
- * @property {Object} data.offsets The Measurements of popper, reference and arrow elements
+ * @property {Object} data.offsets The measurements of popper, reference and arrow elements
  * @property {Object} data.offsets.popper `top`, `left`, `width`, `height` values
  * @property {Object} data.offsets.reference `top`, `left`, `width`, `height` values
  * @property {Object} data.offsets.arrow] `top` and `left` offsets, only one of them will be different from 0
@@ -37741,7 +37741,7 @@ var render = function() {
                 "v-list-item",
                 {
                   staticClass: "text-decoration-none",
-                  attrs: { href: "/Measurements" },
+                  attrs: { href: "/measurements" },
                   on: { click: function($event) {} }
                 },
                 [

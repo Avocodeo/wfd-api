@@ -139,7 +139,7 @@
         },
         methods: {
             getMeasurements:function () {
-                axios.get('api/Measurements')
+                axios.get('api/measurements')
                     .then((response) => {
                         this.loading = false;
                         this.measurements = response.data;
@@ -166,7 +166,7 @@
             deleteItem (item) {
                 const index = this.measurements.indexOf(item);
                 confirm('Are you sure you want to delete this measurement') && this.measurements.splice(index, 1);
-                axios.delete('api/Measurements/' + item.id);
+                axios.delete('api/measurements/' + item.id);
                 this.snackbarText = "Measurement deleted";
                 this.snackbar = true;
             },
@@ -184,7 +184,7 @@
                     Object.assign(this.measurements[this.editedIndex], this.editedItem);
                     this.snackbarText = "Measurement updated";
                     this.snackbar = true;
-                    axios.patch('api/Measurements/' + this.editedItem.id, {
+                    axios.patch('api/measurements/' + this.editedItem.id, {
                         name: this.editedItem.name,
                         abbreviation: this.editedItem.abbreviation,
                         type_id: this.editedItem.type.id
@@ -193,7 +193,7 @@
                             console.log(response);
                         })
                 } else {
-                    axios.post('api/Measurements', {
+                    axios.post('api/measurements', {
                         name: this.editedItem.name,
                         abbreviation: this.editedItem.abbreviation,
                         type_id: this.editedItem.typeId
