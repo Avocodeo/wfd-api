@@ -7,7 +7,7 @@ class UsersController extends Controller
 
     public function create()
     {
-        return view('measurements.create');
+        return view('users.create');
     }
 
     public function index()
