@@ -18,7 +18,7 @@ class UsersTest extends TestCase
      * @return void
      */
 
-    public function testCanViewUsers()
+    public function testCanCreateUsers()
     {
         $this->withoutExceptionHandling();
 
