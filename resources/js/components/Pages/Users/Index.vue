@@ -48,17 +48,6 @@
                 <v-col cols="12" md="6">
                   <v-text-field v-model="editedItem.email" label="Email"></v-text-field>
                 </v-col>
-                <v-col cols="12" md="6">
-                  <v-select
-                    v-model="editedItem.user"
-                    :items="users"
-                    label="User"
-                    item-text="name"
-                    item-value="id"
-                    return-object
-                    prepend-icon="mdi-account-circle-outline"
-                  ></v-select>
-                </v-col>
               </v-row>
             </v-container>
           </v-card-text>
@@ -90,8 +79,8 @@ export default {
           sortable: false,
           value: "name"
         },
-        { text: "isAdmin", value: "user.isAdmin" },
-        { text: "email", value: "user.email" },
+        { text: "isAdmin", value: "isAdmin" },
+        { text: "email", value: "email" },
         { text: "Created At", value: "created_at" },
         { text: "Updated At", value: "updated_at" },
         { text: "Actions", value: "action", sortable: false }
@@ -106,11 +95,13 @@ export default {
       editedIndex: -1,
       editedItem: {
         name: "",
-        user: ""
+        isAdmin: false,
+        email: ""
       },
       defaultItem: {
         name: "",
-        user_id: ""
+        isAdmin: false,
+        email: ""
       },
       loading: true,
       dialog: false,
@@ -179,7 +170,8 @@ export default {
         axios
           .patch("api/users/" + this.editedItem.id, {
             name: this.editedItem.name,
-            user_id: this.editedItem.user.id
+            isAdmin: this.editedItem.user.isAdmin,
+            email: this.editItem.user.email
           })
           .then(function(response) {
             console.log(response);
@@ -188,14 +180,16 @@ export default {
         axios
           .post("api/users", {
             name: this.editedItem.name,
-            user_id: this.editedItem.user.id
+            isAdmin: this.editedItem.user.isAdmin,
+            email: this.editItem.user.email
           })
           .then(function(response) {
             console.log(response);
           });
         this.users.push({
           name: this.editedItem.name,
-          "user.name": this.editedItem.user.name
+          isAdmin: this.editedItem.user.isAdmin,
+          email: this.editItem.user.email
         });
         this.snackbar = true;
         this.snackbarText = "User created";
