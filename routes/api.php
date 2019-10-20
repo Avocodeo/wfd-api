@@ -58,3 +58,5 @@ Route::delete('/categories/{category}', 'API\CategoriesController@destroy');
 // Users Routes
 Route::get('/users', 'API\UsersController@index');
 Route::get('/users/{user}', 'API\UsersController@show');
+Route::delete('/users/{user}', 'API\UsersController@destroy');
+

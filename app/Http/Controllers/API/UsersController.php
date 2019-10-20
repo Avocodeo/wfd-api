@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\API;
 
-use Illuminate\Foundation\Auth\User;
+use App\User;
 use App\Http\Controllers\Controller;
 
 class UsersController extends Controller
@@ -25,6 +25,7 @@ class UsersController extends Controller
      public function destroy(User $user)
     {
         $user->delete();
+
         return response()->json([
             'message' => 'User was successfully deleted'
         ]);

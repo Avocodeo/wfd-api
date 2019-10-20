@@ -4,8 +4,10 @@ namespace Tests\Feature;
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
-use Illuminate\Foundation\Auth\User;
+use App\User;
 use Tests\TestCase;
+// use Illuminate\Support\Str;
+
 
 class UsersTest extends TestCase
 {
@@ -34,5 +36,15 @@ class UsersTest extends TestCase
 
         $this->get("/api/users/$user->id")
             ->assertStatus(200);
+    }
+
+    public function testCanDeleteUser()
+    {
+        $this->withoutExceptionHandling();
+        $user = factory(User::class)->create();
+
+        $this->delete("/api/users/$user->id");
+
+        $this->assertDatabaseMissing('users', ['id' => $user->id]);
     }
 }
