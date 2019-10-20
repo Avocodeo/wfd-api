@@ -21,9 +21,9 @@ class MeasurementsTest extends TestCase
             'abbreviation' => $this->faker->randomLetter,
         ];
 
-        $this->get('/Measurements/create')->assertStatus(200);
-        $this->post('api/Measurements', $attributes);
-        $this->assertDatabaseHas('Measurements', $attributes);
+        $this->get('/measurements/create')->assertStatus(200);
+        $this->post('api/measurements', $attributes);
+        $this->assertDatabaseHas('measurements', $attributes);
     }
 
     public function testCanViewMeasurements()
@@ -31,7 +31,7 @@ class MeasurementsTest extends TestCase
         $this->withoutExceptionHandling();
         factory(Measurement::class)->create();
 
-        $this->get("/api/Measurements")
+        $this->get("/api/measurements")
             ->assertStatus(200);
     }
 
@@ -41,7 +41,7 @@ class MeasurementsTest extends TestCase
 
         $measurement = factory(Measurement::class)->create();
 
-        $this->get("/api/Measurements/$measurement->id")
+        $this->get("/api/measurements/$measurement->id")
             ->assertStatus(200);
     }
 
@@ -58,18 +58,18 @@ class MeasurementsTest extends TestCase
 
         $measurement = factory(Measurement::class)->create();
 
-        $this->patch("/api/Measurements/$measurement->id", $attributes);
+        $this->patch("/api/measurements/$measurement->id", $attributes);
 
-        $this->assertDatabaseHas('Measurements', ['name' => 'Pounds']);
+        $this->assertDatabaseHas('measurements', ['name' => 'Pounds']);
     }
 
     public function testCanDeleteMeasurement()
     {
         $measurement = factory(Measurement::class)->create();
 
-        $this->delete("/api/Measurements/$measurement->id");
+        $this->delete("/api/measurements/$measurement->id");
 
-        $this->assertDatabaseMissing('Measurements', ['id' => $measurement->id]);
+        $this->assertDatabaseMissing('measurements', ['id' => $measurement->id]);
     }
 
 }

@@ -19,7 +19,7 @@ class MeasurementsController extends Controller
 
     public function create()
     {
-        return view('Measurements.create');
+        return view('measurements.create');
     }
 
     public function store()

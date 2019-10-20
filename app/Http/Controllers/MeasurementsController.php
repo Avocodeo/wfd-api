@@ -6,11 +6,11 @@ class MeasurementsController extends Controller
 {
     public function index()
     {
-        return view('Measurements.index');
+        return view('measurements.index');
     }
 
     public function create()
     {
-        return view('Measurements.create');
+        return view('measurements.create');
     }
 }

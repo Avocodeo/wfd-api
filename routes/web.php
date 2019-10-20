@@ -24,9 +24,9 @@ Route::get('/ingredients/create', 'IngredientsController@create');
 
 
 // Measurements Routes
-Route::get('/Measurements', 'MeasurementsController@index');
+Route::get('/measurements', 'MeasurementsController@index');
 Route::get('/measurement_types', 'MeasurementTypesController@index');
 
-Route::get('/Measurements/create', 'MeasurementsController@create');
+Route::get('/measurements/create', 'MeasurementsController@create');
 Route::get('/categories/create', 'CategoriesController@create');
 Route::get('/recipes/create', 'RecipesController@create');

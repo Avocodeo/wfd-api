@@ -14,7 +14,7 @@ class AddForeignKeyToIngredients extends Migration
     public function up()
     {
         Schema::table('ingredients', function (Blueprint $table) {
-            $table->foreign('measurement_id')->references('id')->on('Measurements');
+            $table->foreign('measurement_id')->references('id')->on('measurements');
         });
     }
 
