@@ -2,7 +2,7 @@
   <v-content>
     <v-card>
       <v-card-title>
-        Ingredients
+        Users
         <v-spacer></v-spacer>
         <v-text-field
           v-model="search"
@@ -14,10 +14,10 @@
       </v-card-title>
       <v-data-table
         :headers="headers"
-        :items="ingredients"
+        :items="users"
         :search="search"
         :loading="loading"
-        loading-text="Loading Ingredients... Please wait"
+        loading-text="Loading Users... Please wait"
       >
         <template v-slot:item.action="{ item }">
           <v-icon small class="mr-2" @click="editItem(item)">mdi-pencil</v-icon>
@@ -40,13 +40,13 @@
             <v-container>
               <v-row>
                 <v-col cols="12" md="6">
-                  <v-text-field v-model="editedItem.name" label="Ingredient Name"></v-text-field>
+                  <v-text-field v-model="editedItem.name" label="User Name"></v-text-field>
                 </v-col>
                 <v-col cols="12" md="6">
                   <v-select
-                    v-model="editedItem.measurement"
-                    :items="measurements"
-                    label="Measurement"
+                    v-model="editedItem.user"
+                    :items="users"
+                    label="User"
                     item-text="name"
                     item-value="id"
                     return-object
@@ -84,13 +84,13 @@ export default {
           sortable: false,
           value: "name"
         },
-        { text: "Measurement", value: "measurement.name" },
+        { text: "User", value: "user.name" },
         { text: "Created At", value: "created_at" },
         { text: "Updated At", value: "updated_at" },
         { text: "Actions", value: "action", sortable: false }
       ],
-      ingredients: [],
-      measurements: [
+      users: [],
+      users: [
         {
           text: "Gallons",
           value: 1
@@ -99,7 +99,7 @@ export default {
       editedIndex: -1,
       editedItem: {
         name: "",
-        measurement: ""
+        user: ""
       },
       defaultItem: {
         name: "",
@@ -114,7 +114,7 @@ export default {
   },
   computed: {
     formTitle() {
-      return this.editedIndex === -1 ? "New Ingredient" : "Edit Ingredient";
+      return this.editedIndex === -1 ? "New User" : "Edit User";
     }
   },
   watch: {
@@ -123,15 +123,15 @@ export default {
     }
   },
   created() {
-    this.getIngredients();
+    this.getUsers();
     this.getMeasurements();
   },
   methods: {
-    getIngredients: function() {
+    getUsers: function() {
       axios
-        .get("api/ingredients")
+        .get("api/users")
         .then(response => {
-          this.ingredients = response.data;
+          this.users = response.data;
           this.loading = false;
         })
         .catch(function(error) {
@@ -151,17 +151,17 @@ export default {
     },
 
     editItem(item) {
-      this.editedIndex = this.ingredients.indexOf(item);
+      this.editedIndex = this.users.indexOf(item);
       this.editedItem = Object.assign({}, item);
       this.dialog = true;
     },
 
     deleteItem(item) {
-      const index = this.ingredients.indexOf(item);
-      confirm("Are you sure you want to delete this ingredient?") &&
-        this.ingredients.splice(index, 1);
-      axios.delete("api/ingredients/" + item.id);
-      this.snackbarText = "Ingredient deleted";
+      const index = this.users.indexOf(item);
+      confirm("Are you sure you want to delete this user?") &&
+        this.users.splice(index, 1);
+      axios.delete("api/users/" + item.id);
+      this.snackbarText = "User deleted";
       this.snackbar = true;
     },
 
@@ -175,32 +175,32 @@ export default {
 
     save() {
       if (this.editedIndex > -1) {
-        Object.assign(this.ingredients[this.editedIndex], this.editedItem);
-        this.snackbarText = "Ingredient updated";
+        Object.assign(this.users[this.editedIndex], this.editedItem);
+        this.snackbarText = "User updated";
         this.snackbar = true;
         axios
-          .patch("api/ingredients/" + this.editedItem.id, {
+          .patch("api/users/" + this.editedItem.id, {
             name: this.editedItem.name,
-            measurement_id: this.editedItem.measurement.id
+            measurement_id: this.editedItem.user.id
           })
           .then(function(response) {
             console.log(response);
           });
       } else {
         axios
-          .post("api/ingredients", {
+          .post("api/users", {
             name: this.editedItem.name,
-            measurement_id: this.editedItem.measurement.id
+            measurement_id: this.editedItem.user.id
           })
           .then(function(response) {
             console.log(response);
           });
-        this.ingredients.push({
+        this.users.push({
           name: this.editedItem.name,
-          "measurement.name": this.editedItem.measurement.name
+          "user.name": this.editedItem.user.name
         });
         this.snackbar = true;
-        this.snackbarText = "Ingredient created";
+        this.snackbarText = "User created";
       }
       this.close();
     }
