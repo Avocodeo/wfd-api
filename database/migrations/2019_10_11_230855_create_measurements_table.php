@@ -13,7 +13,7 @@ class CreateMeasurementsTable extends Migration
      */
     public function up()
     {
-        Schema::create('measurements', function (Blueprint $table) {
+        Schema::create('Measurements', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('name');
             $table->string('abbreviation');
@@ -29,6 +29,6 @@ class CreateMeasurementsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('measurements');
+        Schema::dropIfExists('Measurements');
     }
 }

@@ -149,7 +149,7 @@
             },
 
             getMeasurements:function () {
-                axios.get('api/measurements')
+                axios.get('api/Measurements')
                     .then((response) => {
                         this.measurements = response.data;
                     })

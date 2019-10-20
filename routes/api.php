@@ -35,11 +35,11 @@ Route::patch('/ingredients/{ingredient}', 'API\IngredientsController@update');
 Route::delete('/ingredients/{ingredient}', 'API\IngredientsController@destroy');
 
 // Measurements Routes
-Route::get('/measurements', 'API\MeasurementsController@index');
-Route::post('/measurements', 'API\MeasurementsController@store');
-Route::get('/measurements/{measurement}', 'API\MeasurementsController@show');
-Route::patch('/measurements/{measurement}', 'API\MeasurementsController@update');
-Route::delete('/measurements/{measurement}', 'API\MeasurementsController@destroy');
+Route::get('/Measurements', 'API\MeasurementsController@index');
+Route::post('/Measurements', 'API\MeasurementsController@store');
+Route::get('/Measurements/{measurement}', 'API\MeasurementsController@show');
+Route::patch('/Measurements/{measurement}', 'API\MeasurementsController@update');
+Route::delete('/Measurements/{measurement}', 'API\MeasurementsController@destroy');
 
 // Measurement Types Routes
 Route::get('/measurement_types', 'API\MeasurementTypesController@index');
