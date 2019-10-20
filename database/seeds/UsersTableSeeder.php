@@ -14,7 +14,7 @@ class UsersTableSeeder extends Seeder
     public function run()
     {
         DB::table('users')->insert([
-            'id' => 0,
+            'id' => 1,
             'name' => 'Admin',
             'isAdmin' => true,
             'email' => 'admin@uwindsor.ca',
