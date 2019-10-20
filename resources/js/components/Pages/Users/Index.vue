@@ -84,7 +84,8 @@ export default {
           sortable: false,
           value: "name"
         },
-        { text: "User", value: "user.name" },
+        { text: "isAdmin", value: "user.isAdmin" },
+        { text: "email", value: "user.email" },
         { text: "Created At", value: "created_at" },
         { text: "Updated At", value: "updated_at" },
         { text: "Actions", value: "action", sortable: false }
@@ -92,7 +93,7 @@ export default {
       users: [],
       users: [
         {
-          text: "Gallons",
+          text: "",
           value: 1
         }
       ],
@@ -103,7 +104,7 @@ export default {
       },
       defaultItem: {
         name: "",
-        measurement_id: ""
+        user_id: ""
       },
       loading: true,
       dialog: false,
@@ -124,7 +125,6 @@ export default {
   },
   created() {
     this.getUsers();
-    this.getMeasurements();
   },
   methods: {
     getUsers: function() {
@@ -170,7 +170,7 @@ export default {
         axios
           .patch("api/users/" + this.editedItem.id, {
             name: this.editedItem.name,
-            measurement_id: this.editedItem.user.id
+            user_id: this.editedItem.user.id
           })
           .then(function(response) {
             console.log(response);
@@ -179,7 +179,7 @@ export default {
         axios
           .post("api/users", {
             name: this.editedItem.name,
-            measurement_id: this.editedItem.user.id
+            user_id: this.editedItem.user.id
           })
           .then(function(response) {
             console.log(response);
