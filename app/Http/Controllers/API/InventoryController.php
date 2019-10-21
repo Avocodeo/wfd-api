@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 
 use App\Inventory;
 
-class InventoriesController extends Controller
+class InventoryController extends Controller
 {
     public function index()
     {

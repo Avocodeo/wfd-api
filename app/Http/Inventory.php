@@ -10,6 +10,6 @@
 
         public function inventory()
         {
-            return $this->belongsTo(inventory::class);
+            return $this->belongsTo(Inventory::class);
         }
     }
