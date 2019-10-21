@@ -6,11 +6,11 @@ class InventoryController extends Controller
 {
     public function index()
     {
-        return view('inventory.index');
+        return view('inventories.index');
     }
 
     public function create()
     {
-        return view('inventory.create');
+        return view('inventories.create');
     }
 }
