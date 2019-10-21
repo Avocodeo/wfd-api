@@ -12,7 +12,7 @@
         </v-list-item>
         <v-list-item @click href="/categories" class="text-decoration-none">
           <v-list-item-action>
-            <v-icon color="black" size="48">mdi-dashboard</v-icon>
+            <v-icon color="grey" size="48">mdi-view-dashboard</v-icon>
           </v-list-item-action>
           <v-list-item-content>
             <v-list-item-title>Categories</v-list-item-title>
