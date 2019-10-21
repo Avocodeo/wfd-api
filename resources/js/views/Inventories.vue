@@ -1,5 +1,4 @@
 <template>
-  <v-content>
     <v-card>
       <v-card-title>
         Inventory
@@ -58,7 +57,6 @@
         <v-btn color="blue" text @click="snackbar = false">Close</v-btn>
       </v-snackbar>
     </v-card>
-  </v-content>
 </template>
 
 <script>

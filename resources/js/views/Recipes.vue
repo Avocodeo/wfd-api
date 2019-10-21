@@ -1,5 +1,4 @@
 <template>
-    <v-content>
         <v-card>
             <v-card-title>
                 Recipes
@@ -81,7 +80,6 @@
                 </v-btn>
             </v-snackbar>
         </v-card>
-    </v-content>
 </template>
 
 <script>
