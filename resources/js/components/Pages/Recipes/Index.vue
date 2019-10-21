@@ -2,7 +2,7 @@
     <v-content>
         <v-card>
             <v-card-title>
-                Ingredients
+                Recipes
                 <v-spacer></v-spacer>
                 <v-text-field
                         v-model="search"
@@ -14,10 +14,10 @@
             </v-card-title>
             <v-data-table
                     :headers="headers"
-                    :items="ingredients"
+                    :items="recipes"
                     :search="search"
                     :loading="loading"
-                    loading-text="Loading Ingredients... Please wait"
+                    loading-text="Loading Recipes... Please wait"
             >
                 <template v-slot:item.action="{ item }">
                     <v-icon
@@ -51,10 +51,10 @@
                         <v-container>
                             <v-row>
                                 <v-col cols="12" md="6">
-                                    <v-text-field v-model="editedItem.name" label="Ingredient Name"></v-text-field>
+                                    <v-text-field v-model="editedItem.name" label="Recipe Name"></v-text-field>
                                 </v-col>
                                 <v-col cols="12" md="6">
-                                    <v-select v-model="editedItem.measurement" :items="measurements" label="Measurement" item-text="name" item-value="id" return-object prepend-icon="mdi-scale-balance"></v-select>
+                                    <v-select v-model="editedItem.recipe" :items="categories" label="Category" item-text="name" item-value="id" return-object prepend-icon="mdi-scale-balance"></v-select>
                                 </v-col>
                             </v-row>
                         </v-container>
@@ -96,24 +96,23 @@
                         sortable: false,
                         value: 'name',
                     },
-                    { text: 'Measurement', value: 'measurement.name' },
                     { text: 'Created At', value: 'created_at' },
                     { text: 'Updated At', value: 'updated_at' },
                     { text: 'Actions', value: 'action', sortable: false },
                 ],
-                ingredients: [],
-                measurements: [{
-                    text: 'Gallons',
+                recipes: [],
+                categories: [{
+                    text: 'Salt',
                     value: 1
                 }],
                 editedIndex: -1,
                 editedItem: {
                     name: '',
-                    measurement: '',
+                    category: '',
                 },
                 defaultItem: {
                     name: '',
-                    measurement_id: '',
+                    category_id: '',
                 },
                 loading: true,
                 dialog: false,
@@ -124,7 +123,7 @@
         },
         computed: {
             formTitle () {
-                return this.editedIndex === -1 ? 'New Ingredient' : 'Edit Ingredient'
+                return this.editedIndex === -1 ? 'New Recipe' : 'Edit Recipe'
             },
         },
         watch: {
@@ -133,14 +132,14 @@
             },
         },
         created() {
-            this.getIngredients();
-            this.getMeasurements();
+            this.getRecipes();
+            this.getCategories();
         },
         methods: {
-            getIngredients:function () {
-                axios.get('api/ingredients')
+            getRecipes:function () {
+                axios.get('api/recipes')
                     .then((response) => {
-                        this.ingredients = response.data;
+                        this.recipes = response.data;
                         this.loading = false;
                     })
                     .catch(function (error) {
@@ -148,10 +147,10 @@
                     });
             },
 
-            getMeasurements:function () {
-                axios.get('api/measurements')
+            getCategories:function () {
+                axios.get('api/categories')
                     .then((response) => {
-                        this.measurements = response.data;
+                        this.categories = response.data;
                     })
                     .catch(function (error) {
                         console.log(error);
@@ -159,16 +158,16 @@
             },
 
             editItem (item) {
-                this.editedIndex = this.ingredients.indexOf(item);
+                this.editedIndex = this.recipes.indexOf(item);
                 this.editedItem = Object.assign({}, item);
                 this.dialog = true
             },
 
             deleteItem (item) {
-                const index = this.ingredients.indexOf(item);
-                confirm('Are you sure you want to delete this ingredient?') && this.ingredients.splice(index, 1);
-                axios.delete('api/ingredients/' + item.id);
-                this.snackbarText = "Ingredient deleted";
+                const index = this.recipes.indexOf(item);
+                confirm('Are you sure you want to delete this recipe?') && this.recipes.splice(index, 1);
+                axios.delete('api/recipes/' + item.id);
+                this.snackbarText = "Recipe deleted";
                 this.snackbar = true;
             },
 
@@ -182,10 +181,10 @@
 
             save () {
                 if (this.editedIndex > -1) {
-                    Object.assign(this.ingredients[this.editedIndex], this.editedItem);
-                    this.snackbarText = "Ingredient updated";
+                    Object.assign(this.recipes[this.editedIndex], this.editedItem);
+                    this.snackbarText = "Recipe updated";
                     this.snackbar = true;
-                    axios.patch('api/ingredients/' + this.editedItem.id, {
+                    axios.patch('api/recipes/' + this.editedItem.id, {
                         name: this.editedItem.name,
                         measurement_id: this.editedItem.measurement.id
                     })
@@ -193,16 +192,16 @@
                             console.log(response);
                         })
                 } else {
-                    axios.post('api/ingredients', {
+                    axios.post('api/recipes', {
                         name: this.editedItem.name,
                         measurement_id: this.editedItem.measurement.id
                     })
                     .then(function (response) {
                         console.log(response);
                     });
-                    this.ingredients.push({'name' :  this.editedItem.name, 'measurement.name' : this.editedItem.measurement.name });
+                    this.recipes.push({'name' :  this.editedItem.name, 'measurement.name' : this.editedItem.measurement.name });
                     this.snackbar = true;
-                    this.snackbarText = "Ingredient created";
+                    this.snackbarText = "Recipe created";
                 }
                 this.close()
             },

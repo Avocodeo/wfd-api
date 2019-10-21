@@ -11,11 +11,19 @@
 |
 */
 
+// Auth/Logout routes
+Auth::routes();
+Route::get('/api/logout', function () {
+    Auth::logout();
+    return Redirect::to('login');
+});
+
+// Landing page
 Route::get('/', function () {
     return view('welcome');
 });
 
-Auth::routes();
+
 Route::get('/home', 'HomeController@index')->name('home');
 
 // Ingredients Routes
@@ -29,6 +37,9 @@ Route::get('/categories/create', 'CategoriesController@create');
 Route::get('/inventories', 'InventoriesController@index');
 Route::get('/inventories/create', 'InventoriesController@create');
 
+// Recipes Routes
+Route::get('/recipes', 'RecipesController@index');
+Route::get('/recipes/create', 'RecipesController@create');
 
 // Measurements Routes
 Route::get('/measurements', 'MeasurementsController@index');
