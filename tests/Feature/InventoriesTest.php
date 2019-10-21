@@ -42,7 +42,7 @@ class InventoriesTest extends TestCase
 
         $inventory = factory(Inventory::class)->create();
 
-        $this->get("/api/inventories/$inventory->item_id")
+        $this->get("/api/inventories/$inventory->id")
             ->assertStatus(200);
     }
 
@@ -59,7 +59,7 @@ class InventoriesTest extends TestCase
 
         $inventory = factory(Inventory::class)->create();
 
-        $this->patch("/api/inventories/$inventory->quantity", $attributes);
+        $this->patch("/api/inventories/$inventory->id", $attributes);
 
         $this->assertDatabaseHas('inventories', ['quantity' => 300]);
     }
