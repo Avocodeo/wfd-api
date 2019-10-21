@@ -2,7 +2,7 @@
   <v-content>
     <v-card>
       <v-card-title>
-        Ingredients
+        Inventory
         <v-spacer></v-spacer>
         <v-text-field
           v-model="search"
@@ -14,10 +14,10 @@
       </v-card-title>
       <v-data-table
         :headers="headers"
-        :items="ingredients"
+        :items="inventories"
         :search="search"
         :loading="loading"
-        loading-text="Loading Ingredients... Please wait"
+        loading-text="Loading Inventory... Please wait"
       >
         <template v-slot:item.action="{ item }">
           <v-icon small class="mr-2" @click="editItem(item)">mdi-pencil</v-icon>
@@ -40,18 +40,7 @@
             <v-container>
               <v-row>
                 <v-col cols="12" md="6">
-                  <v-text-field v-model="editedItem.name" label="Ingredient Name"></v-text-field>
-                </v-col>
-                <v-col cols="12" md="6">
-                  <v-select
-                    v-model="editedItem.measurement"
-                    :items="measurements"
-                    label="Measurement"
-                    item-text="name"
-                    item-value="id"
-                    return-object
-                    prepend-icon="mdi-scale-balance"
-                  ></v-select>
+                  <v-text-field v-model="editedItem.name" label="Item Name"></v-text-field>
                 </v-col>
               </v-row>
             </v-container>
@@ -79,12 +68,11 @@ export default {
       search: "",
       headers: [
         {
-          text: "Name",
+          text: "Item Name",
           align: "left",
           sortable: false,
           value: "name"
         },
-        { text: "Measurement", value: "measurement.name" },
         { text: "Created At", value: "created_at" },
         { text: "Updated At", value: "updated_at" },
         { text: "Actions", value: "action", sortable: false }
@@ -99,11 +87,11 @@ export default {
       editedIndex: -1,
       editedItem: {
         name: "",
-        measurement: ""
+        inventory: ""
       },
       defaultItem: {
         name: "",
-        measurement_id: ""
+        inventory_id: ""
       },
       loading: true,
       dialog: false,
@@ -114,7 +102,7 @@ export default {
   },
   computed: {
     formTitle() {
-      return this.editedIndex === -1 ? "New Ingredient" : "Edit Ingredient";
+      return this.editedIndex === -1 ? "New Item" : "Edit Item";
     }
   },
   watch: {
@@ -123,13 +111,12 @@ export default {
     }
   },
   created() {
-    this.getIngredients();
-    this.getMeasurements();
+    this.getInventory();
   },
   methods: {
-    getIngredients: function() {
+    getInventory: function() {
       axios
-        .get("api/ingredients")
+        .get("api/inventories")
         .then(response => {
           this.ingredients = response.data;
           this.loading = false;
@@ -139,29 +126,18 @@ export default {
         });
     },
 
-    getMeasurements: function() {
-      axios
-        .get("api/measurements")
-        .then(response => {
-          this.measurements = response.data;
-        })
-        .catch(function(error) {
-          console.log(error);
-        });
-    },
-
     editItem(item) {
-      this.editedIndex = this.ingredients.indexOf(item);
+      this.editedIndex = this.inventories.indexOf(item);
       this.editedItem = Object.assign({}, item);
       this.dialog = true;
     },
 
     deleteItem(item) {
-      const index = this.ingredients.indexOf(item);
-      confirm("Are you sure you want to delete this ingredient?") &&
-        this.ingredients.splice(index, 1);
-      axios.delete("api/ingredients/" + item.id);
-      this.snackbarText = "Ingredient deleted";
+      const index = this.inventories.indexOf(item);
+      confirm("Are you sure you want to delete this Item?") &&
+        this.inventories.splice(index, 1);
+      axios.delete("api/inventories/" + item.id);
+      this.snackbarText = "Item deleted";
       this.snackbar = true;
     },
 
@@ -176,31 +152,31 @@ export default {
     save() {
       if (this.editedIndex > -1) {
         Object.assign(this.ingredients[this.editedIndex], this.editedItem);
-        this.snackbarText = "Ingredient updated";
+        this.snackbarText = "Item updated";
         this.snackbar = true;
         axios
-          .patch("api/ingredients/" + this.editedItem.id, {
+          .patch("api/inventories/" + this.editedItem.id, {
             name: this.editedItem.name,
-            measurement_id: this.editedItem.measurement.id
+            inventory_id: this.editedItem.inventory.id
           })
           .then(function(response) {
             console.log(response);
           });
       } else {
         axios
-          .post("api/ingredients", {
+          .post("api/inventories", {
             name: this.editedItem.name,
-            measurement_id: this.editedItem.measurement.id
+            inventory_id: this.editedItem.inventory.id
           })
           .then(function(response) {
             console.log(response);
           });
         this.ingredients.push({
           name: this.editedItem.name,
-          "measurement.name": this.editedItem.measurement.name
+          "inventory.name": this.editedItem.inventory.name
         });
         this.snackbar = true;
-        this.snackbarText = "Ingredient created";
+        this.snackbarText = "Item created";
       }
       this.close();
     }
