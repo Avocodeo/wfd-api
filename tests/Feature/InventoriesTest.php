@@ -57,7 +57,7 @@ class InventoriesTest extends TestCase
             'high' => $this->faker->boolean(),
         ];
 
-        $inventory = factory(Inventory::class)->create();
+        $inventory = factory(Inventory::class)->create(['quantity' =>  300]);
 
         $this->patch("/api/inventories/$inventory->id", $attributes);
 
