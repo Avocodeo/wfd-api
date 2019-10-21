@@ -28,7 +28,14 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 // Ingredients Routes
 Route::get('/ingredients', 'IngredientsController@index');
-Route::get('/ingredients/create', 'IngredientsController@create');
+
+//Categories Routes
+Route::get('/categories', 'CategoriesController@index');
+Route::get('/categories/create', 'CategoriesController@create');
+
+//Inventories Routes
+Route::get('/inventories', 'InventoriesController@index');
+Route::get('/inventories/create', 'InventoriesController@create');
 
 // Recipes Routes
 Route::get('/recipes', 'RecipesController@index');
@@ -41,7 +48,10 @@ Route::get('/measurement_types', 'MeasurementTypesController@index');
 // Users Routes
 Route::get('/users', 'UsersController@index');
 
-Route::get('/measurements/create', 'MeasurementsController@create');
-Route::get('/users/create', 'UsersController@create');
+//Create Routes
 Route::get('/categories/create', 'CategoriesController@create');
+Route::get('/ingredients/create', 'IngredientsController@create');
+Route::get('/inventories/create', 'InventoriesController@create');
+Route::get('/measurements/create', 'MeasurementsController@create');
 Route::get('/recipes/create', 'RecipesController@create');
+Route::get('/users/create', 'UsersController@create');

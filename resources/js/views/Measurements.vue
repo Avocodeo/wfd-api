@@ -86,125 +86,134 @@
 </template>
 
 <script>
-    export default {
-        data () {
-            return {
-                search: '',
-                headers: [
-                    {
-                        text: 'Name',
-                        align: 'left',
-                        sortable: false,
-                        value: 'name',
-                    },
-                    { text: 'Abbreviation', value: 'abbreviation' },
-                    { text: 'Type', value: 'type.name'},
-                    { text: 'Created at', value: 'created_at' },
-                    { text: 'Updated at', value: 'updated_at' },
-                    { text: 'Actions', value: 'action', sortable: false },
-                ],
-                measurements: [],
-                types: [],
-                editedIndex: -1,
-                editedItem: {
-                    name: '',
-                    abbreviation: '',
-                    type: ''
-                },
-                defaultItem: {
-                    name: '',
-                },
-                loading: true,
-                dialog: false,
-                snackbar: false,
-                snackbarText: '',
-                snackbarTimeout: 2000,
-            }
+export default {
+  data() {
+    return {
+      search: "",
+      headers: [
+        {
+          text: "Name",
+          align: "left",
+          sortable: false,
+          value: "name"
         },
-        computed: {
-            formTitle () {
-                return this.editedIndex === -1 ? 'New Measurement' : 'Edit Measurement'
-            },
-        },
-        watch: {
-            dialog (val) {
-                val || this.close()
-            },
-        },
-        created() {
-            this.getMeasurements();
-            this.getTypes();
-        },
-        methods: {
-            getMeasurements:function () {
-                axios.get('api/measurements')
-                    .then((response) => {
-                        this.loading = false;
-                        this.measurements = response.data;
-                    })
-                    .catch(function (error) {
-                        console.log(error);
-                    });
-            },
-            getTypes:function () {
-                axios.get('api/measurement_types')
-                    .then((response) => {
-                        this.types = response.data;
-                    })
-                    .catch(function (error) {
-                        console.log(error);
-                    });
-            },
-            editItem (item) {
-                this.editedIndex = this.measurements.indexOf(item);
-                this.editedItem = Object.assign({}, item);
-                this.dialog = true
-            },
-
-            deleteItem (item) {
-                const index = this.measurements.indexOf(item);
-                confirm('Are you sure you want to delete this measurement') && this.measurements.splice(index, 1);
-                axios.delete('api/measurements/' + item.id);
-                this.snackbarText = "Measurement deleted";
-                this.snackbar = true;
-            },
-
-            close () {
-                this.dialog = false;
-                setTimeout(() => {
-                    this.editedItem = Object.assign({}, this.defaultItem);
-                    this.editedIndex = -1;
-                }, 300)
-            },
-
-            save () {
-                if (this.editedIndex > -1) {
-                    Object.assign(this.measurements[this.editedIndex], this.editedItem);
-                    this.snackbarText = "Measurement updated";
-                    this.snackbar = true;
-                    axios.patch('api/measurements/' + this.editedItem.id, {
-                        name: this.editedItem.name,
-                        abbreviation: this.editedItem.abbreviation,
-                        type_id: this.editedItem.type.id
-                    })
-                        .then(function (response) {
-                            console.log(response);
-                        })
-                } else {
-                    axios.post('api/measurements', {
-                        name: this.editedItem.name,
-                        abbreviation: this.editedItem.abbreviation,
-                        type_id: this.editedItem.typeId
-                    })
-                        .then(function (response) {
-                            console.log(response);
-                        });
-                    this.measurements.push({'name' :  this.editedItem.name, 'abbreviation' : this.editedItem.abbreviation, 'type.name' : this.editedItem.type.name});
-                    this.snackbar = true;
-                    this.snackbarText = "Measurement created";
-                }
-                this.close()
-            },
-        }
+        { text: "Abbreviation", value: "abbreviation" },
+        { text: "Type", value: "type.name" },
+        { text: "Created at", value: "created_at" },
+        { text: "Updated at", value: "updated_at" },
+        { text: "Actions", value: "action", sortable: false }
+      ],
+      measurements: [],
+      types: [],
+      editedIndex: -1,
+      editedItem: {
+        name: "",
+        abbreviation: "",
+        type: ""
+      },
+      defaultItem: {
+        name: ""
+      },
+      loading: true,
+      dialog: false,
+      snackbar: false,
+      snackbarText: "",
+      snackbarTimeout: 2000
+    };
+  },
+  computed: {
+    formTitle() {
+      return this.editedIndex === -1 ? "New Measurement" : "Edit Measurement";
     }
+  },
+  watch: {
+    dialog(val) {
+      val || this.close();
+    }
+  },
+  created() {
+    this.getMeasurements();
+    this.getTypes();
+  },
+  methods: {
+    getMeasurements: function() {
+      axios
+        .get("api/measurements")
+        .then(response => {
+          this.loading = false;
+          this.measurements = response.data;
+        })
+        .catch(function(error) {
+          console.log(error);
+        });
+    },
+    getTypes: function() {
+      axios
+        .get("api/measurement_types")
+        .then(response => {
+          this.types = response.data;
+        })
+        .catch(function(error) {
+          console.log(error);
+        });
+    },
+    editItem(item) {
+      this.editedIndex = this.measurements.indexOf(item);
+      this.editedItem = Object.assign({}, item);
+      this.dialog = true;
+    },
+
+    deleteItem(item) {
+      const index = this.measurements.indexOf(item);
+      confirm("Are you sure you want to delete this measurement") &&
+        this.measurements.splice(index, 1);
+      axios.delete("api/measurements/" + item.id);
+      this.snackbarText = "Measurement deleted";
+      this.snackbar = true;
+    },
+
+    close() {
+      this.dialog = false;
+      setTimeout(() => {
+        this.editedItem = Object.assign({}, this.defaultItem);
+        this.editedIndex = -1;
+      }, 300);
+    },
+
+    save() {
+      if (this.editedIndex > -1) {
+        Object.assign(this.measurements[this.editedIndex], this.editedItem);
+        this.snackbarText = "Measurement updated";
+        this.snackbar = true;
+        axios
+          .patch("api/measurements/" + this.editedItem.id, {
+            name: this.editedItem.name,
+            abbreviation: this.editedItem.abbreviation,
+            type_id: this.editedItem.type.id
+          })
+          .then(function(response) {
+            console.log(response);
+          });
+      } else {
+        axios
+          .post("api/measurements", {
+            name: this.editedItem.name,
+            abbreviation: this.editedItem.abbreviation,
+            type_id: this.editedItem.typeId
+          })
+          .then(function(response) {
+            console.log(response);
+          });
+        this.measurements.push({
+          name: this.editedItem.name,
+          abbreviation: this.editedItem.abbreviation,
+          "type.name": this.editedItem.type.name
+        });
+        this.snackbar = true;
+        this.snackbarText = "Measurement created";
+      }
+      this.close();
+    }
+  }
+};
 </script>

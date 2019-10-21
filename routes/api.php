@@ -25,7 +25,14 @@ Route::get('/recipes', 'API\RecipesController@index');
 Route::post('/recipes', 'API\RecipesController@store');
 Route::get('/recipes/{recipe}', 'API\RecipesController@show');
 Route::patch('/recipes/{recipe}', 'API\RecipesController@update');
-Route::delete('/recipes/{recipe}','API\RecipesController@destroy');
+Route::delete('/recipes/{recipe}', 'API\RecipesController@destroy');
+
+// Ingredients Routes
+Route::get('/inventories', 'API\InventoriesController@index');
+Route::post('/inventories', 'API\InventoriesController@store');
+Route::get('/inventories/{inventory}', 'API\InventoriesController@show');
+Route::patch('/inventories/{inventory}', 'API\InventoriesController@update');
+Route::delete('/inventories/{inventory}', 'API\InventoriesController@destroy');
 
 // Ingredients Routes
 Route::get('/ingredients', 'API\IngredientsController@index');
@@ -59,4 +66,3 @@ Route::delete('/categories/{category}', 'API\CategoriesController@destroy');
 Route::get('/users', 'API\UsersController@index');
 Route::get('/users/{user}', 'API\UsersController@show');
 Route::delete('/users/{user}', 'API\UsersController@destroy');
-

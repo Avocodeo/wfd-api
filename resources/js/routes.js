@@ -4,6 +4,9 @@ import NotFound from './views/NotFound'
 import Ingredients from './views/Ingredients'
 import Measurements from './views/Measurements'
 import Users from './views/Users'
+import Inventories from './views/Inventories'
+import Recipes from './views/Recipes'
+import Categories from './views/Categories'
 
 export default [
     {
@@ -30,6 +33,21 @@ export default [
         path: '/users',
         name: 'users',
         component: Users
+    },
+        {
+            path: '/categories',
+            name: 'categories',
+            component: Categories
+        },
+    {
+        path: '/recipes',
+        name: 'recipes',
+        component: Recipes
+    }, 
+    {
+        path: '/inventories',
+        name: 'inventories',
+        component: Inventories
     },
     {
         path: '*',
