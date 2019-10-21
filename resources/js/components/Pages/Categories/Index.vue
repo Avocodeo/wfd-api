@@ -45,12 +45,12 @@
                 <v-col cols="12" md="6">
                   <v-select
                     v-model="editedItem.measurement"
-                    :items="measurements"
-                    label="Measurement"
+                    :items="categories"
+                    label="Category"
                     item-text="name"
                     item-value="id"
                     return-object
-                    prepend-icon="mdi-scale-balance"
+                    prepend-icon="mdi-view-dashboard"
                   ></v-select>
                 </v-col>
               </v-row>
@@ -84,26 +84,20 @@ export default {
           sortable: false,
           value: "name"
         },
-        { text: "Measurement", value: "measurement.name" },
+        { text: "Category", value: "measurement.name" },
         { text: "Created At", value: "created_at" },
         { text: "Updated At", value: "updated_at" },
         { text: "Actions", value: "action", sortable: false }
       ],
       categories: [],
-      measurements: [
-        {
-          text: "Gallons",
-          value: 1
-        }
-      ],
       editedIndex: -1,
       editedItem: {
         name: "",
-        measurement: ""
+        category: ""
       },
       defaultItem: {
         name: "",
-        measurement_id: ""
+        category_id: ""
       },
       loading: true,
       dialog: false,
@@ -123,27 +117,15 @@ export default {
     }
   },
   created() {
-    this.getIngredients();
-    this.getMeasurements();
+    this.getCategory();
   },
   methods: {
-    getIngredients: function() {
+    getCategory: function() {
       axios
         .get("api/categories")
         .then(response => {
           this.categories = response.data;
           this.loading = false;
-        })
-        .catch(function(error) {
-          console.log(error);
-        });
-    },
-
-    getMeasurements: function() {
-      axios
-        .get("api/measurements")
-        .then(response => {
-          this.measurements = response.data;
         })
         .catch(function(error) {
           console.log(error);
