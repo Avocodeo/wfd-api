@@ -10,8 +10,8 @@
 
         protected $with = ['inventory'];
 
-        public function inventory()
-        {
-            return $this->belongsTo(Inventory::class);
-        }
+        // public function inventory()
+        // {
+        //     return $this->belongsTo(Inventory::class);
+        // }
     }

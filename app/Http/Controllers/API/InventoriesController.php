@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 
 use App\Inventory;
 
-class InventoryController extends Controller
+class InventoriesController extends Controller
 {
     public function index()
     {
@@ -26,13 +26,16 @@ class InventoryController extends Controller
     public function store()
     {
         $attributes = request()->validate([
-            'name' => 'required',
-            'measurement_id' => 'required',
+            'item_id' => 'required',
+            'item_quantity' => 'required',
+            'item_low' => 'required',
+            'item_high' => 'required',
+            'item_close_to_expiry' => 'required',
         ]);
 
         $inventory = Inventory::create($attributes);
         return response()->json([
-            'id' => $inventory->id,
+            'item_id' => $inventory->itemid,
             'message' => 'Inventory was successfully created'
         ]);
     }
@@ -47,7 +50,7 @@ class InventoryController extends Controller
         $inventory->update($attributes);
 
         return response()->json([
-            'inventory_item' => $inventory->name,
+            'item_id' => $inventory->item_id,
             'message' => 'inventory updated'
         ]);
     }
