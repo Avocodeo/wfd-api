@@ -18,7 +18,7 @@ class InventoriesTest extends TestCase
 
         $attributes = [
             'item_id' => $this->faker->numberBetween(1, 20),
-            'item_quantity' => $this->faker->randomNumber(1, 30),
+            'item_quantity' => $this->faker->numberBetween(1, 30),
             'item_low' => $this->faker->boolean(),
             'item_high' => $this->faker->boolean(),
             'item_close_to_expiry' => $this->faker->boolean(),
