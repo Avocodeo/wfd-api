@@ -78,21 +78,16 @@ export default {
         { text: "Updated At", value: "updated_at" },
         { text: "Actions", value: "action", sortable: false }
       ],
-      ingredients: [],
-      measurements: [
-        {
-          text: "Gallons",
-          value: 1
-        }
-      ],
       editedIndex: -1,
       editedItem: {
-        name: "",
-        inventory: ""
+        quantity: "",
+        low: "",
+        high: ""
       },
       defaultItem: {
-        name: "",
-        inventory_id: ""
+        quantity: "",
+        low: "",
+        high: ""
       },
       loading: true,
       dialog: false,
