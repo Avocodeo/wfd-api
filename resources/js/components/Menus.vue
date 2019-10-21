@@ -26,6 +26,14 @@
             <v-list-item-title>Ingredients</v-list-item-title>
           </v-list-item-content>
         </v-list-item>
+        <v-list-item @click href="/inventories" class="text-decoration-none">
+          <v-list-item-action>
+            <v-icon color="purple" size="48">mdi-clipboard-text</v-icon>
+          </v-list-item-action>
+          <v-list-item-content>
+            <v-list-item-title>Inventory</v-list-item-title>
+          </v-list-item-content>
+        </v-list-item>
         <v-list-item @click href="/measurements" class="text-decoration-none">
           <v-list-item-action>
             <v-icon color="grey" size="48">mdi-scale-balance</v-icon>

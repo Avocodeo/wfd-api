@@ -19,6 +19,7 @@ Vue.component('ingredients-index', require('./components/Pages/Ingredients/Index
 Vue.component('measurements-index', require('./components/Pages/Measurements/Index.vue').default);
 Vue.component('users-index', require('./components/Pages/Users/Index.vue').default);
 Vue.component('categories-index', require('./components/Pages/Categories/Index.vue').default);
+Vue.component('inventories-index', require('./components/Pages/Inventories/Index.vue').default);
 
 
 /**
