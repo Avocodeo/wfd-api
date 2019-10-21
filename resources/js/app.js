@@ -17,6 +17,7 @@ const vuetifyOpts = {
 Vue.component('menus', require('./components/Menus.vue').default);
 Vue.component('ingredients-index', require('./components/Pages/Ingredients/Index.vue').default);
 Vue.component('measurements-index', require('./components/Pages/Measurements/Index.vue').default);
+Vue.component('recipes-index', require('./components/Pages/Recipes/Index.vue').default);
 Vue.component('users-index', require('./components/Pages/Users/Index.vue').default);
 Vue.component('categories-index', require('./components/Pages/Categories/Index.vue').default);
 

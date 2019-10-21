@@ -22,6 +22,9 @@ Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/ingredients', 'IngredientsController@index');
 Route::get('/ingredients/create', 'IngredientsController@create');
 
+// Recipes Routes
+Route::get('/recipes', 'RecipesController@index');
+Route::get('/recipes/create', 'RecipesController@create');
 
 // Measurements Routes
 Route::get('/measurements', 'MeasurementsController@index');

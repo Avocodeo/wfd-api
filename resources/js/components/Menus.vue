@@ -31,6 +31,14 @@
                         <v-list-item-title>Measurements</v-list-item-title>
                     </v-list-item-content>
                 </v-list-item>
+                <v-list-item @click="" href="/recipes" class="text-decoration-none">
+                    <v-list-item-action>
+                        <v-icon color="purple" size="48">mdi-book</v-icon>
+                    </v-list-item-action>
+                    <v-list-item-content>
+                        <v-list-item-title>Recipes</v-list-item-title>
+                    </v-list-item-content>
+                </v-list-item>
                 <v-list-item @click="" href="/users" class="text-decoration-none">
                     <v-list-item-action>
                         <v-icon color="green" size="48">mdi-account-circle-outline</v-icon>
