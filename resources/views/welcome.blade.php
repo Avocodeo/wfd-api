@@ -81,7 +81,7 @@
 
             <div class="content">
                 <div class="title m-b-md">
-                    Whats for Dinner API
+                    Whats for Dinner
                 </div>
             </div>
         </div>
