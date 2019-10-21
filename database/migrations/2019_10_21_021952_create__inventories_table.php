@@ -14,12 +14,9 @@ class CreateInventoriesTable extends Migration
     public function up()
     {
         Schema::create('inventories', function (Blueprint $table) {
-            $table->bigIncrements('item_id');
-            $table->foreign('item_id')->references('id')->on('ingredients');
-            $table->unsignedBigInteger('item_quantity');
-            $table->boolean('item_low');
-            $table->boolean('item_high');
-            $table->boolean('item_close_to_expiry');
+            $table->unsignedBigInteger('quantity');
+            $table->boolean('low');
+            $table->boolean('high');
             $table->timestamps();
         });
     }

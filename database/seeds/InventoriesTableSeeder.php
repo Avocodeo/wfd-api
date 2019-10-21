@@ -12,22 +12,21 @@ class InventoriesTableSeeder extends Seeder
      */
     public function run()
     {
-        $inventory = collect([
-            ['name' => 'salt', 'item_id' => 1],
-            ['name' => 'pepper', 'item_id' => 2],
-            ['name' => 'chicken', 'item_id' => 3],
-            ['name' => 'fish', 'item_id' => 4],
-            ['name' => 'pork', 'item_id' => 5],
-            ['name' => 'apple', 'item_id' => 6],
-            ['name' => 'milk', 'item_id' => 7],
-            ['name' => 'cheese', 'item_id' => 8],
-            ['name' => 'egg', 'item_id' => 9],
-            ['name' => 'bread', 'item_id' => 10],
-            ['name' => 'orange', 'item_id' => 11],
-            ['name' => 'carrot', 'item_id' => 12],
+        $inventories = collect([
+            ['quantity' => '1', 'low' => 1, 'high' => 0],
+            ['quantity' => '3', 'low' => 1, 'high' => 0],
+            ['quantity' => '6', 'low' => 1, 'high' => 0],
+            ['quantity' => '7', 'low' => 1, 'high' => 0],
+            ['quantity' => '8', 'low' => 1, 'high' => 0],
+            ['quantity' => '5', 'low' => 1, 'high' => 0],
+            ['quantity' => '4', 'low' => 1, 'high' => 0],
+            ['quantity' => '3', 'low' => 1, 'high' => 0],
+            ['quantity' => '5', 'low' => 1, 'high' => 0],
+            ['quantity' => '77', 'low' => 0, 'high' => 1],
+            ['quantity' => '55', 'low' => 0, 'high' => 1],
         ]);
 
-        $inventory->each(function ($inventory) {
+        $inventories->each(function ($inventory) {
             Inventory::create($inventory);
         });
     }

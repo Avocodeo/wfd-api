@@ -17,11 +17,9 @@ class InventoriesTest extends TestCase
         $this->withoutExceptionHandling(); // when exceptions are thrown laravel catches them but we want the exception
 
         $attributes = [
-            'item_id' => $this->faker->numberBetween(1, 20),
-            'item_quantity' => $this->faker->numberBetween(1, 30),
-            'item_low' => $this->faker->boolean(),
-            'item_high' => $this->faker->boolean(),
-            'item_close_to_expiry' => $this->faker->boolean(),
+            'quantity' => $this->faker->numberBetween(1, 30),
+            'low' => $this->faker->boolean(),
+            'high' => $this->faker->boolean(),
         ];
 
         $this->get('/inventories/create')->assertStatus(200); // they can access a create page
@@ -54,18 +52,16 @@ class InventoriesTest extends TestCase
         $this->withoutExceptionHandling();
 
         $attributes = [
-            'item_id' => 200,
-            'item_quantity' => 300,
-            'item_low' => $this->faker->boolean(),
-            'item_high' => $this->faker->boolean(),
-            'item_close_to_expiry' => $this->faker->boolean(),
+            'quantity' => 300,
+            'low' => $this->faker->boolean(),
+            'high' => $this->faker->boolean(),
         ];
 
         $inventory = factory(Inventory::class)->create();
 
-        $this->patch("/api/inventories/$inventory->item_id", $attributes);
+        $this->patch("/api/inventories/$inventory->quantity", $attributes);
 
-        $this->assertDatabaseHas('inventories', ['item_id' => '200']);
+        $this->assertDatabaseHas('inventories', ['quantity' => 300]);
     }
 
     public function testCanDeleteInventory()
@@ -74,6 +70,6 @@ class InventoriesTest extends TestCase
 
         $this->delete("/api/inventories/$inventory->id");
 
-        $this->assertDatabaseMissing('inventories', ['item_id' => $inventory->item_id]);
+        $this->assertDatabaseMissing('inventories', ['id' => $inventory->id]);
     }
 }
