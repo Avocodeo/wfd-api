@@ -84,7 +84,6 @@ export default {
           sortable: false,
           value: "name"
         },
-        { text: "Category", value: "measurement.name" },
         { text: "Created At", value: "created_at" },
         { text: "Updated At", value: "updated_at" },
         { text: "Actions", value: "action", sortable: false }
