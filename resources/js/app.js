@@ -7,27 +7,49 @@ import Vue from 'vue'
 import Vuetify from 'vuetify'
 Vue.use(Vuetify)
 const vuetifyOpts = {
+    theme: {
 
+    },
 }
+
+// Router settings
+import VueRouter from 'vue-router'
+import routes from './routes'
+
+Vue.use(VueRouter)
+
+const router = new VueRouter({
+    mode: 'history',
+    routes,
+})
+
+// Filters
+Vue.filter('truncate', function (string, length) {
+    if (!string) return ''
+    string = string.toString()
+    return _.truncate(string, { length })
+})
 
 // const files = require.context('./', true, /\.vue$/i)
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
 
-// Vue.component('example-component', require('./components/ExampleComponent.vue').default);
-Vue.component('menus', require('./components/Menus.vue').default);
-Vue.component('ingredients-index', require('./components/Pages/Ingredients/Index.vue').default);
-Vue.component('measurements-index', require('./components/Pages/Measurements/Index.vue').default);
-Vue.component('users-index', require('./components/Pages/Users/Index.vue').default);
-Vue.component('categories-index', require('./components/Pages/Categories/Index.vue').default);
+//Primary components
+import App from './components/App'
+import Login from './components/auth/Login'
+import Register from './components/auth/Register'
+import Email from './components/auth/passwords/Email'
+import Reset from './components/auth/passwords/Reset'
 
-
-/**
- * Next, we will create a fresh Vue application instance and attach it to
- * the page. Then, you may begin adding components to this application
- * or customize the JavaScript scaffolding to fit your unique needs.
- */
-
+// App declaration
 const app = new Vue({
     el: '#app',
-    vuetify: new Vuetify(vuetifyOpts)
+    components: {
+        App,
+        Login,
+        Register,
+        Email,
+        Reset
+    },
+    vuetify: new Vuetify(vuetifyOpts),
+    router,
 });
