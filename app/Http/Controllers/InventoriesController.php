@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-class InventoryController extends Controller
+class InventoriesController extends Controller
 {
     public function index()
     {

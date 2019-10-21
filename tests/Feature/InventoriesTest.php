@@ -7,7 +7,7 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 
-class InventoryTest extends TestCase
+class InventoriesTest extends TestCase
 {
     // Fake data, and dump / migrate databases each time
     use WithFaker, RefreshDatabase;
@@ -17,8 +17,11 @@ class InventoryTest extends TestCase
         $this->withoutExceptionHandling(); // when exceptions are thrown laravel catches them but we want the exception
 
         $attributes = [
-            'name' => $this->faker->name,
-            'item_id' => $this->faker->numberBetween(1, 10),
+            'item_id' => $this->faker->numberBetween(1, 20),
+            'item_quantity' => $this->faker->randomNumber(1, 30),
+            'item_low' => $this->faker->boolean(),
+            'item_high' => $this->faker->boolean(),
+            'item_close_to_expiry' => $this->faker->boolean(),
         ];
 
         $this->get('/inventories/create')->assertStatus(200); // they can access a create page
@@ -41,7 +44,7 @@ class InventoryTest extends TestCase
 
         $inventory = factory(Inventory::class)->create();
 
-        $this->get("/api/inventories/$inventory->id")
+        $this->get("/api/inventories/$inventory->item_id")
             ->assertStatus(200);
     }
 
@@ -51,15 +54,18 @@ class InventoryTest extends TestCase
         $this->withoutExceptionHandling();
 
         $attributes = [
-            'name' => 'salt',
-            'measurement_id' => '2'
+            'item_id' => 200,
+            'item_quantity' => 300,
+            'item_low' => $this->faker->boolean(),
+            'item_high' => $this->faker->boolean(),
+            'item_close_to_expiry' => $this->faker->boolean(),
         ];
 
         $inventory = factory(Inventory::class)->create();
 
-        $this->patch("/api/inventories/$inventory->id", $attributes);
+        $this->patch("/api/inventories/$inventory->item_id", $attributes);
 
-        $this->assertDatabaseHas('inventories', ['name' => 'salt']);
+        $this->assertDatabaseHas('inventories', ['item_id' => '200']);
     }
 
     public function testCanDeleteInventory()
@@ -68,6 +74,6 @@ class InventoryTest extends TestCase
 
         $this->delete("/api/inventories/$inventory->id");
 
-        $this->assertDatabaseMissing('inventories', ['id' => $inventory->id]);
+        $this->assertDatabaseMissing('inventories', ['item_id' => $inventory->item_id]);
     }
 }
