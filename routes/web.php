@@ -11,11 +11,19 @@
 |
 */
 
+// Auth/Logout routes
+Auth::routes();
+Route::get('/api/logout', function () {
+    Auth::logout();
+    return Redirect::to('login');
+});
+
+// Landing page
 Route::get('/', function () {
     return view('welcome');
 });
 
-Auth::routes();
+
 Route::get('/home', 'HomeController@index')->name('home');
 
 // Ingredients Routes
