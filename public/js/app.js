@@ -2515,9 +2515,12 @@ __webpack_require__.r(__webpack_exports__);
     return {
       search: "",
       headers: [{
-        text: "Name",
+        text: "id",
         align: "left",
         sortable: false,
+        value: "id"
+      }, {
+        text: "Name",
         value: "name"
       }, {
         text: "Created At",
@@ -2578,10 +2581,14 @@ __webpack_require__.r(__webpack_exports__);
     },
     deleteItem: function deleteItem(item) {
       var index = this.categories.indexOf(item);
-      confirm("Are you sure you want to delete this category?") && this.categories.splice(index, 1);
-      axios["delete"]("api/categories/" + item.id);
-      this.snackbarText = "Category deleted";
-      this.snackbar = true;
+
+      if (confirm("Are you sure you want to delete this category?")) {
+        if (this.categories.splice(index, 1)) {
+          axios["delete"]("api/categories/" + item.id);
+          this.snackbarText = "Category deleted";
+          this.snackbar = true;
+        }
+      }
     },
     close: function close() {
       var _this2 = this;
@@ -2598,21 +2605,19 @@ __webpack_require__.r(__webpack_exports__);
         this.snackbarText = "Category updated";
         this.snackbar = true;
         axios.patch("api/categories/" + this.editedItem.id, {
-          name: this.editedItem.name,
-          measurement_id: this.editedItem.measurement.id
+          name: this.editedItem.name
         }).then(function (response) {
           console.log(response);
         });
       } else {
         axios.post("api/categories", {
-          name: this.editedItem.name,
-          measurement_id: this.editedItem.measurement.id
+          name: this.editedItem.name
         }).then(function (response) {
           console.log(response);
         });
         this.categories.push({
           name: this.editedItem.name,
-          "measurement.name": this.editedItem.measurement.name
+          "category.name": this.editedItem.category.name
         });
         this.snackbar = true;
         this.snackbarText = "Category created";
@@ -2950,10 +2955,19 @@ __webpack_require__.r(__webpack_exports__);
     return {
       search: "",
       headers: [{
-        text: "Item Name",
+        text: "Id",
         align: "left",
         sortable: false,
-        value: "name"
+        value: "id"
+      }, {
+        text: "Quantity",
+        value: "quantity"
+      }, {
+        text: "Low",
+        value: "low"
+      }, {
+        text: "High",
+        value: "high"
       }, {
         text: "Created At",
         value: "created_at"
@@ -2965,19 +2979,16 @@ __webpack_require__.r(__webpack_exports__);
         value: "action",
         sortable: false
       }],
-      ingredients: [],
-      measurements: [{
-        text: "Gallons",
-        value: 1
-      }],
       editedIndex: -1,
       editedItem: {
-        name: "",
-        inventory: ""
+        quantity: "",
+        low: "",
+        high: ""
       },
       defaultItem: {
-        name: "",
-        inventory_id: ""
+        quantity: "",
+        low: "",
+        high: ""
       },
       loading: true,
       dialog: false,
@@ -3037,21 +3048,27 @@ __webpack_require__.r(__webpack_exports__);
         this.snackbarText = "Item updated";
         this.snackbar = true;
         axios.patch("api/inventories/" + this.editedItem.id, {
-          name: this.editedItem.name,
-          inventory_id: this.editedItem.inventory.id
+          id: this.editedItem.id,
+          quantity: this.editedItem.inventory.quantity,
+          low: this.editedItem.low,
+          high: this.editedItem.high
         }).then(function (response) {
           console.log(response);
         });
       } else {
         axios.post("api/inventories", {
-          name: this.editedItem.name,
-          inventory_id: this.editedItem.inventory.id
+          id: this.editedItem.id,
+          quantity: this.editedItem.inventory.quantity,
+          low: this.editedItem.low,
+          high: this.editedItem.high
         }).then(function (response) {
           console.log(response);
         });
         this.ingredients.push({
-          name: this.editedItem.name,
-          "inventory.name": this.editedItem.inventory.name
+          id: this.editedItem.id,
+          quantity: this.editedItem.inventory.quantity,
+          low: this.editedItem.low,
+          high: this.editedItem.high
         });
         this.snackbar = true;
         this.snackbarText = "Item created";
@@ -21427,6 +21444,34 @@ var render = function() {
                     "v-list-item",
                     {
                       staticClass: "text-decoration-none",
+                      attrs: { to: "/categories" }
+                    },
+                    [
+                      _c(
+                        "v-list-item-action",
+                        [
+                          _c(
+                            "v-icon",
+                            { attrs: { color: "yellow", size: "48" } },
+                            [_vm._v("mdi-view-dashboard")]
+                          )
+                        ],
+                        1
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "v-list-item-content",
+                        [_c("v-list-item-title", [_vm._v("Categories")])],
+                        1
+                      )
+                    ],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "v-list-item",
+                    {
+                      staticClass: "text-decoration-none",
                       attrs: { to: "ingredients" }
                     },
                     [
@@ -21445,6 +21490,34 @@ var render = function() {
                       _c(
                         "v-list-item-content",
                         [_c("v-list-item-title", [_vm._v("Ingredients")])],
+                        1
+                      )
+                    ],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "v-list-item",
+                    {
+                      staticClass: "text-decoration-none",
+                      attrs: { to: "/inventories" }
+                    },
+                    [
+                      _c(
+                        "v-list-item-action",
+                        [
+                          _c(
+                            "v-icon",
+                            { attrs: { color: "purple", size: "48" } },
+                            [_vm._v("mdi-clipboard-text")]
+                          )
+                        ],
+                        1
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "v-list-item-content",
+                        [_c("v-list-item-title", [_vm._v("Inventory")])],
                         1
                       )
                     ],
@@ -21483,62 +21556,6 @@ var render = function() {
                     "v-list-item",
                     {
                       staticClass: "text-decoration-none",
-                      attrs: { to: "/users" }
-                    },
-                    [
-                      _c(
-                        "v-list-item-action",
-                        [
-                          _c(
-                            "v-icon",
-                            { attrs: { color: "green", size: "48" } },
-                            [_vm._v("mdi-account-circle-outline")]
-                          )
-                        ],
-                        1
-                      ),
-                      _vm._v(" "),
-                      _c(
-                        "v-list-item-content",
-                        [_c("v-list-item-title", [_vm._v("Users")])],
-                        1
-                      )
-                    ],
-                    1
-                  ),
-                  _vm._v(" "),
-                  _c(
-                    "v-list-item",
-                    {
-                      staticClass: "text-decoration-none",
-                      attrs: { to: "/categories" }
-                    },
-                    [
-                      _c(
-                        "v-list-item-action",
-                        [
-                          _c(
-                            "v-icon",
-                            { attrs: { color: "yellow", size: "48" } },
-                            [_vm._v("mdi-view-dashboard")]
-                          )
-                        ],
-                        1
-                      ),
-                      _vm._v(" "),
-                      _c(
-                        "v-list-item-content",
-                        [_c("v-list-item-title", [_vm._v("Categories")])],
-                        1
-                      )
-                    ],
-                    1
-                  ),
-                  _vm._v(" "),
-                  _c(
-                    "v-list-item",
-                    {
-                      staticClass: "text-decoration-none",
                       attrs: { to: "/recipes" }
                     },
                     [
@@ -21567,7 +21584,7 @@ var render = function() {
                     "v-list-item",
                     {
                       staticClass: "text-decoration-none",
-                      attrs: { to: "/inventories" }
+                      attrs: { to: "/users" }
                     },
                     [
                       _c(
@@ -21575,8 +21592,8 @@ var render = function() {
                         [
                           _c(
                             "v-icon",
-                            { attrs: { color: "purple", size: "48" } },
-                            [_vm._v("mdi-clipboard-text")]
+                            { attrs: { color: "green", size: "48" } },
+                            [_vm._v("mdi-account-circle-outline")]
                           )
                         ],
                         1
@@ -21584,7 +21601,7 @@ var render = function() {
                       _vm._v(" "),
                       _c(
                         "v-list-item-content",
-                        [_c("v-list-item-title", [_vm._v("Inventories")])],
+                        [_c("v-list-item-title", [_vm._v("Users")])],
                         1
                       )
                     ],
