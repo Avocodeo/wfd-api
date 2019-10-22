@@ -2649,8 +2649,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
-  name: 'Home'
+  name: "Home"
 });
 
 /***/ }),
@@ -2736,65 +2737,56 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
-      search: '',
+      search: "",
       headers: [{
-        text: 'Name',
-        align: 'left',
+        text: "id",
+        align: "left",
         sortable: false,
-        value: 'name'
+        value: "id"
       }, {
-        text: 'Measurement',
-        value: 'measurement.name'
+        text: "Name",
+        value: "name"
       }, {
-        text: 'Created At',
-        value: 'created_at'
+        text: "Measurement",
+        value: "measurement.name"
       }, {
-        text: 'Updated At',
-        value: 'updated_at'
+        text: "Created At",
+        value: "created_at"
       }, {
-        text: 'Actions',
-        value: 'action',
+        text: "Updated At",
+        value: "updated_at"
+      }, {
+        text: "Actions",
+        value: "action",
         sortable: false
       }],
       ingredients: [],
       measurements: [{
-        text: 'Gallons',
+        text: "Gallons",
         value: 1
       }],
       editedIndex: -1,
       editedItem: {
-        name: '',
-        measurement: ''
+        name: "",
+        measurement: ""
       },
       defaultItem: {
-        name: '',
-        measurement_id: ''
+        name: "",
+        measurement_id: ""
       },
       loading: true,
       dialog: false,
       snackbar: false,
-      snackbarText: '',
+      snackbarText: "",
       snackbarTimeout: 2000
     };
   },
   computed: {
     formTitle: function formTitle() {
-      return this.editedIndex === -1 ? 'New Ingredient' : 'Edit Ingredient';
+      return this.editedIndex === -1 ? "New Ingredient" : "Edit Ingredient";
     }
   },
   watch: {
@@ -2810,7 +2802,7 @@ __webpack_require__.r(__webpack_exports__);
     getIngredients: function getIngredients() {
       var _this = this;
 
-      axios.get('api/ingredients').then(function (response) {
+      axios.get("api/ingredients").then(function (response) {
         _this.ingredients = response.data;
         _this.loading = false;
       })["catch"](function (error) {
@@ -2820,7 +2812,7 @@ __webpack_require__.r(__webpack_exports__);
     getMeasurements: function getMeasurements() {
       var _this2 = this;
 
-      axios.get('api/measurements').then(function (response) {
+      axios.get("api/measurements").then(function (response) {
         _this2.measurements = response.data;
       })["catch"](function (error) {
         console.log(error);
@@ -2833,10 +2825,14 @@ __webpack_require__.r(__webpack_exports__);
     },
     deleteItem: function deleteItem(item) {
       var index = this.ingredients.indexOf(item);
-      confirm('Are you sure you want to delete this ingredient?') && this.ingredients.splice(index, 1);
-      axios["delete"]('api/ingredients/' + item.id);
-      this.snackbarText = "Ingredient deleted";
-      this.snackbar = true;
+
+      if (confirm("Are you sure you want to delete this ingredient?")) {
+        if (this.ingredients.splice(index, 1)) {
+          axios["delete"]("api/ingredients/" + item.id);
+          this.snackbarText = "Ingredient deleted";
+          this.snackbar = true;
+        }
+      }
     },
     close: function close() {
       var _this3 = this;
@@ -2852,22 +2848,22 @@ __webpack_require__.r(__webpack_exports__);
         Object.assign(this.ingredients[this.editedIndex], this.editedItem);
         this.snackbarText = "Ingredient updated";
         this.snackbar = true;
-        axios.patch('api/ingredients/' + this.editedItem.id, {
+        axios.patch("api/ingredients/" + this.editedItem.id, {
           name: this.editedItem.name,
           measurement_id: this.editedItem.measurement.id
         }).then(function (response) {
           console.log(response);
         });
       } else {
-        axios.post('api/ingredients', {
+        axios.post("api/ingredients", {
           name: this.editedItem.name,
           measurement_id: this.editedItem.measurement.id
         }).then(function (response) {
           console.log(response);
         });
         this.ingredients.push({
-          'name': this.editedItem.name,
-          'measurement.name': this.editedItem.measurement.name
+          name: this.editedItem.name,
+          "measurement.name": this.editedItem.measurement.name
         });
         this.snackbar = true;
         this.snackbarText = "Ingredient created";
@@ -2955,7 +2951,7 @@ __webpack_require__.r(__webpack_exports__);
     return {
       search: "",
       headers: [{
-        text: "Id",
+        text: "id",
         align: "left",
         sortable: false,
         value: "id"
@@ -3028,10 +3024,14 @@ __webpack_require__.r(__webpack_exports__);
     },
     deleteItem: function deleteItem(item) {
       var index = this.inventories.indexOf(item);
-      confirm("Are you sure you want to delete this Item?") && this.inventories.splice(index, 1);
-      axios["delete"]("api/inventories/" + item.id);
-      this.snackbarText = "Item deleted";
-      this.snackbar = true;
+
+      if (confirm("Are you sure you want to delete this Item?")) {
+        if (this.inventories.splice(index, 1)) {
+          axios["delete"]("api/inventories/" + item.id);
+          this.snackbarText = "Item deleted";
+          this.snackbar = true;
+        }
+      }
     },
     close: function close() {
       var _this2 = this;
@@ -3044,7 +3044,7 @@ __webpack_require__.r(__webpack_exports__);
     },
     save: function save() {
       if (this.editedIndex > -1) {
-        Object.assign(this.ingredients[this.editedIndex], this.editedItem);
+        Object.assign(this.inventories[this.editedIndex], this.editedItem);
         this.snackbarText = "Item updated";
         this.snackbar = true;
         axios.patch("api/inventories/" + this.editedItem.id, {
@@ -3064,7 +3064,7 @@ __webpack_require__.r(__webpack_exports__);
         }).then(function (response) {
           console.log(response);
         });
-        this.ingredients.push({
+        this.inventories.push({
           id: this.editedItem.id,
           quantity: this.editedItem.inventory.quantity,
           low: this.editedItem.low,
@@ -3154,37 +3154,17 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
       search: "",
       headers: [{
-        text: "Name",
+        text: "id",
         align: "left",
         sortable: false,
+        value: "id"
+      }, {
+        text: "Name",
         value: "name"
       }, {
         text: "Abbreviation",
@@ -3208,8 +3188,7 @@ __webpack_require__.r(__webpack_exports__);
       editedIndex: -1,
       editedItem: {
         name: "",
-        abbreviation: "",
-        type: ""
+        abbreviation: ""
       },
       defaultItem: {
         name: ""
@@ -3262,10 +3241,14 @@ __webpack_require__.r(__webpack_exports__);
     },
     deleteItem: function deleteItem(item) {
       var index = this.measurements.indexOf(item);
-      confirm("Are you sure you want to delete this measurement") && this.measurements.splice(index, 1);
-      axios["delete"]("api/measurements/" + item.id);
-      this.snackbarText = "Measurement deleted";
-      this.snackbar = true;
+
+      if (confirm("Are you sure you want to delete this measurement")) {
+        if (this.measurements.splice(index, 1)) {
+          axios["delete"]("api/measurements/" + item.id);
+          this.snackbarText = "Measurement deleted";
+          this.snackbar = true;
+        }
+      }
     },
     close: function close() {
       var _this3 = this;
@@ -3421,62 +3404,53 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
-      search: '',
+      search: "",
       headers: [{
-        text: 'Name',
-        align: 'left',
+        text: "id",
+        align: "left",
         sortable: false,
-        value: 'name'
+        value: "id"
       }, {
-        text: 'Created At',
-        value: 'created_at'
+        text: "Name",
+        value: "name"
       }, {
-        text: 'Updated At',
-        value: 'updated_at'
+        text: "Created At",
+        value: "created_at"
       }, {
-        text: 'Actions',
-        value: 'action',
+        text: "Updated At",
+        value: "updated_at"
+      }, {
+        text: "Actions",
+        value: "action",
         sortable: false
       }],
       recipes: [],
       categories: [{
-        text: 'Salt',
+        text: "Salt",
         value: 1
       }],
       editedIndex: -1,
       editedItem: {
-        name: '',
-        category: ''
+        name: "",
+        category: ""
       },
       defaultItem: {
-        name: '',
-        category_id: ''
+        name: "",
+        category_id: ""
       },
       loading: true,
       dialog: false,
       snackbar: false,
-      snackbarText: '',
+      snackbarText: "",
       snackbarTimeout: 2000
     };
   },
   computed: {
     formTitle: function formTitle() {
-      return this.editedIndex === -1 ? 'New Recipe' : 'Edit Recipe';
+      return this.editedIndex === -1 ? "New Recipe" : "Edit Recipe";
     }
   },
   watch: {
@@ -3492,7 +3466,7 @@ __webpack_require__.r(__webpack_exports__);
     getRecipes: function getRecipes() {
       var _this = this;
 
-      axios.get('api/recipes').then(function (response) {
+      axios.get("api/recipes").then(function (response) {
         _this.recipes = response.data;
         _this.loading = false;
       })["catch"](function (error) {
@@ -3502,7 +3476,7 @@ __webpack_require__.r(__webpack_exports__);
     getCategories: function getCategories() {
       var _this2 = this;
 
-      axios.get('api/categories').then(function (response) {
+      axios.get("api/categories").then(function (response) {
         _this2.categories = response.data;
       })["catch"](function (error) {
         console.log(error);
@@ -3515,8 +3489,8 @@ __webpack_require__.r(__webpack_exports__);
     },
     deleteItem: function deleteItem(item) {
       var index = this.recipes.indexOf(item);
-      confirm('Are you sure you want to delete this recipe?') && this.recipes.splice(index, 1);
-      axios["delete"]('api/recipes/' + item.id);
+      confirm("Are you sure you want to delete this recipe?") && this.recipes.splice(index, 1);
+      axios["delete"]("api/recipes/" + item.id);
       this.snackbarText = "Recipe deleted";
       this.snackbar = true;
     },
@@ -3534,22 +3508,22 @@ __webpack_require__.r(__webpack_exports__);
         Object.assign(this.recipes[this.editedIndex], this.editedItem);
         this.snackbarText = "Recipe updated";
         this.snackbar = true;
-        axios.patch('api/recipes/' + this.editedItem.id, {
+        axios.patch("api/recipes/" + this.editedItem.id, {
           name: this.editedItem.name,
           measurement_id: this.editedItem.measurement.id
         }).then(function (response) {
           console.log(response);
         });
       } else {
-        axios.post('api/recipes', {
+        axios.post("api/recipes", {
           name: this.editedItem.name,
           measurement_id: this.editedItem.measurement.id
         }).then(function (response) {
           console.log(response);
         });
         this.recipes.push({
-          'name': this.editedItem.name,
-          'measurement.name': this.editedItem.measurement.name
+          name: this.editedItem.name,
+          "measurement.name": this.editedItem.measurement.name
         });
         this.snackbar = true;
         this.snackbarText = "Recipe created";
@@ -3647,9 +3621,12 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     return _ref = {
       search: "",
       headers: [{
-        text: "Name",
+        text: "id",
         align: "left",
         sortable: false,
+        value: "id"
+      }, {
+        text: "Name",
         value: "name"
       }, {
         text: "isAdmin",
@@ -3674,7 +3651,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       value: 1
     }]), _defineProperty(_ref, "editedIndex", -1), _defineProperty(_ref, "editedItem", {
       name: "",
-      isAdmin: false,
+      isAdmin: "",
       email: ""
     }), _defineProperty(_ref, "defaultItem", {
       name: "",
@@ -3714,10 +3691,12 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     deleteItem: function deleteItem(item) {
       var index = this.users.indexOf(item);
 
-      if (confirm("Are you sure you want to delete this user?") && this.users.splice(index, 1)) {
-        axios["delete"]("api/users/" + item.id);
-        this.snackbarText = "User deleted";
-        this.snackbar = true;
+      if (confirm("Are you sure you want to delete this user?")) {
+        if (this.users.splice(index, 1)) {
+          axios["delete"]("api/users/" + item.id);
+          this.snackbarText = "User deleted";
+          this.snackbar = true;
+        }
       }
     },
     close: function close() {
@@ -23047,7 +23026,11 @@ var render = function() {
         [
           _c("v-flex", { staticClass: "text-center", attrs: { xs12: "" } }, [
             _c("div", { staticClass: "display-1" }, [
-              _vm._v("You made it to the Home page!")
+              _vm._v("You made it to the Home page! To be Updated Soon")
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "display-1" }, [
+              _vm._v("WHAT'S FOR DINNER!")
             ])
           ])
         ],
@@ -23085,7 +23068,7 @@ var render = function() {
       _c(
         "v-card-title",
         [
-          _vm._v("\n        Ingredients\n        "),
+          _vm._v("\n    Ingredients\n    "),
           _c("v-spacer"),
           _vm._v(" "),
           _c("v-text-field", {
@@ -23132,7 +23115,7 @@ var render = function() {
                       }
                     }
                   },
-                  [_vm._v("\n                mdi-pencil\n            ")]
+                  [_vm._v("mdi-pencil")]
                 ),
                 _vm._v(" "),
                 _c(
@@ -23145,7 +23128,7 @@ var render = function() {
                       }
                     }
                   },
-                  [_vm._v("\n                mdi-delete\n            ")]
+                  [_vm._v("mdi-delete")]
                 )
               ]
             }
@@ -23319,7 +23302,7 @@ var render = function() {
           }
         },
         [
-          _vm._v("\n        " + _vm._s(_vm.snackbarText) + "\n        "),
+          _vm._v("\n    " + _vm._s(_vm.snackbarText) + "\n    "),
           _c(
             "v-btn",
             {
@@ -23330,7 +23313,7 @@ var render = function() {
                 }
               }
             },
-            [_vm._v("\n            Close\n        ")]
+            [_vm._v("Close")]
           )
         ],
         1
@@ -23624,7 +23607,7 @@ var render = function() {
       _c(
         "v-card-title",
         [
-          _vm._v("\n        Measurements\n        "),
+          _vm._v("\n    Measurements\n    "),
           _c("v-spacer"),
           _vm._v(" "),
           _c("v-text-field", {
@@ -23671,7 +23654,7 @@ var render = function() {
                       }
                     }
                   },
-                  [_vm._v("\n                mdi-pencil\n            ")]
+                  [_vm._v("mdi-pencil")]
                 ),
                 _vm._v(" "),
                 _c(
@@ -23684,7 +23667,7 @@ var render = function() {
                       }
                     }
                   },
-                  [_vm._v("\n                mdi-delete\n            ")]
+                  [_vm._v("mdi-delete")]
                 )
               ]
             }
@@ -23799,30 +23782,6 @@ var render = function() {
                               })
                             ],
                             1
-                          ),
-                          _vm._v(" "),
-                          _c(
-                            "v-col",
-                            { attrs: { cols: "12", md: "6" } },
-                            [
-                              _c("v-select", {
-                                attrs: {
-                                  items: _vm.types,
-                                  label: "Type",
-                                  "item-text": "name",
-                                  "item-value": "id",
-                                  "return-object": ""
-                                },
-                                model: {
-                                  value: _vm.editedItem.type,
-                                  callback: function($$v) {
-                                    _vm.$set(_vm.editedItem, "type", $$v)
-                                  },
-                                  expression: "editedItem.type"
-                                }
-                              })
-                            ],
-                            1
                           )
                         ],
                         1
@@ -23879,7 +23838,7 @@ var render = function() {
           }
         },
         [
-          _vm._v("\n        " + _vm._s(_vm.snackbarText) + "\n        "),
+          _vm._v("\n    " + _vm._s(_vm.snackbarText) + "\n    "),
           _c(
             "v-btn",
             {
@@ -23890,7 +23849,7 @@ var render = function() {
                 }
               }
             },
-            [_vm._v("\n            Close\n        ")]
+            [_vm._v("Close")]
           )
         ],
         1
@@ -23969,7 +23928,7 @@ var render = function() {
       _c(
         "v-card-title",
         [
-          _vm._v("\n        Recipes\n        "),
+          _vm._v("\n    Recipes\n    "),
           _c("v-spacer"),
           _vm._v(" "),
           _c("v-text-field", {
@@ -24016,7 +23975,7 @@ var render = function() {
                       }
                     }
                   },
-                  [_vm._v("\n                mdi-pencil\n            ")]
+                  [_vm._v("mdi-pencil")]
                 ),
                 _vm._v(" "),
                 _c(
@@ -24029,7 +23988,7 @@ var render = function() {
                       }
                     }
                   },
-                  [_vm._v("\n                mdi-delete\n            ")]
+                  [_vm._v("mdi-delete")]
                 )
               ]
             }
@@ -24203,7 +24162,7 @@ var render = function() {
           }
         },
         [
-          _vm._v("\n        " + _vm._s(_vm.snackbarText) + "\n        "),
+          _vm._v("\n    " + _vm._s(_vm.snackbarText) + "\n    "),
           _c(
             "v-btn",
             {
@@ -24214,7 +24173,7 @@ var render = function() {
                 }
               }
             },
-            [_vm._v("\n            Close\n        ")]
+            [_vm._v("Close")]
           )
         ],
         1

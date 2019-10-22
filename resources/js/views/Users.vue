@@ -1,68 +1,68 @@
 <template>
-    <v-card>
-      <v-card-title>
-        Users
-        <v-spacer></v-spacer>
-        <v-text-field
-          v-model="search"
-          append-icon="mdi-magnify"
-          label="Search"
-          single-line
-          hide-details
-        ></v-text-field>
-      </v-card-title>
-      <v-data-table
-        :headers="headers"
-        :items="users"
-        :search="search"
-        :loading="loading"
-        loading-text="Loading Users... Please wait"
-      >
-        <template v-slot:item.action="{ item }">
-          <v-icon small class="mr-2" @click="editItem(item)">mdi-pencil</v-icon>
-          <v-icon small @click="deleteItem(item)">mdi-delete</v-icon>
-        </template>
-        <template v-slot:no-data>
-          <v-btn color="primary" @click="initialize">Reset</v-btn>
-        </template>
-      </v-data-table>
-      <v-dialog v-model="dialog" max-width="500px">
-        <template v-slot:activator="{ on }">
-          <v-btn color="primary" dark class="mb-2" v-on="on">New Item</v-btn>
-        </template>
-        <v-card>
-          <v-card-title>
-            <span class="headline">{{ formTitle }}</span>
-          </v-card-title>
+  <v-card>
+    <v-card-title>
+      Users
+      <v-spacer></v-spacer>
+      <v-text-field
+        v-model="search"
+        append-icon="mdi-magnify"
+        label="Search"
+        single-line
+        hide-details
+      ></v-text-field>
+    </v-card-title>
+    <v-data-table
+      :headers="headers"
+      :items="users"
+      :search="search"
+      :loading="loading"
+      loading-text="Loading Users... Please wait"
+    >
+      <template v-slot:item.action="{ item }">
+        <v-icon small class="mr-2" @click="editItem(item)">mdi-pencil</v-icon>
+        <v-icon small @click="deleteItem(item)">mdi-delete</v-icon>
+      </template>
+      <template v-slot:no-data>
+        <v-btn color="primary" @click="initialize">Reset</v-btn>
+      </template>
+    </v-data-table>
+    <v-dialog v-model="dialog" max-width="500px">
+      <template v-slot:activator="{ on }">
+        <v-btn color="primary" dark class="mb-2" v-on="on">New Item</v-btn>
+      </template>
+      <v-card>
+        <v-card-title>
+          <span class="headline">{{ formTitle }}</span>
+        </v-card-title>
 
-          <v-card-text>
-            <v-container>
-              <v-row>
-                <v-col cols="12" md="6">
-                  <v-text-field v-model="editedItem.name" label="User Name"></v-text-field>
-                </v-col>
-                <v-col cols="12" md="6">
-                  <v-text-field v-model="editedItem.isAdmin" label="isAdmin"></v-text-field>
-                </v-col>
-                <v-col cols="12" md="6">
-                  <v-text-field v-model="editedItem.email" label="Email"></v-text-field>
-                </v-col>
-              </v-row>
-            </v-container>
-          </v-card-text>
+        <v-card-text>
+          <v-container>
+            <v-row>
+              <v-col cols="12" md="6">
+                <v-text-field v-model="editedItem.name" label="User Name"></v-text-field>
+              </v-col>
+              <v-col cols="12" md="6">
+                <v-text-field v-model="editedItem.isAdmin" label="isAdmin"></v-text-field>
+              </v-col>
+              <v-col cols="12" md="6">
+                <v-text-field v-model="editedItem.email" label="Email"></v-text-field>
+              </v-col>
+            </v-row>
+          </v-container>
+        </v-card-text>
 
-          <v-card-actions>
-            <v-spacer></v-spacer>
-            <v-btn color="blue darken-1" text @click="close">Cancel</v-btn>
-            <v-btn color="blue darken-1" text @click="save">Save</v-btn>
-          </v-card-actions>
-        </v-card>
-      </v-dialog>
-      <v-snackbar v-model="snackbar" :timeout="snackbarTimeout">
-        {{ snackbarText }}
-        <v-btn color="blue" text @click="snackbar = false">Close</v-btn>
-      </v-snackbar>
-    </v-card>
+        <v-card-actions>
+          <v-spacer></v-spacer>
+          <v-btn color="blue darken-1" text @click="close">Cancel</v-btn>
+          <v-btn color="blue darken-1" text @click="save">Save</v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
+    <v-snackbar v-model="snackbar" :timeout="snackbarTimeout">
+      {{ snackbarText }}
+      <v-btn color="blue" text @click="snackbar = false">Close</v-btn>
+    </v-snackbar>
+  </v-card>
 </template>
 
 <script>
@@ -72,11 +72,12 @@ export default {
       search: "",
       headers: [
         {
-          text: "Name",
+          text: "id",
           align: "left",
           sortable: false,
-          value: "name"
+          value: "id"
         },
+        { text: "Name", value: "name" },
         { text: "isAdmin", value: "isAdmin" },
         { text: "email", value: "email" },
         { text: "Created At", value: "created_at" },
@@ -93,7 +94,7 @@ export default {
       editedIndex: -1,
       editedItem: {
         name: "",
-        isAdmin: false,
+        isAdmin: "",
         email: ""
       },
       defaultItem: {
@@ -142,13 +143,12 @@ export default {
 
     deleteItem(item) {
       const index = this.users.indexOf(item);
-      if (
-        confirm("Are you sure you want to delete this user?") &&
-        this.users.splice(index, 1)
-      ) {
-        axios.delete("api/users/" + item.id);
-        this.snackbarText = "User deleted";
-        this.snackbar = true;
+      if (confirm("Are you sure you want to delete this user?")) {
+        if (this.users.splice(index, 1)) {
+          axios.delete("api/users/" + item.id);
+          this.snackbarText = "User deleted";
+          this.snackbar = true;
+        }
       }
     },
 

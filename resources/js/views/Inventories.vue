@@ -66,7 +66,7 @@ export default {
       search: "",
       headers: [
         {
-          text: "Id",
+          text: "id",
           align: "left",
           sortable: false,
           value: "id"
@@ -130,11 +130,13 @@ export default {
 
     deleteItem(item) {
       const index = this.inventories.indexOf(item);
-      confirm("Are you sure you want to delete this Item?") &&
-        this.inventories.splice(index, 1);
-      axios.delete("api/inventories/" + item.id);
-      this.snackbarText = "Item deleted";
-      this.snackbar = true;
+      if (confirm("Are you sure you want to delete this Item?")) {
+        if (this.inventories.splice(index, 1)) {
+          axios.delete("api/inventories/" + item.id);
+          this.snackbarText = "Item deleted";
+          this.snackbar = true;
+        }
+      }
     },
 
     close() {
@@ -147,7 +149,7 @@ export default {
 
     save() {
       if (this.editedIndex > -1) {
-        Object.assign(this.ingredients[this.editedIndex], this.editedItem);
+        Object.assign(this.inventories[this.editedIndex], this.editedItem);
         this.snackbarText = "Item updated";
         this.snackbar = true;
         axios
@@ -171,7 +173,7 @@ export default {
           .then(function(response) {
             console.log(response);
           });
-        this.ingredients.push({
+        this.inventories.push({
           id: this.editedItem.id,
           quantity: this.editedItem.inventory.quantity,
           low: this.editedItem.low,
