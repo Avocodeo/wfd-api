@@ -21,7 +21,6 @@ class RecipesTest extends TestCase
             'category_id' => $this->faker->numberBetween(1, 5),
         ];
 
-        $this->get('/recipes/create')->assertStatus(200); // they can access a create page
         $this->post('api/recipes', $attributes);
         $this->assertDatabaseHas('recipes', $attributes);
     }
