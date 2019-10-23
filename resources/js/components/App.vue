@@ -11,12 +11,28 @@
               <v-list-item-title>Home</v-list-item-title>
             </v-list-item-content>
           </v-list-item>
+          <v-list-item to="/categories" class="text-decoration-none">
+            <v-list-item-action>
+              <v-icon color="yellow" size="48">mdi-view-dashboard</v-icon>
+            </v-list-item-action>
+            <v-list-item-content>
+              <v-list-item-title>Categories</v-list-item-title>
+            </v-list-item-content>
+          </v-list-item>
           <v-list-item to="ingredients" class="text-decoration-none">
             <v-list-item-action>
               <v-icon color="red" size="48">mdi-food-apple</v-icon>
             </v-list-item-action>
             <v-list-item-content>
               <v-list-item-title>Ingredients</v-list-item-title>
+            </v-list-item-content>
+          </v-list-item>
+          <v-list-item to="/inventories" class="text-decoration-none">
+            <v-list-item-action>
+              <v-icon color="purple" size="48">mdi-clipboard-text</v-icon>
+            </v-list-item-action>
+            <v-list-item-content>
+              <v-list-item-title>Inventory</v-list-item-title>
             </v-list-item-content>
           </v-list-item>
           <v-list-item to="measurements" class="text-decoration-none">
@@ -27,22 +43,6 @@
               <v-list-item-title>Measurements</v-list-item-title>
             </v-list-item-content>
           </v-list-item>
-          <v-list-item to="/users" class="text-decoration-none">
-            <v-list-item-action>
-              <v-icon color="green" size="48">mdi-account-circle-outline</v-icon>
-            </v-list-item-action>
-            <v-list-item-content>
-              <v-list-item-title>Users</v-list-item-title>
-            </v-list-item-content>
-          </v-list-item>
-          <v-list-item to="/categories" class="text-decoration-none">
-            <v-list-item-action>
-              <v-icon color="yellow" size="48">mdi-view-dashboard</v-icon>
-            </v-list-item-action>
-            <v-list-item-content>
-              <v-list-item-title>Categories</v-list-item-title>
-            </v-list-item-content>
-          </v-list-item>
           <v-list-item to="/recipes" class="text-decoration-none">
             <v-list-item-action>
               <v-icon color="black" size="48">mdi-book-open-page-variant</v-icon>
@@ -51,12 +51,12 @@
               <v-list-item-title>Recipes</v-list-item-title>
             </v-list-item-content>
           </v-list-item>
-          <v-list-item to="/inventories" class="text-decoration-none">
+          <v-list-item to="/users" class="text-decoration-none">
             <v-list-item-action>
-              <v-icon color="purple" size="48">mdi-clipboard-text</v-icon>
+              <v-icon color="green" size="48">mdi-account-circle-outline</v-icon>
             </v-list-item-action>
             <v-list-item-content>
-              <v-list-item-title>Inventories</v-list-item-title>
+              <v-list-item-title>Users</v-list-item-title>
             </v-list-item-content>
           </v-list-item>
         </v-list>

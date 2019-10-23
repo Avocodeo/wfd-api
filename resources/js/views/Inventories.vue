@@ -78,7 +78,7 @@ export default {
       search: "",
       headers: [
         {
-          text: "Id",
+          text: "id",
           align: "left",
           sortable: false,
           value: "id"
@@ -156,11 +156,13 @@ export default {
 
     deleteItem(item) {
       const index = this.inventories.indexOf(item);
-      confirm("Are you sure you want to delete this Item?") &&
-        this.inventories.splice(index, 1);
-      axios.delete("api/inventories/" + item.id);
-      this.snackbarText = "Item deleted";
-      this.snackbar = true;
+      if (confirm("Are you sure you want to delete this Item?")) {
+        if (this.inventories.splice(index, 1)) {
+          axios.delete("api/inventories/" + item.id);
+          this.snackbarText = "Item deleted";
+          this.snackbar = true;
+        }
+      }
     },
 
     close() {
