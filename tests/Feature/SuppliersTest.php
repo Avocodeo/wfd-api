@@ -13,10 +13,11 @@ class SuppliersTest extends TestCase
 
     public function testCanCreateSupplier()
     {
-        $this->withoutExceptionHandling();
+        // $this->withoutExceptionHandling();
 
         $attributes = [
             'name' => $this->faker->name,
+            'type' => 'food',
         ];
 
         $this->get('/suppliers/create')->assertStatus(200);
@@ -31,7 +32,7 @@ class SuppliersTest extends TestCase
         $this->withoutExceptionHandling();
         factory(Supplier::class)->create();
 
-        $this->get("/api/supplier")
+        $this->get("/api/suppliers")
             ->assertStatus(200);
     }
 
@@ -52,14 +53,14 @@ class SuppliersTest extends TestCase
 
         $attributes = [
             'name' => 'Pearl',
-            'id' => '2'
+            'type' => 'chicken',
         ];
 
-        $supplier = factory(Supplier::class)->create();
+        $supplier = factory(Supplier::class)->create(['name' => 'Pearl', 'type' => 'chicken']);
 
         $this->patch("/api/suppliers/$supplier->id", $attributes);
 
-        $this->assertDatabaseHas('suppliers', ['name' => 'Produce']);
+        $this->assertDatabaseHas('suppliers', ['name' => 'Pearl']);
     }
 
     public function testCanDeleteSupplier()

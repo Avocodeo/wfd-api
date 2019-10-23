@@ -27,6 +27,7 @@ class SuppliersController extends Controller
     {
         $attributes = request()->validate([
             'name' => 'required',
+            'type' => 'required',
         ]);
 
         $supplier = Supplier::create($attributes);
@@ -40,6 +41,7 @@ class SuppliersController extends Controller
     {
         $attributes = request()->validate([
             'name' => 'required',
+            'type' => 'required',
         ]);
 
         $supplier->update($attributes);
