@@ -41,6 +41,10 @@ Route::get('/inventories/create', 'InventoriesController@create');
 Route::get('/recipes', 'RecipesController@index');
 Route::get('/recipes/create', 'RecipesController@create');
 
+// Suppliers Routes
+Route::get('/suppliers', 'SuppliersController@index');
+Route::get('/suppliers/create', 'SuppliersController@create');
+
 // Measurements Routes
 Route::get('/measurements', 'MeasurementsController@index');
 Route::get('/measurement_types', 'MeasurementTypesController@index');
@@ -54,4 +58,5 @@ Route::get('/ingredients/create', 'IngredientsController@create');
 Route::get('/inventories/create', 'InventoriesController@create');
 Route::get('/measurements/create', 'MeasurementsController@create');
 Route::get('/recipes/create', 'RecipesController@create');
+Route::get('/suppliers/create', 'SuppliersController@create');
 Route::get('/users/create', 'UsersController@create');
