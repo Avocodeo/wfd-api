@@ -2604,12 +2604,7 @@ __webpack_require__.r(__webpack_exports__);
           console.log(response);
         });
         this.categories.push({
-<<<<<<< HEAD
           name: this.editedItem.name
-=======
-          name: this.editedItem.name,
-          "category.name": this.editedItem.category.name
->>>>>>> master
         });
         this.snackbar = true;
         this.snackbarText = "Category created";
@@ -2955,31 +2950,16 @@ __webpack_require__.r(__webpack_exports__);
     return {
       search: "",
       headers: [{
-<<<<<<< HEAD
-        text: "Id",
-=======
         text: "id",
->>>>>>> master
         align: "left",
         sortable: false,
         value: "id"
       }, {
-<<<<<<< HEAD
         text: "Ingredient",
         value: "ingredient.name"
       }, {
         text: "Quantity",
         value: "quantity"
-=======
-        text: "Quantity",
-        value: "quantity"
-      }, {
-        text: "Low",
-        value: "low"
-      }, {
-        text: "High",
-        value: "high"
->>>>>>> master
       }, {
         text: "Created At",
         value: "created_at"
@@ -2991,25 +2971,17 @@ __webpack_require__.r(__webpack_exports__);
         value: "action",
         sortable: false
       }],
-<<<<<<< HEAD
       inventories: [],
       ingredients: [],
       editedIndex: -1,
       editedItem: {
         ingredient: "",
-=======
-      editedIndex: -1,
-      editedItem: {
->>>>>>> master
         quantity: "",
         low: "",
         high: ""
       },
       defaultItem: {
-<<<<<<< HEAD
         ingredient: "",
-=======
->>>>>>> master
         quantity: "",
         low: "",
         high: ""
@@ -3087,13 +3059,8 @@ __webpack_require__.r(__webpack_exports__);
         this.snackbarText = "Item updated";
         this.snackbar = true;
         axios.patch("api/inventories/" + this.editedItem.id, {
-<<<<<<< HEAD
           ingredient_id: this.editedItem.ingredient.id,
           quantity: this.editedItem.quantity,
-=======
-          id: this.editedItem.id,
-          quantity: this.editedItem.inventory.quantity,
->>>>>>> master
           low: this.editedItem.low,
           high: this.editedItem.high
         }).then(function (response) {
@@ -3101,26 +3068,16 @@ __webpack_require__.r(__webpack_exports__);
         });
       } else {
         axios.post("api/inventories", {
-<<<<<<< HEAD
           ingredient_id: this.editedItem.ingredient.id,
           quantity: this.editedItem.quantity,
-=======
-          id: this.editedItem.id,
-          quantity: this.editedItem.inventory.quantity,
->>>>>>> master
           low: this.editedItem.low,
           high: this.editedItem.high
         }).then(function (response) {
           console.log(response);
         });
         this.inventories.push({
-<<<<<<< HEAD
           'ingredient.name': this.editedItem.ingredient.name,
           quantity: this.editedItem.quantity,
-=======
-          id: this.editedItem.id,
-          quantity: this.editedItem.inventory.quantity,
->>>>>>> master
           low: this.editedItem.low,
           high: this.editedItem.high
         });
@@ -3457,63 +3414,47 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
-      search: "",
+      search: '',
       headers: [{
-        text: "id",
-        align: "left",
+        text: 'Name',
+        align: 'left',
         sortable: false,
-        value: "id"
+        value: 'name'
       }, {
-        text: "Name",
-        value: "name"
-      }, {
-<<<<<<< HEAD
         text: "Category",
         value: "category.name"
       }, {
         text: 'Created At',
         value: 'created_at'
-=======
-        text: "Created At",
-        value: "created_at"
->>>>>>> master
       }, {
-        text: "Updated At",
-        value: "updated_at"
+        text: 'Updated At',
+        value: 'updated_at'
       }, {
-        text: "Actions",
-        value: "action",
+        text: 'Actions',
+        value: 'action',
         sortable: false
       }],
       recipes: [],
       categories: [{
-        text: "Salt",
+        text: 'Salt',
         value: 1
       }],
       editedIndex: -1,
       editedItem: {
-        name: "",
-        category: ""
+        name: '',
+        category: ''
       },
       defaultItem: {
-        name: "",
-        category_id: ""
+        name: '',
+        category_id: ''
       },
       loading: true,
       dialog: false,
       snackbar: false,
-      snackbarText: "",
+      snackbarText: '',
       snackbarTimeout: 2000
     };
   },
@@ -3577,27 +3518,22 @@ __webpack_require__.r(__webpack_exports__);
         Object.assign(this.recipes[this.editedIndex], this.editedItem);
         this.snackbarText = "Recipe updated";
         this.snackbar = true;
-        axios.patch("api/recipes/" + this.editedItem.id, {
+        axios.patch('api/recipes/' + this.editedItem.id, {
           name: this.editedItem.name,
           category_id: this.editedItem.category.id
         }).then(function (response) {
           console.log(response);
         });
       } else {
-        axios.post("api/recipes", {
+        axios.post('api/recipes', {
           name: this.editedItem.name,
           category_id: this.editedItem.category.id
         }).then(function (response) {
           console.log(response);
         });
         this.recipes.push({
-<<<<<<< HEAD
           'name': this.editedItem.name,
           'category.name': this.editedItem.category.name
-=======
-          name: this.editedItem.name,
-          "measurement.name": this.editedItem.measurement.name
->>>>>>> master
         });
         this.snackbar = true;
         this.snackbarText = "Recipe created";
@@ -3685,15 +3621,8 @@ __webpack_require__.r(__webpack_exports__);
     return {
       search: "",
       headers: [{
-        text: "id",
-        align: "left",
-<<<<<<< HEAD
-=======
-        sortable: false,
-        value: "id"
-      }, {
         text: "Name",
->>>>>>> master
+        align: "left",
         value: "name"
       }, {
         text: "email",
@@ -3709,7 +3638,6 @@ __webpack_require__.r(__webpack_exports__);
         value: "action",
         sortable: false
       }],
-<<<<<<< HEAD
       users: [],
       editedIndex: -1,
       editedItem: {
@@ -3726,21 +3654,6 @@ __webpack_require__.r(__webpack_exports__);
       snackbarText: "",
       snackbarTimeout: 2000
     };
-=======
-      users: []
-    }, _defineProperty(_ref, "users", [{
-      text: "",
-      value: 1
-    }]), _defineProperty(_ref, "editedIndex", -1), _defineProperty(_ref, "editedItem", {
-      name: "",
-      isAdmin: "",
-      email: ""
-    }), _defineProperty(_ref, "defaultItem", {
-      name: "",
-      isAdmin: false,
-      email: ""
-    }), _defineProperty(_ref, "loading", true), _defineProperty(_ref, "dialog", false), _defineProperty(_ref, "snackbar", false), _defineProperty(_ref, "snackbarText", ""), _defineProperty(_ref, "snackbarTimeout", 2000), _ref;
->>>>>>> master
   },
   computed: {
     formTitle: function formTitle() {
@@ -3775,20 +3688,11 @@ __webpack_require__.r(__webpack_exports__);
       var index = this.users.indexOf(item);
       var deleteUser = confirm("Are you sure you want to delete this user?");
 
-<<<<<<< HEAD
       if (deleteUser) {
         this.users.splice(index, 1);
         axios["delete"]("api/users/" + item.id);
         this.snackbarText = "User deleted";
         this.snackbar = true;
-=======
-      if (confirm("Are you sure you want to delete this user?")) {
-        if (this.users.splice(index, 1)) {
-          axios["delete"]("api/users/" + item.id);
-          this.snackbarText = "User deleted";
-          this.snackbar = true;
-        }
->>>>>>> master
       }
     },
     close: function close() {
@@ -24347,7 +24251,7 @@ var render = function() {
       _c(
         "v-card-title",
         [
-          _vm._v("\n    Users\n    "),
+          _vm._v("\n      Users\n      "),
           _c("v-spacer"),
           _vm._v(" "),
           _c("v-text-field", {
