@@ -6,13 +6,11 @@ use Illuminate\Database\Eloquent\Model;
 
 class Inventory extends Model
 {
-    protected $fillable = ['quantity', 'low', 'high',];
-
     protected $guarded = [];
 
-    protected $with = ['inventory'];
+    protected $with = ['ingredient'];
 
-    public function inventory()
+    public function ingredient()
     {
         return $this->belongsTo(Ingredient::class);
     }

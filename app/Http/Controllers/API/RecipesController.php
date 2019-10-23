@@ -26,10 +26,11 @@ class RecipesController extends Controller
     {
         $attributes = request()->validate([
             'name' => 'required',
-            'category_id' => 'required',
+            'category_id' => 'sometimes',
         ]);
 
         $recipe = Recipe::create($attributes);
+
         return response()->json([
             'id' => $recipe->id,
             'message' => 'recipe was successfully created'
@@ -40,6 +41,7 @@ class RecipesController extends Controller
     {
         $attributes = request()->validate([
             'name' => 'required',
+            'category_id' => 'sometimes'
         ]);
 
         $recipe->update($attributes);

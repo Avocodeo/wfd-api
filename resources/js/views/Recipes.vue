@@ -53,7 +53,7 @@
                                     <v-text-field v-model="editedItem.name" label="Recipe Name"></v-text-field>
                                 </v-col>
                                 <v-col cols="12" md="6">
-                                    <v-select v-model="editedItem.recipe" :items="categories" label="Category" item-text="name" item-value="id" return-object prepend-icon="mdi-scale-balance"></v-select>
+                                    <v-select v-model="editedItem.category" :items="categories" label="Category" item-text="name" item-value="id" return-object prepend-icon="mdi-scale-balance"></v-select>
                                 </v-col>
                             </v-row>
                         </v-container>
@@ -94,6 +94,7 @@
                         sortable: false,
                         value: 'name',
                     },
+                    { text: "Category", value: "category.name" },
                     { text: 'Created At', value: 'created_at' },
                     { text: 'Updated At', value: 'updated_at' },
                     { text: 'Actions', value: 'action', sortable: false },
@@ -184,7 +185,7 @@
                     this.snackbar = true;
                     axios.patch('api/recipes/' + this.editedItem.id, {
                         name: this.editedItem.name,
-                        measurement_id: this.editedItem.measurement.id
+                        category_id: this.editedItem.category.id
                     })
                         .then(function (response) {
                             console.log(response);
@@ -192,12 +193,12 @@
                 } else {
                     axios.post('api/recipes', {
                         name: this.editedItem.name,
-                        measurement_id: this.editedItem.measurement.id
+                        category_id: this.editedItem.category.id
                     })
                     .then(function (response) {
                         console.log(response);
                     });
-                    this.recipes.push({'name' :  this.editedItem.name, 'measurement.name' : this.editedItem.measurement.name });
+                    this.recipes.push({'name' :  this.editedItem.name, 'category.name' : this.editedItem.category.name });
                     this.snackbar = true;
                     this.snackbarText = "Recipe created";
                 }

@@ -27,9 +27,6 @@
         </template>
       </v-data-table>
       <v-dialog v-model="dialog" max-width="500px">
-        <template v-slot:activator="{ on }">
-          <v-btn color="primary" dark class="mb-2" v-on="on">New Item</v-btn>
-        </template>
         <v-card>
           <v-card-title>
             <span class="headline">{{ formTitle }}</span>
@@ -40,9 +37,6 @@
               <v-row>
                 <v-col cols="12" md="6">
                   <v-text-field v-model="editedItem.name" label="User Name"></v-text-field>
-                </v-col>
-                <v-col cols="12" md="6">
-                  <v-text-field v-model="editedItem.isAdmin" label="isAdmin"></v-text-field>
                 </v-col>
                 <v-col cols="12" md="6">
                   <v-text-field v-model="editedItem.email" label="Email"></v-text-field>
@@ -74,31 +68,21 @@ export default {
         {
           text: "Name",
           align: "left",
-          sortable: false,
           value: "name"
         },
-        { text: "isAdmin", value: "isAdmin" },
         { text: "email", value: "email" },
         { text: "Created At", value: "created_at" },
         { text: "Updated At", value: "updated_at" },
         { text: "Actions", value: "action", sortable: false }
       ],
       users: [],
-      users: [
-        {
-          text: "",
-          value: 1
-        }
-      ],
       editedIndex: -1,
       editedItem: {
         name: "",
-        isAdmin: false,
         email: ""
       },
       defaultItem: {
         name: "",
-        isAdmin: false,
         email: ""
       },
       loading: true,
@@ -123,8 +107,7 @@ export default {
   },
   methods: {
     getUsers: function() {
-      axios
-        .get("api/users")
+      axios.get("api/users")
         .then(response => {
           this.users = response.data;
           this.loading = false;
@@ -142,10 +125,9 @@ export default {
 
     deleteItem(item) {
       const index = this.users.indexOf(item);
-      if (
-        confirm("Are you sure you want to delete this user?") &&
-        this.users.splice(index, 1)
-      ) {
+      let deleteUser = confirm("Are you sure you want to delete this user?");
+      if (deleteUser) {
+        this.users.splice(index, 1);
         axios.delete("api/users/" + item.id);
         this.snackbarText = "User deleted";
         this.snackbar = true;
@@ -165,32 +147,27 @@ export default {
         Object.assign(this.users[this.editedIndex], this.editedItem);
         this.snackbarText = "User updated";
         this.snackbar = true;
-        axios
-          .patch("api/users/" + this.editedItem.id, {
+        axios.patch("api/users/" + this.editedItem.id, {
             name: this.editedItem.name,
-            isAdmin: this.editedItem.user.isAdmin,
-            email: this.editItem.user.email
+            email: this.editedItem.email
           })
           .then(function(response) {
             console.log(response);
           });
       } else {
-        axios
-          .post("api/users", {
+        this.users.push({
+          name: this.editedItem.name,
+          email: this.editedItem.email
+        });
+        this.snackbar = true;
+        this.snackbarText = "User created";
+        axios.post("api/users", {
             name: this.editedItem.name,
-            isAdmin: this.editedItem.user.isAdmin,
-            email: this.editItem.user.email
+            email: this.editedItem.email
           })
           .then(function(response) {
             console.log(response);
           });
-        this.users.push({
-          name: this.editedItem.name,
-          isAdmin: this.editedItem.user.isAdmin,
-          email: this.editItem.user.email
-        });
-        this.snackbar = true;
-        this.snackbarText = "User created";
       }
       this.close();
     }

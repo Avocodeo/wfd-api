@@ -18,12 +18,15 @@
       :loading="loading"
       loading-text="Loading Inventory... Please wait"
     >
+      <template v-slot:item.quantity="{ item }">
+        <v-chip :color="getColor(item)" dark>{{ item.quantity}}</v-chip>
+      </template>
       <template v-slot:item.action="{ item }">
         <v-icon small class="mr-2" @click="editItem(item)">mdi-pencil</v-icon>
         <v-icon small @click="deleteItem(item)">mdi-delete</v-icon>
       </template>
       <template v-slot:no-data>
-        <v-btn color="primary" @click="initialize">Reset</v-btn>
+        <v-btn color="primary" @click="">Reset</v-btn>
       </template>
     </v-data-table>
     <v-dialog v-model="dialog" max-width="500px">
@@ -39,7 +42,16 @@
           <v-container>
             <v-row>
               <v-col cols="12" md="6">
-                <v-text-field v-model="editedItem.name" label="Item Name"></v-text-field>
+                <v-select v-model="editedItem.ingredient" :items="ingredients" label="Ingredient" item-text="name" item-value="id" return-object></v-select>
+              </v-col>
+              <v-col cols="12" md="6">
+                <v-text-field v-model="editedItem.quantity" label="quantity"></v-text-field>
+              </v-col>
+              <v-col cols="12" md="6">
+                <v-text-field v-model="editedItem.low" label="low limit"></v-text-field>
+              </v-col>
+              <v-col cols="12" md="6">
+                <v-text-field v-model="editedItem.high" label="high limit"></v-text-field>
               </v-col>
             </v-row>
           </v-container>
@@ -71,20 +83,23 @@ export default {
           sortable: false,
           value: "id"
         },
+        { text: "Ingredient", value: "ingredient.name"},
         { text: "Quantity", value: "quantity" },
-        { text: "Low", value: "low" },
-        { text: "High", value: "high" },
         { text: "Created At", value: "created_at" },
         { text: "Updated At", value: "updated_at" },
         { text: "Actions", value: "action", sortable: false }
       ],
+      inventories: [],
+      ingredients: [],
       editedIndex: -1,
       editedItem: {
+        ingredient: "",
         quantity: "",
         low: "",
         high: ""
       },
       defaultItem: {
+        ingredient: "",
         quantity: "",
         low: "",
         high: ""
@@ -108,18 +123,29 @@ export default {
   },
   created() {
     this.getInventory();
+    this.getIngredients();
   },
   methods: {
     getInventory: function() {
-      axios
-        .get("api/inventories")
+      axios.get("api/inventories")
         .then(response => {
-          this.ingredients = response.data;
+          this.inventories = response.data;
           this.loading = false;
         })
         .catch(function(error) {
           console.log(error);
         });
+    },
+
+    getIngredients: function() {
+      axios.get("api/ingredients")
+              .then(response => {
+                this.ingredients = response.data;
+                this.loading = false;
+              })
+              .catch(function(error) {
+                console.log(error);
+              });
     },
 
     editItem(item) {
@@ -147,13 +173,12 @@ export default {
 
     save() {
       if (this.editedIndex > -1) {
-        Object.assign(this.ingredients[this.editedIndex], this.editedItem);
+        Object.assign(this.inventories[this.editedIndex], this.editedItem);
         this.snackbarText = "Item updated";
         this.snackbar = true;
-        axios
-          .patch("api/inventories/" + this.editedItem.id, {
-            id: this.editedItem.id,
-            quantity: this.editedItem.inventory.quantity,
+        axios.patch("api/inventories/" + this.editedItem.id, {
+            ingredient_id: this.editedItem.ingredient.id,
+            quantity: this.editedItem.quantity,
             low: this.editedItem.low,
             high: this.editedItem.high
           })
@@ -161,19 +186,18 @@ export default {
             console.log(response);
           });
       } else {
-        axios
-          .post("api/inventories", {
-            id: this.editedItem.id,
-            quantity: this.editedItem.inventory.quantity,
+        axios.post("api/inventories", {
+            ingredient_id: this.editedItem.ingredient.id,
+            quantity: this.editedItem.quantity,
             low: this.editedItem.low,
             high: this.editedItem.high
           })
           .then(function(response) {
             console.log(response);
           });
-        this.ingredients.push({
-          id: this.editedItem.id,
-          quantity: this.editedItem.inventory.quantity,
+        this.inventories.push({
+          'ingredient.name' : this.editedItem.ingredient.name,
+          quantity: this.editedItem.quantity,
           low: this.editedItem.low,
           high: this.editedItem.high
         });
@@ -181,7 +205,15 @@ export default {
         this.snackbarText = "Item created";
       }
       this.close();
-    }
+    },
+    getColor (inventoryItem) {
+      if (inventoryItem.quantity < inventoryItem.low) {
+        return 'red';
+      } else if (inventoryItem.quantity > inventoryItem.high) {
+        return 'orange';
+      }
+      else return 'green'
+    },
   }
 };
 </script>
