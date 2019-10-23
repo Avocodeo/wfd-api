@@ -26,29 +26,34 @@ class InventoriesController extends Controller
     public function store()
     {
         $attributes = request()->validate([
-            'id' => 'sometimes',
+            'ingredient_id' => 'required',
             'quantity' => 'required',
             'low' => 'required',
             'high' => 'required',
         ]);
 
         $inventory = Inventory::create($attributes);
+
         return response()->json([
             'id' => $inventory->id,
-            'message' => 'Inventory was successfully created'
+            'message' => 'Inventory item was successfully created'
         ]);
     }
 
     public function update(Inventory $inventory)
     {
+
         $attributes = request()->validate([
-            'id' => 'sometimes'
+            'ingredient_id' => 'sometimes',
+            'quantity' => 'sometimes',
+            'low' => 'sometimes',
+            'high' => 'sometimes'
         ]);
 
         $inventory->update($attributes);
 
         return response()->json([
-            'id' => $inventory->item_id,
+            'id' => $inventory->id,
             'message' => 'inventory updated'
         ]);
     }
