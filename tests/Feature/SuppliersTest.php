@@ -20,10 +20,8 @@ class SuppliersTest extends TestCase
             'type' => 'food',
         ];
 
-        $this->get('/suppliers/create')->assertStatus(200);
 
         $this->post('api/suppliers', $attributes);
-
         $this->assertDatabaseHas('suppliers', $attributes);
     }
 
