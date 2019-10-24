@@ -28,13 +28,13 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 // Authenticated routes
 Route::group(['middleware' => 'auth'], function () {
-//    Route::prefix('api')->group(function () {
-//        // Application API routes go here
-//        // User account routes
-//        Route::get('/user', 'UserController@index');
-//        Route::post('/account', 'UserController@account');
-//        Route::post('/password', 'UserController@password');
-//    });
+    //    Route::prefix('api')->group(function () {
+    //        // Application API routes go here
+    //        // User account routes
+    //        Route::get('/user', 'UserController@index');
+    //        Route::post('/account', 'UserController@account');
+    //        Route::post('/password', 'UserController@password');
+    //    });
 
     // Catch-all route
     Route::get('/{any}', 'HomeController@index')->where('any', '.*');
@@ -51,6 +51,11 @@ Route::group(['middleware' => 'auth'], function () {
 //Route::get('/inventories', 'InventoriesController@index');
 //Route::get('/inventories/create', 'InventoriesController@create');
 //
+
+// Suppliers Routes
+//Route::get('/suppliers', 'SuppliersController@index');
+//Route::get('/suppliers/create', 'SuppliersController@create');
+
 //// Recipes Routes
 //Route::get('/recipes', 'RecipesController@index');
 //Route::get('/recipes/create', 'RecipesController@create');
@@ -69,3 +74,4 @@ Route::group(['middleware' => 'auth'], function () {
 //Route::get('/measurements/create', 'MeasurementsController@create');
 //Route::get('/recipes/create', 'RecipesController@create');
 //Route::get('/users/create', 'UsersController@create');
+//Route::get('/suppliers/create', 'SuppliersController@create');

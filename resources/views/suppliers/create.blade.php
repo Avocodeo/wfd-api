@@ -1,0 +1,1 @@
+<p>Suppliers Create view</p>

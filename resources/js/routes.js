@@ -7,9 +7,9 @@ import Users from './views/Users'
 import Inventories from './views/Inventories'
 import Recipes from './views/Recipes'
 import Categories from './views/Categories'
+import Suppliers from './views/Suppliers'
 
-export default [
-    {
+export default [{
         path: '/home',
         name: 'home',
         component: Home,
@@ -34,16 +34,21 @@ export default [
         name: 'users',
         component: Users
     },
-        {
-            path: '/categories',
-            name: 'categories',
-            component: Categories
-        },
+    {
+        path: '/categories',
+        name: 'categories',
+        component: Categories
+    },
     {
         path: '/recipes',
         name: 'recipes',
         component: Recipes
-    }, 
+    },
+    {
+        path: '/suppliers',
+        name: 'suppliers',
+        component: Suppliers
+    },
     {
         path: '/inventories',
         name: 'inventories',

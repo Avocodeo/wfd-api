@@ -8,10 +8,10 @@ class Recipe extends Model
 {
     protected $guarded = [];
 
-    protected $with = ['category'];
+    protected $with = ['recipe'];
 
-    public function category()
+    public function recipe()
     {
-        return $this->belongsTo(Category::class);
+        return $this->belongsTo(Recipe::class);
     }
 }

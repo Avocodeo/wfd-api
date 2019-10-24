@@ -62,6 +62,13 @@ Route::get('/categories/{category}', 'API\CategoriesController@show');
 Route::patch('/categories/{category}', 'API\CategoriesController@update');
 Route::delete('/categories/{category}', 'API\CategoriesController@destroy');
 
+// Suppliers Routes
+Route::get('/suppliers', 'API\SuppliersController@index');
+Route::post('/suppliers', 'API\SuppliersController@store');
+Route::get('/suppliers/{supplier}', 'API\SuppliersController@show');
+Route::patch('/suppliers/{supplier}', 'API\SuppliersController@update');
+Route::delete('/suppliers/{supplier}', 'API\SuppliersController@destroy');
+
 // Users Routes
 Route::get('/users', 'API\UsersController@index');
 Route::get('/users/{user}', 'API\UsersController@show');

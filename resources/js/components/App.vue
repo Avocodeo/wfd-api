@@ -51,6 +51,14 @@
               <v-list-item-title>Recipes</v-list-item-title>
             </v-list-item-content>
           </v-list-item>
+          <v-list-item to="/suppliers" class="text-decoration-none">
+            <v-list-item-action>
+              <v-icon color="orange" size="48">mdi-cube-outline</v-icon>
+            </v-list-item-action>
+            <v-list-item-content>
+              <v-list-item-title>Suppliers</v-list-item-title>
+            </v-list-item-content>
+          </v-list-item>
           <v-list-item to="/users" class="text-decoration-none">
             <v-list-item-action>
               <v-icon color="green" size="48">mdi-account-circle-outline</v-icon>
