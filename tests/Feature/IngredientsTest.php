@@ -3,6 +3,7 @@
 namespace Tests\Feature;
 
 use App\Ingredient;
+use App\Supplier;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
@@ -18,7 +19,8 @@ class IngredientsTest extends TestCase
 
         $attributes = [
             'name' => $this->faker->name,
-            'measurement_id' => $this->faker->numberBetween(1, 5),
+            'cost' => $this->faker->numberBetween(0, 5),
+            'supplier_id' => factory(Supplier::class)->create()->id,
         ];
 
         $this->post('api/ingredients', $attributes);
@@ -51,7 +53,7 @@ class IngredientsTest extends TestCase
 
         $attributes = [
             'name' => 'salt',
-            'measurement_id' => '2'
+            'cost' => '2'
         ];
 
         $ingredient = factory(Ingredient::class)->create();
@@ -69,5 +71,4 @@ class IngredientsTest extends TestCase
 
         $this->assertDatabaseMissing('ingredients', ['id' => $ingredient->id]);
     }
-
 }

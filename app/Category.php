@@ -10,8 +10,8 @@ class Category extends Model
 
     protected $with = ['type'];
 
-    public function type()
+    public function recipe()
     {
-        return $this->belongsTo(Category::class);
+        return $this->hasMany(Recipe::class);
     }
 }

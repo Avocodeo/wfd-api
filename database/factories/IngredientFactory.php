@@ -1,11 +1,13 @@
 <?php
 
 use App\Ingredient;
+use App\Supplier;
 use Faker\Generator as Faker;
 
 $factory->define(Ingredient::class, function (Faker $faker) {
     return [
         'name' => $faker->name,
-        'measurement_id' => $faker->numberBetween(1, 5),
+        'cost' => $faker->numberBetween(0, 5),
+        'supplier_id' => factory(Supplier::class)->create()->id,
     ];
 });

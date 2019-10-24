@@ -29,5 +29,10 @@ class InventoriesTableSeeder extends Seeder
         $inventories->each(function ($inventory) {
             Inventory::create($inventory);
         });
+
+        factory(Supplier::class, 10)->create()->each(function ($supplier) {
+            $ingredient = factory(Ingredient::class)->make();
+            $supplier->ingredient()->save($ingredient);
+        });
     }
 }

@@ -12,8 +12,8 @@ class Supplier extends Model
 
     protected $with = ['supplier'];
 
-    public function supplier()
+    public function ingredient()
     {
-        return $this->belongsTo(Supplier::class);
+        return $this->hasMany(Ingredient::class);
     }
 }

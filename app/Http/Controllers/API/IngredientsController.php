@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers\API;
+
 use App\Http\Controllers\Controller;
 
 use App\Ingredient;
@@ -26,7 +27,7 @@ class IngredientsController extends Controller
     {
         $attributes = request()->validate([
             'name' => 'required',
-            'measurement_id' => 'required',
+            'cost' => 'required',
         ]);
 
         $ingredient = Ingredient::create($attributes);
@@ -40,7 +41,7 @@ class IngredientsController extends Controller
     {
         $attributes = request()->validate([
             'name' => 'required',
-            'measurement_id' => 'sometimes'
+            'cost' => 'sometimes'
         ]);
 
         $ingredient->update($attributes);

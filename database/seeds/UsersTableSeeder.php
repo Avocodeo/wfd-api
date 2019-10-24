@@ -23,7 +23,6 @@ class UsersTableSeeder extends Seeder
             'remember_token' => Str::random(10),
             'created_at' => now(),
             'updated_at' => now(),
-
         ]);
         factory(User::class, 50)->create();
     }

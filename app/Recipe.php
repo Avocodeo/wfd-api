@@ -10,8 +10,8 @@ class Recipe extends Model
 
     protected $with = ['recipe'];
 
-    public function recipe()
+    public function categoy()
     {
-        return $this->belongsTo(Recipe::class);
+        return $this->belongsTo(Category::class);
     }
 }
