@@ -178,7 +178,7 @@ export default {
           .post("api/measurements", {
             name: this.editedItem.name,
             abbreviation: this.editedItem.abbreviation,
-            type_id: this.editedItem.typeId
+            type_id: this.editedItem.type.id
           })
           .then(function(response) {
             console.log(response);

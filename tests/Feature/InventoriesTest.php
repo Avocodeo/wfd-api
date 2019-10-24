@@ -6,6 +6,7 @@ use App\Inventory;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
+use App\Ingredient;
 
 class InventoriesTest extends TestCase
 {
@@ -17,12 +18,12 @@ class InventoriesTest extends TestCase
         $this->withoutExceptionHandling(); // when exceptions are thrown laravel catches them but we want the exception
 
         $attributes = [
-            'quantity' => $this->faker->numberBetween(1, 30),
-            'low' => $this->faker->boolean(),
-            'high' => $this->faker->boolean(),
+            'ingredient_id' => factory(Ingredient::class)->create()->id,
+            'quantity' => $this->faker->randomFloat(),
+            'low' => $this->faker->randomFloat(),
+            'high' => $this->faker->randomFloat(),
         ];
 
-        $this->get('/inventories/create')->assertStatus(200); // they can access a create page
         $this->post('api/inventories', $attributes);
         $this->assertDatabaseHas('inventories', $attributes);
     }
@@ -52,12 +53,13 @@ class InventoriesTest extends TestCase
         $this->withoutExceptionHandling();
 
         $attributes = [
+            'ingredient_id' => factory(Ingredient::class)->create()->id,
             'quantity' => 300,
-            'low' => $this->faker->boolean(),
-            'high' => $this->faker->boolean(),
+            'low' => $this->faker->randomFloat(),
+            'high' => $this->faker->randomFloat(),
         ];
 
-        $inventory = factory(Inventory::class)->create(['quantity' =>  300]);
+        $inventory = factory(Inventory::class)->create();
 
         $this->patch("/api/inventories/$inventory->id", $attributes);
 

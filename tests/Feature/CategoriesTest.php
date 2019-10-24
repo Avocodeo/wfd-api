@@ -19,8 +19,6 @@ class CategoriesTest extends TestCase
             'name' => $this->faker->name,
         ];
 
-         $this->get('/categories/create')->assertStatus(200);
-
         $this->post('api/categories', $attributes);
 
         $this->assertDatabaseHas('categories', $attributes);

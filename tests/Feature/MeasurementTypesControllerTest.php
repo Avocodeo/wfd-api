@@ -19,7 +19,6 @@ class MeasurementTypesControllerTest extends TestCase
             'name' => $this->faker->name,
         ];
 
-        $this->get('measurement_types')->assertStatus(200);
         $this->post('api/measurement_types', $attributes);
         $this->assertDatabaseHas('measurement_types', $attributes);
     }

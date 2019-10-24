@@ -21,6 +21,21 @@ class UsersController extends Controller
     {
         return view('user.create');
     }
+
+    public function update(User $user)
+    {
+        $attributes = request()->validate([
+            'name' => 'required',
+            'email' => 'required',
+        ]);
+
+        $user->update($attributes);
+
+        return response()->json([
+            'user' => $user->name,
+            'message' => 'user updated'
+        ]);
+    }
     
      public function destroy(User $user)
     {

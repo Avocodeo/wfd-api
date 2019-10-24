@@ -21,7 +21,6 @@ class IngredientsTest extends TestCase
             'measurement_id' => $this->faker->numberBetween(1, 5),
         ];
 
-        $this->get('/ingredients/create')->assertStatus(200); // they can access a create page
         $this->post('api/ingredients', $attributes);
         $this->assertDatabaseHas('ingredients', $attributes);
     }

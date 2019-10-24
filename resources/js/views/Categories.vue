@@ -35,26 +35,15 @@
           <span class="headline">{{ formTitle }}</span>
         </v-card-title>
 
-        <v-card-text>
-          <v-container>
-            <v-row>
-              <v-col cols="12" md="6">
-                <v-text-field v-model="editedItem.name" label="Category Name"></v-text-field>
-              </v-col>
-              <v-col cols="12" md="6">
-                <v-select
-                  v-model="editedItem.measurement"
-                  :items="categories"
-                  label="Category"
-                  item-text="name"
-                  item-value="id"
-                  return-object
-                  prepend-icon="mdi-view-dashboard"
-                ></v-select>
-              </v-col>
-            </v-row>
-          </v-container>
-        </v-card-text>
+          <v-card-text>
+            <v-container>
+              <v-row>
+                <v-col cols="12" md="6">
+                  <v-text-field v-model="editedItem.name" label="Category Name"></v-text-field>
+                </v-col>
+              </v-row>
+            </v-container>
+          </v-card-text>
 
         <v-card-actions>
           <v-spacer></v-spacer>
@@ -91,7 +80,6 @@ export default {
       editedIndex: -1,
       editedItem: {
         name: "",
-        category: ""
       },
       defaultItem: {
         name: "",
@@ -162,22 +150,20 @@ export default {
         this.snackbar = true;
         axios
           .patch("api/categories/" + this.editedItem.id, {
-            name: this.editedItem.name
+            name: this.editedItem.name,
           })
           .then(function(response) {
             console.log(response);
           });
       } else {
-        axios
-          .post("api/categories", {
-            name: this.editedItem.name
+        axios.post("api/categories", {
+            name: this.editedItem.name,
           })
           .then(function(response) {
             console.log(response);
           });
         this.categories.push({
           name: this.editedItem.name,
-          "category.name": this.editedItem.category.name
         });
         this.snackbar = true;
         this.snackbarText = "Category created";

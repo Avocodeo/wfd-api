@@ -21,7 +21,6 @@ class MeasurementsTest extends TestCase
             'abbreviation' => $this->faker->randomLetter,
         ];
 
-        $this->get('/measurements/create')->assertStatus(200);
         $this->post('api/measurements', $attributes);
         $this->assertDatabaseHas('measurements', $attributes);
     }
