@@ -19,6 +19,10 @@ class CreateRecipesTable extends Migration
             $table->unsignedBigInteger('category_id');
             $table->timestamps();
         });
+
+        Schema::table('recipes', function (Blueprint $table) {
+            $table->foreign('category_id')->references('id')->on('categories');
+        });
     }
 
     /**
