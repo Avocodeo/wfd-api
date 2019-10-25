@@ -66,7 +66,9 @@ class RegisterController extends Controller
     {
 
         //Send this user a welcome email!
-        \Mail::to($data['email'])->send(new Welcome);
+        \Mail::to($data['email'])->send(
+            new Welcome
+        );
 
         //Create the user, send to db
         return User::create([
