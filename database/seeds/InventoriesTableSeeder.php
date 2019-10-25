@@ -1,8 +1,6 @@
 <?php
-
 use Illuminate\Database\Seeder;
 use App\Inventory;
-
 class InventoriesTableSeeder extends Seeder
 {
     /**
