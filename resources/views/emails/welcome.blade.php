@@ -1,12 +1,15 @@
 @component('mail::message')
-# Introduction
+# Welcome to What's for Dinner!
 
-The body of your message.
+Thanks for registering. We will be sure to send any awesome notifications and updates your way!
 
-@component('mail::button', ['url' => ''])
-Button Text
+Show us what you've got available to you and we'll do our best to help make the best food possible!
+
+@component('mail::button', ['url' => 'http://127.0.0.1:8000/ingredients'])
+Why not start by adding some ingredients?
 @endcomponent
 
 Thanks,<br>
-{{ config('app.name') }}
+The WFD Team<br><br><br>
+Powered by {{ config('app.name') }}
 @endcomponent
