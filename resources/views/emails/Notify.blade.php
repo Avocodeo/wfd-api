@@ -1,12 +1,19 @@
 @component('mail::message')
-# Introduction
+# What's for Dinner !?
 
-The body of your message.
+Hey there {{ $user->name }}! Here are some new notifications:
 
-@component('mail::button', ['url' => ''])
-Button Text
+	@foreach ($notifications as $notify)
+        <li>
+            {{ $notify->message }}
+        </li>
+	@endforeach
+
+@component('mail::button', ['url' => url('/notifications')])
+Look at Notifications
 @endcomponent
 
 Thanks,<br>
-{{ config('app.name') }}
+The WFD Team<br><br><br>
+Powered by {{ config('app.name') }}
 @endcomponent

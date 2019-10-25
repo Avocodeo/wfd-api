@@ -11,14 +11,15 @@ class Notify extends Mailable
 {
     use Queueable, SerializesModels;
 
+    public $notification;
     /**
      * Create a new message instance.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct($notification)
     {
-        //
+        $this->notification = $notification;
     }
 
     /**

@@ -1,12 +1,17 @@
 @component('mail::message')
-# Introduction
+# What's for Dinner !!!
 
-The body of your message.
+Hey! {{ $user->name }} wants to send you a recipe! Click on the button below to view the recipe within the WFD app.
 
-@component('mail::button', ['url' => ''])
-Button Text
+Recipe: {{ $recipe->name }}
+
+{{ $recipe->instructions }}
+
+@component('mail::button', ['url' => url('\recipes\{{ $recipe->id }}')])
+View Recipe
 @endcomponent
 
 Thanks,<br>
-{{ config('app.name') }}
+The WFD Team<br><br><br>
+Powered by {{ config('app.name') }}
 @endcomponent

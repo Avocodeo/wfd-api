@@ -11,14 +11,19 @@ class SendRecipe extends Mailable
 {
     use Queueable, SerializesModels;
 
+    public $recipe;
+    public $user;
+
     /**
      * Create a new message instance.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct($recipe, $user)
     {
-        //
+        //Pass the data along to the view
+        $this->recipe = $recipe;
+        $this->user = $user;
     }
 
     /**
