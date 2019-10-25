@@ -1,0 +1,1 @@
+Welcome to What's For Dinner, {{ $user->name }}
