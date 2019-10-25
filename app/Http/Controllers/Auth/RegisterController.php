@@ -76,7 +76,7 @@ class RegisterController extends Controller
 
         //Send this user a welcome email and pass data along to markdown for formatting
         \Mail::to($user->email)->send(
-            new Welcome($user->name)
+            new Welcome($user)
         );
 
         //Create the user, send to db

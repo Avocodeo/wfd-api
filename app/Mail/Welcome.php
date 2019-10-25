@@ -20,7 +20,8 @@ class Welcome extends Mailable
      */
     public function __construct($user)
     {
-        //
+        //Pass the user data along to the view
+        $this->user = $user;
     }
 
     /**

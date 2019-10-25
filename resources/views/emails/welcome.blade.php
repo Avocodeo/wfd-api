@@ -1,7 +1,7 @@
 @component('mail::message')
 # Welcome to What's for Dinner!
 
-Thanks for registering. We will be sure to send any awesome notifications and updates your way!
+Thanks for registering, {{ $user->name }}. We will be sure to send any awesome notifications and updates your way!
 
 Show us what you've got available to you and we'll do our best to help make the best food possible!
 
