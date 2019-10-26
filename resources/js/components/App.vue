@@ -19,7 +19,7 @@
               <v-list-item-title>Categories</v-list-item-title>
             </v-list-item-content>
           </v-list-item>
-          <v-list-item to="ingredients" class="text-decoration-none">
+          <v-list-item to="/ingredients" class="text-decoration-none">
             <v-list-item-action>
               <v-icon color="red" size="48">mdi-food-apple</v-icon>
             </v-list-item-action>
@@ -35,7 +35,7 @@
               <v-list-item-title>Inventory</v-list-item-title>
             </v-list-item-content>
           </v-list-item>
-          <v-list-item to="measurements" class="text-decoration-none">
+          <v-list-item to="/measurements" class="text-decoration-none">
             <v-list-item-action>
               <v-icon color="grey" size="48">mdi-scale-balance</v-icon>
             </v-list-item-action>
