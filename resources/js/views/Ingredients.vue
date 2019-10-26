@@ -83,7 +83,8 @@ export default {
           value: "id"
         },
         { text: "Name", value: "name" },
-        { text: "Measurement", value: "measurement.name" },
+        { text: "Cost", value: "cost" },
+        { text: "Supplier", value: "supplier.name" },
         { text: "Created At", value: "created_at" },
         { text: "Updated At", value: "updated_at" },
         { text: "Actions", value: "action", sortable: false }
@@ -98,11 +99,11 @@ export default {
       editedIndex: -1,
       editedItem: {
         name: "",
-        measurement: ""
+        cost: ""
       },
       defaultItem: {
         name: "",
-        measurement_id: ""
+        cost: ""
       },
       loading: true,
       dialog: false,

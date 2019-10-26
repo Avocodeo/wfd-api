@@ -26,7 +26,7 @@
         <v-icon small @click="deleteItem(item)">mdi-delete</v-icon>
       </template>
       <template v-slot:no-data>
-        <v-btn color="primary" @click="">Reset</v-btn>
+        <v-btn color="primary" @click>Reset</v-btn>
       </template>
     </v-data-table>
     <v-dialog v-model="dialog" max-width="500px">
@@ -42,7 +42,14 @@
           <v-container>
             <v-row>
               <v-col cols="12" md="6">
-                <v-select v-model="editedItem.ingredient" :items="ingredients" label="Ingredient" item-text="name" item-value="id" return-object></v-select>
+                <v-select
+                  v-model="editedItem.ingredient"
+                  :items="ingredients"
+                  label="Ingredient"
+                  item-text="name"
+                  item-value="id"
+                  return-object
+                ></v-select>
               </v-col>
               <v-col cols="12" md="6">
                 <v-text-field v-model="editedItem.quantity" label="quantity"></v-text-field>
@@ -83,7 +90,7 @@ export default {
           sortable: false,
           value: "id"
         },
-        { text: "Ingredient", value: "ingredient.name"},
+        { text: "Ingredient", value: "ingredient.name" },
         { text: "Quantity", value: "quantity" },
         { text: "Created At", value: "created_at" },
         { text: "Updated At", value: "updated_at" },
@@ -127,7 +134,8 @@ export default {
   },
   methods: {
     getInventory: function() {
-      axios.get("api/inventories")
+      axios
+        .get("api/inventories")
         .then(response => {
           this.inventories = response.data;
           this.loading = false;
@@ -138,14 +146,15 @@ export default {
     },
 
     getIngredients: function() {
-      axios.get("api/ingredients")
-              .then(response => {
-                this.ingredients = response.data;
-                this.loading = false;
-              })
-              .catch(function(error) {
-                console.log(error);
-              });
+      axios
+        .get("api/ingredients")
+        .then(response => {
+          this.ingredients = response.data;
+          this.loading = false;
+        })
+        .catch(function(error) {
+          console.log(error);
+        });
     },
 
     editItem(item) {
@@ -178,7 +187,8 @@ export default {
         Object.assign(this.inventories[this.editedIndex], this.editedItem);
         this.snackbarText = "Item updated";
         this.snackbar = true;
-        axios.patch("api/inventories/" + this.editedItem.id, {
+        axios
+          .patch("api/inventories/" + this.editedItem.id, {
             ingredient_id: this.editedItem.ingredient.id,
             quantity: this.editedItem.quantity,
             low: this.editedItem.low,
@@ -188,7 +198,8 @@ export default {
             console.log(response);
           });
       } else {
-        axios.post("api/inventories", {
+        axios
+          .post("api/inventories", {
             ingredient_id: this.editedItem.ingredient.id,
             quantity: this.editedItem.quantity,
             low: this.editedItem.low,
@@ -198,7 +209,7 @@ export default {
             console.log(response);
           });
         this.inventories.push({
-          'ingredient.name' : this.editedItem.ingredient.name,
+          "ingredient.name": this.editedItem.ingredient.name,
           quantity: this.editedItem.quantity,
           low: this.editedItem.low,
           high: this.editedItem.high
@@ -208,14 +219,13 @@ export default {
       }
       this.close();
     },
-    getColor (inventoryItem) {
+    getColor(inventoryItem) {
       if (inventoryItem.quantity < inventoryItem.low) {
-        return 'red';
+        return "red";
       } else if (inventoryItem.quantity > inventoryItem.high) {
-        return 'orange';
-      }
-      else return 'green'
-    },
+        return "orange";
+      } else return "green";
+    }
   }
 };
 </script>

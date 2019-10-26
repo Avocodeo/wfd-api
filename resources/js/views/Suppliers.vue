@@ -83,7 +83,7 @@ export default {
           value: "id"
         },
         { text: "Name", value: "name" },
-        { text: "Type", value: "type" },
+        { text: "Product Type", value: "type_of_product" },
         { text: "Created At", value: "created_at" },
         { text: "Updated At", value: "updated_at" },
         { text: "Actions", value: "action", sortable: false }
