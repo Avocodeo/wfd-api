@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateSuppliersTable extends Migration
+class AlterMeasurementsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,8 @@ class CreateSuppliersTable extends Migration
      */
     public function up()
     {
-        Schema::create('suppliers', function (Blueprint $table) {
-            $table->bigIncrements('id');
-            $table->string('name');
-            $table->string('type_of_product');
-            $table->timestamps();
+        Schema::table('measurements', function (Blueprint $table) {
+            $table->foreign('type_id')->references('id')->on('measurement_types')->onDelete('CASCADE')->onUpdate('CASCADE');
         });
     }
 
@@ -28,6 +25,8 @@ class CreateSuppliersTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('suppliers');
+        Schema::table('measurements', function (Blueprint $table) {
+            $table->dropForeign('type_id');
+        });
     }
 }

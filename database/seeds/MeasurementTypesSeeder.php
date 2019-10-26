@@ -7,15 +7,6 @@ class MeasurementTypesTableSeeder extends Seeder
 {
     public function run()
     {
-        $ingredients = collect([
-            [ 'name' => 'Each'],
-            [ 'name' => 'Volume'],
-            [ 'name' => 'Length'],
-            [ 'name' => 'Weight'],
-        ]);
-
-        $ingredients->each(function($measurementType) {
-            MeasurementType::create($measurementType);
-        });
+        factory(MeasurementType::class, 5)->create();
     }
 }

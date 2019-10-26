@@ -12,7 +12,7 @@ class Supplier extends Model
 
     protected $with = ['supplier'];
 
-    public function ingredient()
+    public function ingredients()
     {
         return $this->hasMany(Ingredient::class);
     }

@@ -16,8 +16,10 @@ class AlterIngredientsTable extends Migration
         Schema::table('ingredients', function (Blueprint $table) {
             $table->dropForeign(['measurement_id']);
             $table->dropColumn('measurement_id');
-            $table->float('cost');
-            $table->unsignedBigInteger('supplier_id');
+
+            $table->float('cost')->after('name');
+            $table->unsignedBigInteger('supplier_id')->after('cost');
+
             $table->foreign('supplier_id')->references('id')->on('suppliers')->onDelete('CASCADE')->onUpdate('CASCADE');
         });
     }

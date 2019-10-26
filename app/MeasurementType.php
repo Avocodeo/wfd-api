@@ -8,7 +8,7 @@ class MeasurementType extends Model
 {
     protected $guarded = [];
 
-    public function measurement()
+    public function measurements()
     {
         return $this->hasMany(Measurement::class);
     }

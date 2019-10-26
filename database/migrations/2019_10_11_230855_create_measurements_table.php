@@ -17,7 +17,7 @@ class CreateMeasurementsTable extends Migration
             $table->bigIncrements('id');
             $table->string('name');
             $table->string('abbreviation');
-            $table->bigInteger('type_id')->nullable();
+            $table->unsignedBigInteger('type_id');
             $table->timestamps();
         });
     }
