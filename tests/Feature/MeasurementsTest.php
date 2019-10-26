@@ -3,6 +3,7 @@
 namespace Tests\Feature;
 
 use App\Measurement;
+use App\MeasurementType;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
@@ -16,7 +17,7 @@ class MeasurementsTest extends TestCase
         $this->withoutExceptionHandling();
 
         $attributes = [
-            'type_id' => $this->faker->numberBetween(1,5),
+            'type_id' => factory(MeasurementType::class)->create()->id,
             'name' => $this->faker->name,
             'abbreviation' => $this->faker->randomLetter,
         ];
@@ -50,7 +51,7 @@ class MeasurementsTest extends TestCase
         $this->withoutExceptionHandling();
 
         $attributes = [
-            'type_id' => $this->faker->numberBetween(1,5),
+            'type_id' => factory(MeasurementType::class)->create()->id,
             'name' => 'Pounds',
             'abbreviation' => 'lbs',
         ];
@@ -70,5 +71,4 @@ class MeasurementsTest extends TestCase
 
         $this->assertDatabaseMissing('measurements', ['id' => $measurement->id]);
     }
-
 }

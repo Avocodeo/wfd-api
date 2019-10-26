@@ -2,6 +2,7 @@
 
 namespace Tests\Feature;
 
+use App\Category;
 use App\Recipe;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
@@ -18,7 +19,7 @@ class RecipesTest extends TestCase
 
         $attributes = [
             'name' => $this->faker->name,
-            'category_id' => $this->faker->numberBetween(1, 5),
+            'category_id' => factory(Category::class)->create()->id,
         ];
 
         $this->post('api/recipes', $attributes);
@@ -51,7 +52,6 @@ class RecipesTest extends TestCase
 
         $attributes = [
             'name' => 'Butter Chicken',
-            'category_id' => '2'
         ];
 
         $recipe = factory(Recipe::class)->create();
@@ -69,5 +69,4 @@ class RecipesTest extends TestCase
 
         $this->assertDatabaseMissing('recipes', ['id' => $recipe->id]);
     }
-
 }

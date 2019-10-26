@@ -17,7 +17,7 @@ class SuppliersTest extends TestCase
 
         $attributes = [
             'name' => $this->faker->name,
-            'type' => 'food',
+            'type_of_product' => 'food',
         ];
 
 
@@ -51,10 +51,10 @@ class SuppliersTest extends TestCase
 
         $attributes = [
             'name' => 'Pearl',
-            'type' => 'chicken',
+            'type_of_product' => 'chicken',
         ];
 
-        $supplier = factory(Supplier::class)->create(['name' => 'Pearl', 'type' => 'chicken']);
+        $supplier = factory(Supplier::class)->create(['name' => 'Pearl']);
 
         $this->patch("/api/suppliers/$supplier->id", $attributes);
 

@@ -55,8 +55,8 @@ class InventoriesTest extends TestCase
         $attributes = [
             'ingredient_id' => factory(Ingredient::class)->create()->id,
             'quantity' => 300,
-            'low' => $this->faker->randomFloat(),
-            'high' => $this->faker->randomFloat(),
+            'low' => $this->faker->numberBetween(0, 10),
+            'high' => $this->faker->numberBetween(0, 100),
         ];
 
         $inventory = factory(Inventory::class)->create();
