@@ -8,7 +8,7 @@ class Category extends Model
 {
     protected $guarded = [];
 
-    protected $with = ['type'];
+    protected $with = ['recipes'];
 
     public function recipes()
     {

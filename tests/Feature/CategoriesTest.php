@@ -50,7 +50,6 @@ class CategoriesTest extends TestCase
 
         $attributes = [
             'name' => 'salt',
-            'measurement_id' => '2'
         ];
 
         $category = factory(Category::class)->create();
@@ -68,5 +67,4 @@ class CategoriesTest extends TestCase
 
         $this->assertDatabaseMissing('categories', ['id' => $category->id]);
     }
-
 }

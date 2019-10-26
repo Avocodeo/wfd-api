@@ -15,11 +15,11 @@ class IngredientsTest extends TestCase
 
     public function testCanCreateIngredient()
     {
-        $this->withoutExceptionHandling(); // when exceptions are thrown laravel catches them but we want the exception
+        // $this->withoutExceptionHandling(); 
 
         $attributes = [
             'name' => $this->faker->name,
-            'cost' => $this->faker->numberBetween(0, 5),
+            'cost' => $this->faker->randomFloat(2, 0, 10),
             'supplier_id' => factory(Supplier::class)->create()->id,
         ];
 

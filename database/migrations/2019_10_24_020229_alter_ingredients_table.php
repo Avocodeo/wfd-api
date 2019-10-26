@@ -14,9 +14,6 @@ class AlterIngredientsTable extends Migration
     public function up()
     {
         Schema::table('ingredients', function (Blueprint $table) {
-            $table->float('cost')->after('name');
-            $table->unsignedBigInteger('supplier_id')->after('cost');
-
             $table->foreign('supplier_id')->references('id')->on('suppliers')->onDelete('CASCADE')->onUpdate('CASCADE');
         });
     }

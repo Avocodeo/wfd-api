@@ -10,7 +10,7 @@ class Supplier extends Model
 
     protected $guarded = [];
 
-    protected $with = ['supplier'];
+    protected $with = ['ingredients'];
 
     public function ingredients()
     {

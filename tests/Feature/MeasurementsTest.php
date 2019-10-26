@@ -17,9 +17,9 @@ class MeasurementsTest extends TestCase
         $this->withoutExceptionHandling();
 
         $attributes = [
-            'type_id' => factory(MeasurementType::class)->create()->id,
             'name' => $this->faker->name,
             'abbreviation' => $this->faker->randomLetter,
+            'type_id' => factory(MeasurementType::class)->create()->id,
         ];
 
         $this->post('api/measurements', $attributes);
