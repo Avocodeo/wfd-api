@@ -1,7 +1,7 @@
 <template>
   <v-card>
     <v-card-title>
-      Export Your Favorite Recipe
+      Recipes
       <v-spacer></v-spacer>
       <v-text-field
         v-model="search"
@@ -19,15 +19,18 @@
       loading-text="Loading Recipes... Please wait"
     >
       <template v-slot:item.action="{ item }">
-          <v-icon small="" class="mr-2" @click="editItem(item)">mdi-pencil</v-icon>
-          <v-icon small="" @click="deleteItem(item)">mdi-delete</v-icon>
-          <v-btn color="primary" class="ml-4" @click="editItem(item)">Download</v-btn>
+        <v-icon small class="mr-2" @click="editItem(item)">mdi-pencil</v-icon>
+        <v-icon small @click="deleteItem(item)">mdi-delete</v-icon>
+        <v-btn color="primary" class="ml-4" @click="editItem(item)">Download</v-btn>
       </template>
       <template v-slot:no-data>
         <v-btn color="primary" @click="initialize">Reset</v-btn>
       </template>
     </v-data-table>
     <v-dialog v-model="dialog" max-width="500px">
+      <template v-slot:activator="{ on }">
+        <v-btn color="primary" dark class="mb-2" v-on="on">New Item</v-btn>
+      </template>
       <v-card>
         <v-card-title>
           <span class="headline">{{ formTitle }}</span>
@@ -54,7 +57,6 @@
         </v-card-actions>
       </v-card>
     </v-dialog>
-      
     <v-snackbar v-model="snackbar" :timeout="snackbarTimeout">
       {{ snackbarText }}
       <v-btn color="blue" text @click="snackbar = false">Close</v-btn>
@@ -145,12 +147,21 @@
       this.dialog = true;
     },
 
+    deleteItem(item) {
+      const index = this.recipes.indexOf(item);
+      confirm("Are you sure you want to delete this recipe?") &&
+        this.recipes.splice(index, 1);
+      axios.delete("api/recipes/" + item.id);
+      this.snackbarText = "Recipe deleted";
+      this.snackbar = true;
+    },
+
     close() {
-    this.dialog = false;
-    setTimeout(() => {
-    this.editedItem = Object.assign({}, this.defaultItem);
-    this.editedIndex = -1;
-    }, 300);
+      this.dialog = false;
+      setTimeout(() => {
+        this.editedItem = Object.assign({}, this.defaultItem);
+        this.editedIndex = -1;
+      }, 300);
     },
 
     download() {
@@ -171,33 +182,31 @@
       },
       
     save () {
-    if (this.editedIndex > -1) {
-        Object.assign(this.recipes[this.editedIndex], this.editedItem);
-        this.snackbarText = "Recipe Saved";
-        this.snackbar = true;
-        
-        axios.patch('api/recipes/' + this.editedItem.id, {
-            name: this.editedItem.name,
-            category_id: this.editedItem.category.id
-        })
-        .then(function (response) {
-        console.log(response);
-        })
-    } else {
-        axios.post('api/recipes', {
-        name: this.editedItem.name,
-        category_id: this.editedItem.category.id
-    })
-    .then(function (response) {
-    console.log(response);
-    });
-    
-    this.recipes.push({'name' :  this.editedItem.name, 'category.name' : this.editedItem.category.name });
-    this.snackbar = true;
-    this.snackbarText = "Recipe created";
-    }
-    this.close()
+        if (this.editedIndex > -1) {
+            Object.assign(this.recipes[this.editedIndex], this.editedItem);
+            this.snackbarText = "Recipe updated";
+            this.snackbar = true;
+            axios.patch('api/recipes/' + this.editedItem.id, {
+                name: this.editedItem.name,
+                category_id: this.editedItem.category.id
+            })
+                .then(function (response) {
+                    console.log(response);
+                })
+        } else {
+            axios.post('api/recipes', {
+                name: this.editedItem.name,
+                category_id: this.editedItem.category.id
+            })
+            .then(function (response) {
+                console.log(response);
+            });
+            this.recipes.push({'name' :  this.editedItem.name, 'category.name' : this.editedItem.category.name });
+            this.snackbar = true;
+            this.snackbarText = "Recipe created";
+        }
+        this.close()
     },
-    }
-    };
+}
+};
 </script>
