@@ -35,6 +35,14 @@
               <v-list-item-title>Inventory</v-list-item-title>
             </v-list-item-content>
           </v-list-item>
+            <v-list-item to="/groceries" class="text-decoration-none">
+            <v-list-item-action>
+              <v-icon color="red" size="48">mdi-format-list-bulleted</v-icon>
+            </v-list-item-action>
+            <v-list-item-content>
+              <v-list-item-title>Groceries</v-list-item-title>
+            </v-list-item-content>
+          </v-list-item>
           <v-list-item to="measurements" class="text-decoration-none">
             <v-list-item-action>
               <v-icon color="grey" size="48">mdi-scale-balance</v-icon>

@@ -74,3 +74,6 @@ Route::get('/users', 'API\UsersController@index');
 Route::get('/users/{user}', 'API\UsersController@show');
 Route::patch('/users/{user}', 'API\UsersController@update');
 Route::delete('/users/{user}', 'API\UsersController@destroy');
+
+// Grocery List Routes
+Route::get('/groceries', 'API\GroceryListController@index');
