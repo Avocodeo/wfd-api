@@ -21,6 +21,7 @@
       <template v-slot:item.action="{ item }">
         <v-icon small class="mr-2" @click="editItem(item)">mdi-pencil</v-icon>
         <v-icon small @click="deleteItem(item)">mdi-delete</v-icon>
+        <v-btn color="primary" class="ml-4" v-model="editedItem" @click="download(item)">Download</v-btn>
       </template>
       <template v-slot:no-data>
         <v-btn color="primary" @click="initialize">Reset</v-btn>
@@ -66,6 +67,7 @@
     export default {
         data () {
             return {
+                fileName: '',
                 search: '',
                 headers: [
                     {
@@ -160,6 +162,24 @@
         this.editedIndex = -1;
       }, 300);
     },
+
+    download(item) {
+          this.snackbarText = "Recipe Downloaded";
+          this.snackbar = true;
+          const index = this.recipes.indexOf(item);
+          
+          axios.get("api/recipes" + item.id).then(respone => {this.recipes = response.data;})
+          
+          var vm = this,
+          blob = new Blob(['Recipe Name: ', this.recipes.index], { type: 'text/plain' }),
+          anchor = document.createElement('a');
+      
+          anchor.download = _.kebabCase(vm.editedItem.name)+'.txt';
+          anchor.href = (window.webkitURL || window.URL).createObjectURL(blob);
+          anchor.dataset.downloadurl = ['text/plain', anchor.download, anchor.href].join(':');
+          anchor.click();
+      },
+      
     save () {
         if (this.editedIndex > -1) {
             Object.assign(this.recipes[this.editedIndex], this.editedItem);
