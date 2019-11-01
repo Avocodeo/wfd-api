@@ -37,16 +37,24 @@
         </v-card-title>
 
         <v-card-text>
-            <v-container>
-                <v-row>
-                    <v-col cols="12" md="6">
-                        <v-text-field v-model="editedItem.name" label="Recipe Name"></v-text-field>
-                    </v-col>
-                    <v-col cols="12" md="6">
-                        <v-select v-model="editedItem.category" :items="categories" label="Category" item-text="name" item-value="id" return-object prepend-icon="mdi-scale-balance"></v-select>
-                    </v-col>
-                </v-row>
-            </v-container>
+          <v-container>
+            <v-row>
+              <v-col cols="12" md="6">
+                <v-text-field v-model="editedItem.name" label="Recipe Name"></v-text-field>
+              </v-col>
+              <v-col cols="12" md="6">
+                <v-select
+                  v-model="editedItem.category"
+                  :items="categories"
+                  label="Category"
+                  item-text="name"
+                  item-value="id"
+                  return-object
+                  prepend-icon="mdi-scale-balance"
+                ></v-select>
+              </v-col>
+            </v-row>
+          </v-container>
         </v-card-text>
 
         <v-card-actions>
@@ -64,43 +72,45 @@
 </template>
 
 <script>
-    export default {
-        data () {
-            return {
-                fileName: '',
-                search: '',
-                headers: [
-                    {
-                        text: 'Name',
-                        align: 'left',
-                        sortable: false,
-                        value: 'name',
-                    },
-                    { text: "Category", value: "category.name" },
-                    { text: 'Created At', value: 'created_at' },
-                    { text: 'Updated At', value: 'updated_at' },
-                    { text: 'Actions', value: 'action', sortable: false },
-                ],
-                recipes: [],
-                categories: [{
-                    text: 'Salt',
-                    value: 1
-                }],
-                editedIndex: -1,
-                editedItem: {
-                    name: '',
-                    category: '',
-                },
-                defaultItem: {
-                    name: '',
-                    category_id: '',
-                },
-                loading: true,
-                dialog: false,
-                snackbar: false,
-                snackbarText: '',
-                snackbarTimeout: 2000,
-            }
+export default {
+  data() {
+    return {
+      fileName: "test",
+      search: "",
+      headers: [
+        {
+          text: "Name",
+          align: "left",
+          sortable: false,
+          value: "name"
+        },
+        { text: "Category", value: "category.name" },
+        { text: "Created At", value: "created_at" },
+        { text: "Updated At", value: "updated_at" },
+        { text: "Actions", value: "action", sortable: false }
+      ],
+      recipes: [],
+      categories: [
+        {
+          text: "Salt",
+          value: 1
+        }
+      ],
+      editedIndex: -1,
+      editedItem: {
+        name: "",
+        category: ""
+      },
+      defaultItem: {
+        name: "",
+        category_id: ""
+      },
+      loading: true,
+      dialog: false,
+      snackbar: false,
+      snackbarText: "",
+      snackbarTimeout: 2000
+    };
   },
   computed: {
     formTitle() {
@@ -164,48 +174,55 @@
     },
 
     download(item) {
-          this.snackbarText = "Recipe Downloaded";
-          this.snackbar = true;
-          const index = this.recipes.indexOf(item);
-          
-          axios.get("api/recipes" + item.id).then(respone => {this.recipes = response.data;})
-          
-          var vm = this,
-          blob = new Blob(['Recipe Name: ', this.recipes.index], { type: 'text/plain' }),
-          anchor = document.createElement('a');
-      
-          anchor.download = _.kebabCase(vm.editedItem.name)+'.txt';
-          anchor.href = (window.webkitURL || window.URL).createObjectURL(blob);
-          anchor.dataset.downloadurl = ['text/plain', anchor.download, anchor.href].join(':');
-          anchor.click();
-      },
-      
-    save () {
-        if (this.editedIndex > -1) {
-            Object.assign(this.recipes[this.editedIndex], this.editedItem);
-            this.snackbarText = "Recipe updated";
-            this.snackbar = true;
-            axios.patch('api/recipes/' + this.editedItem.id, {
-                name: this.editedItem.name,
-                category_id: this.editedItem.category.id
-            })
-                .then(function (response) {
-                    console.log(response);
-                })
-        } else {
-            axios.post('api/recipes', {
-                name: this.editedItem.name,
-                category_id: this.editedItem.category.id
-            })
-            .then(function (response) {
-                console.log(response);
-            });
-            this.recipes.push({'name' :  this.editedItem.name, 'category.name' : this.editedItem.category.name });
-            this.snackbar = true;
-            this.snackbarText = "Recipe created";
-        }
-        this.close()
+      const blob = new Blob(["Recipe Name: ", item.name], {
+          type: "text/plain"
+        }),
+        anchor = document.createElement("a");
+
+      anchor.download = _.kebabCase(this.fileName) + ".txt";
+      anchor.href = (window.webkitURL || window.URL).createObjectURL(blob);
+      anchor.dataset.downloadurl = [
+        "text/plain",
+        anchor.download,
+        anchor.href
+      ].join(":");
+      anchor.click();
+
+      this.snackbar = true;
+      this.snackbarText = "Recipe Downloaded";
     },
-}
+
+    save() {
+      if (this.editedIndex > -1) {
+        Object.assign(this.recipes[this.editedIndex], this.editedItem);
+        this.snackbarText = "Recipe updated";
+        this.snackbar = true;
+        axios
+          .patch("api/recipes/" + this.editedItem.id, {
+            name: this.editedItem.name,
+            category_id: this.editedItem.category.id
+          })
+          .then(function(response) {
+            console.log(response);
+          });
+      } else {
+        axios
+          .post("api/recipes", {
+            name: this.editedItem.name,
+            category_id: this.editedItem.category.id
+          })
+          .then(function(response) {
+            console.log(response);
+          });
+        this.recipes.push({
+          name: this.editedItem.name,
+          "category.name": this.editedItem.category.name
+        });
+        this.snackbar = true;
+        this.snackbarText = "Recipe created";
+      }
+      this.close();
+    }
+  }
 };
 </script>
