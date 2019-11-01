@@ -8,6 +8,7 @@ import Inventories from './views/Inventories'
 import Recipes from './views/Recipes'
 import Categories from './views/Categories'
 import Suppliers from './views/Suppliers'
+import Notifications from './views/Notifications'
 
 export default [{
         path: '/home',
@@ -53,6 +54,11 @@ export default [{
         path: '/inventories',
         name: 'inventories',
         component: Inventories
+    },
+    {
+        path: '/notifications',
+        name: 'notifications',
+        component: Notifications
     },
     {
         path: '*',

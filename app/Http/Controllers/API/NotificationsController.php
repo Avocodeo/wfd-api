@@ -13,83 +13,28 @@ class NotificationsController extends Controller
 {
     public function index()
     {
-        return view('notifications.index');
-    }
-}
+        //Get the current user
+        $user = \Auth::user();
 
-
-
-
-
-
-
-<?php
-
-namespace App\Http\Controllers\API;
-
-use App\Http\Controllers\Controller;
-
-use App\Inventory;
-
-class InventoriesController extends Controller
-{
-    public function index()
-    {
-        return Inventory::all();
-        return Notifications::all();
+        //Return all notifications for this user
+        return $user->notifications->all();
     }
 
-    public function show(Inventory $inventory)
+    public function show(Notifications $notifiable)
     {
-        return $inventory;
+        //Get the current user
+        $user = \Auth::user();
+
+        //Return all notifications for this user
+        return $user->notifications->all();
     }
-
-    public function create()
+    
+    public function destroy(Notifications $notifiable)
     {
-        return view('inventories.create');
-    }
-
-    public function store()
-    {
-        $attributes = request()->validate([
-            'ingredient_id' => 'required',
-            'quantity' => 'required',
-            'low' => 'required',
-            'high' => 'required',
-        ]);
-
-        $inventory = Inventory::create($attributes);
+        $notifiable->delete();
 
         return response()->json([
-            'id' => $inventory->id,
-            'message' => 'Inventory item was successfully created'
-        ]);
-    }
-
-    public function update(Inventory $inventory)
-    {
-
-        $attributes = request()->validate([
-            'ingredient_id' => 'sometimes',
-            'quantity' => 'sometimes',
-            'low' => 'sometimes',
-            'high' => 'sometimes'
-        ]);
-
-        $inventory->update($attributes);
-
-        return response()->json([
-            'id' => $inventory->id,
-            'message' => 'inventory updated'
-        ]);
-    }
-
-    public function destroy(Inventory $inventory)
-    {
-        $inventory->delete();
-
-        return response()->json([
-            'message' => 'inventory was successfully deleted'
+            'message' => 'notification was successfully deleted'
         ]);
     }
 }
