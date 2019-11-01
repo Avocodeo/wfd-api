@@ -26,7 +26,7 @@
         <v-icon small @click="deleteItem(item)">mdi-delete</v-icon>
       </template>
       <template v-slot:no-data>
-        <v-btn color="primary" @click="">Reset</v-btn>
+        <v-btn color="primary" @click="initialize">Reset</v-btn>
       </template>
     </v-data-table>
     <v-dialog v-model="dialog" max-width="500px">
