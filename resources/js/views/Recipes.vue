@@ -75,7 +75,7 @@
 export default {
   data() {
     return {
-      fileName: "test",
+      fileName: "",
       search: "",
       headers: [
         {
@@ -179,7 +179,7 @@ export default {
         }),
         anchor = document.createElement("a");
 
-      anchor.download = _.kebabCase(this.fileName) + ".txt";
+      anchor.download = _.kebabCase(item.name) + ".txt";
       anchor.href = (window.webkitURL || window.URL).createObjectURL(blob);
       anchor.dataset.downloadurl = [
         "text/plain",
