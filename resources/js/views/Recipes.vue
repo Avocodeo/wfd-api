@@ -21,7 +21,7 @@
       <template v-slot:item.action="{ item }">
         <v-icon small class="mr-2" @click="editItem(item)">mdi-pencil</v-icon>
         <v-icon small @click="deleteItem(item)">mdi-delete</v-icon>
-        <v-btn color="primary" class="ml-4" @click="editItem(item)">Download</v-btn>
+        <v-btn color="primary" class="ml-4" v-model="editedItem" @click="download(item)">Download</v-btn>
       </template>
       <template v-slot:no-data>
         <v-btn color="primary" @click="initialize">Reset</v-btn>
@@ -53,7 +53,6 @@
           <v-spacer></v-spacer>
           <v-btn color="blue darken-1" text @click="close">Cancel</v-btn>
           <v-btn color="blue darken-1" text @click="save">Save</v-btn>
-          <v-btn color="blue darken-1" text v-model="editedItem" @click="download">Download</v-btn>
         </v-card-actions>
       </v-card>
     </v-dialog>
@@ -68,7 +67,7 @@
     export default {
         data () {
             return {
-                fileName: 'recipeDownload',
+                fileName: '',
                 search: '',
                 headers: [
                     {
@@ -164,21 +163,21 @@
       }, 300);
     },
 
-    download() {
-        if (this.editedIndex > -1) {
-            Object.assign(this.recipes[this.editedIndex], this.editedItem);
-            this.snackbarText = "Recipe Downloaded";
-            this.snackbar = true;
-        
-          var vm= this,
-          blob = new Blob(['Recipe Name: ', vm.editedItem.name,' Category: ',this.editedItem.category.name], { type: 'text/plain' }),
+    download(item) {
+          this.snackbarText = "Recipe Downloaded";
+          this.snackbar = true;
+          const index = this.recipes.indexOf(item);
+          
+          axios.get("api/recipes" + item.id).then(respone => {this.recipes = response.data;})
+          
+          var vm = this,
+          blob = new Blob(['Recipe Name: ', vm.editedItem.name], { type: 'text/plain' }),
           anchor = document.createElement('a');
       
           anchor.download = _.kebabCase(vm.editedItem.name)+'.txt';
           anchor.href = (window.webkitURL || window.URL).createObjectURL(blob);
           anchor.dataset.downloadurl = ['text/plain', anchor.download, anchor.href].join(':');
           anchor.click();
-        }
       },
       
     save () {
