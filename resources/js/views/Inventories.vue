@@ -210,8 +210,14 @@ export default {
     },
     getColor (inventoryItem) {
       if (inventoryItem.quantity < inventoryItem.low) {
+          axios.post("api/notifications", {
+            id: "2"
+          })
         return 'red';
       } else if (inventoryItem.quantity > inventoryItem.high) {
+          axios.post("api/notifications", {
+            id: "4"
+          })
         return 'orange';
       }
       else return 'green'

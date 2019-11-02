@@ -77,4 +77,5 @@ Route::delete('/users/{user}', 'API\UsersController@destroy');
 
 // Notifications Routes
 Route::get('/notifications', 'API\NotificationsController@show');
+Route::post('/notifications', 'API\NotificationsController@store');
 Route::delete('/notifications', 'API\NotificationsController@destroy');

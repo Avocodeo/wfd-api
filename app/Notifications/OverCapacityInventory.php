@@ -40,10 +40,13 @@ class OverCapacityInventory extends Notification
      */
     public function toMail($notifiable)
     {
+        $mail_title = "Overflowing Inventory";
+        $mail_message = "Hey! Something has been seen above the set threshold in your inventory. You should check it out and make sure you don't order anymore!";
         return (new MailMessage)
-                    ->line('The introduction to the notification.')
-                    ->action('Notification Action', url('/'))
-                    ->line('Thank you for using our application!');
+                    ->subject($mail_title)
+                    ->line($mail_message)
+                    ->action('Check your Notifications', url('/notifications'))
+                    ->line('-The WFD Team');
     }
 
     /**
@@ -56,6 +59,8 @@ class OverCapacityInventory extends Notification
     {
         return [
             //
+            'title' => $mail_title,
+            'message' => $mail_message,
         ];
     }
 }

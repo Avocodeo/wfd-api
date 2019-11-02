@@ -29,7 +29,7 @@ class NewItemAdded extends Notification
      */
     public function via($notifiable)
     {
-        return ['mail', 'database'];
+        return ['database'];
     }
 
     /**
@@ -40,10 +40,13 @@ class NewItemAdded extends Notification
      */
     public function toMail($notifiable)
     {
+        $mail_title = "New Item Added";
+        $mail_message = "Someone added a new item to your inventory! You should login and check it out :)";
         return (new MailMessage)
-                    ->line('The introduction to the notification.')
-                    ->action('Notification Action', url('/'))
-                    ->line('Thank you for using our application!');
+                    ->subject($mail_title)
+                    ->line($mail_message)
+                    ->action('Check your Notifications', url('/notifications'))
+                    ->line('-The WFD Team');
     }
 
     /**
@@ -56,6 +59,8 @@ class NewItemAdded extends Notification
     {
         return [
             //
+            'title' => $mail_title,
+            'message' => $mail_message,
         ];
     }
 }

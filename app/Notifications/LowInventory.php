@@ -42,12 +42,13 @@ class LowInventory extends Notification
      */
     public function toMail($notifiable)
     {
+        $mail_title = "Low Inventory";
+        $mail_message = "An item in your inventory has been seen below the set threshold, in other words: you're running out. We've gone ahead and added this to your shopping list!";
         return (new MailMessage)
-                    ->line('The introduction to the notification.')
-                    ->action('Notification Action', url('/'))
-                    ->line('Thank you for using our application!');
-
-        return $this->markdown('emails.Notify');
+                    ->subject($mail_title)
+                    ->line($mail_message)
+                    ->action('Check your Notifications', url('/notifications'))
+                    ->line('-The WFD Team');
     }
 
     /**
@@ -60,6 +61,8 @@ class LowInventory extends Notification
     {
         return [
             //
+            'title' => $mail_title,
+            'message' => $mail_message,
         ];
     }
 }

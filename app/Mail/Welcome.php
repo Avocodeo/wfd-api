@@ -6,6 +6,7 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
+use App\User;
 
 class Welcome extends Mailable
 {
@@ -31,6 +32,18 @@ class Welcome extends Mailable
      */
     public function build()
     {
+        /*
+        
+        //Send new user Welcome email
+        $this->markdown('emails.Welcome');
+
+        //Notify admin that new user has registered
+        dd(User::all()->where('isAdmin', '1')->get());
+        $wfd_admin = User::all()->where('isAdmin', '1')->get();
+        
+        return $wfd_admin->notify(new NewUser);
+        */
+        
         return $this->markdown('emails.Welcome');
     }
 }
