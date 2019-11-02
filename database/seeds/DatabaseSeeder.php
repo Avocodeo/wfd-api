@@ -19,5 +19,6 @@ class DatabaseSeeder extends Seeder
         $this->call(MeasurementTypesTableSeeder::class);
         $this->call(InventoriesTableSeeder::class);
         $this->call(SuppliersTableSeeder::class);
+        $this->call(NotificationsSeeder::class);
     }
 }

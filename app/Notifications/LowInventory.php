@@ -27,6 +27,8 @@ class LowInventory extends Notification
      * @param  mixed  $notifiable
      * @return array
      */
+
+    //This is how this notification is going to be sent. What channels are used.
     public function via($notifiable)
     {
         return ['mail', 'database'];
@@ -44,6 +46,8 @@ class LowInventory extends Notification
                     ->line('The introduction to the notification.')
                     ->action('Notification Action', url('/'))
                     ->line('Thank you for using our application!');
+
+        return $this->markdown('emails.Notify');
     }
 
     /**

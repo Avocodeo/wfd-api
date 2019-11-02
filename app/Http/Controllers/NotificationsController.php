@@ -6,8 +6,8 @@ use Illuminate\Http\Request;
 
 class NotificationsController extends Controller
 {
-    public function index()
+    public function show()
     {
-        return view('notifications.index');
+        return view('notifications.show');
     }
 }

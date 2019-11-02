@@ -8,9 +8,17 @@ use App\Notifications;
 use App\User;
 
 use Illuminate\Http\Request;
+use Illuminate\Notifications\Notifiable;
+
+
+
 
 class NotificationsController extends Controller
 {
+
+    use Notifiable;
+
+
     public function index()
     {
         //Get the current user
@@ -27,6 +35,11 @@ class NotificationsController extends Controller
 
         //Return all notifications for this user
         return $user->notifications->all();
+    }
+
+    public function create()
+    {
+        return view('notifications.create');
     }
     
     public function destroy(Notifications $notifiable)

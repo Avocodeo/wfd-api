@@ -38,32 +38,6 @@
           <span class="headline">{{ formTitle }}</span>
         </v-card-title>
 
-        <v-card-text>
-          <v-container>
-            <v-row>
-              <v-col cols="12" md="6">
-                <v-select
-                  v-model="editedItem.ingredient"
-                  :items="ingredients"
-                  label="Ingredient"
-                  item-text="name"
-                  item-value="id"
-                  return-object
-                ></v-select>
-              </v-col>
-              <v-col cols="12" md="6">
-                <v-text-field v-model="editedItem.quantity" label="quantity"></v-text-field>
-              </v-col>
-              <v-col cols="12" md="6">
-                <v-text-field v-model="editedItem.low" label="low limit"></v-text-field>
-              </v-col>
-              <v-col cols="12" md="6">
-                <v-text-field v-model="editedItem.high" label="high limit"></v-text-field>
-              </v-col>
-            </v-row>
-          </v-container>
-        </v-card-text>
-
         <v-card-actions>
           <v-spacer></v-spacer>
           <v-btn color="blue darken-1" text @click="close">Cancel</v-btn>
@@ -84,17 +58,12 @@ export default {
     return {
       search: "",
       headers: [
-        {
-          text: "id",
-          align: "left",
-          sortable: false,
-          value: "id"
-        },
-        { text: "Ingredient", value: "ingredient.name" },
-        { text: "Quantity", value: "quantity" },
+        { text: "Notifications", value: "ingredient.name" },
         { text: "Created At", value: "created_at" },
-        { text: "Updated At", value: "updated_at" },
-        { text: "Actions", value: "action", sortable: false }
+        { 
+          text: "Actions", 
+          value: "action", 
+          sortable: false }
       ],
       notifications: [],
       ingredients: [],
@@ -120,7 +89,7 @@ export default {
   },
   computed: {
     formTitle() {
-      return this.editedIndex === -1 ? "New Item" : "Edit Item";
+      return this.editedIndex === -1 ? "Clear All" : "Edit Item";
     }
   },
   watch: {
