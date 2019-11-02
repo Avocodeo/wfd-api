@@ -18,23 +18,10 @@ class NotificationsController extends Controller
 
     use Notifiable;
 
-
-    public function index()
-    {
-        //Get the current user
-        $user = \Auth::user();
-
-        //Return all notifications for this user
-        return $user->notifications->all();
-    }
-
     public function show(Notifications $notifiable)
     {
-        //Get the current user
-        $user = \Auth::user();
-
         //Return all notifications for this user
-        return $user->notifications->all();
+        return $notifiable;
     }
 
     public function create()

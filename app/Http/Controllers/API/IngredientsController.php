@@ -4,6 +4,7 @@ namespace App\Http\Controllers\API;
 use App\Http\Controllers\Controller;
 
 use App\Ingredient;
+use App\Notifications;
 
 class IngredientsController extends Controller
 {
@@ -30,6 +31,13 @@ class IngredientsController extends Controller
         ]);
 
         $ingredient = Ingredient::create($attributes);
+
+        //Get current user
+        $user = $auth->user();
+        
+        //Send this user a notification
+        $user->notify(new NewItemAdded);
+
         return response()->json([
             'id' => $ingredient->id,
             'message' => 'ingredient was successfully created'
