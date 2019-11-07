@@ -85,7 +85,20 @@
 
         <v-spacer></v-spacer>
 
-        <v-btn text to="/account">
+        <v-btn text to="/" class="text-decoration-none">
+          <!-- https://vuetifyjs.com/en/components/badges -->
+          <v-badge
+            color="red"
+            overlap
+          >
+            <template v-slot:badge>
+              5
+            </template>
+            <v-icon>mdi-bell</v-icon>
+          </v-badge>
+        </v-btn>
+
+        <v-btn text to="/account" class="text-decoration-none">
           <v-icon>mdi-account-circle</v-icon>
           <span class="ml-3" v-if="$vuetify.breakpoint.mdAndUp">My Account</span>
         </v-btn>

@@ -5,18 +5,20 @@ namespace App\Http\Controllers\API;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
+use App\Inventory;
 
 class GroceryListController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
      */
     public function index()
     {
         $groceries =
             DB::table('inventories')
+                ->select(['ingredients.name', 'inventories.*'])
+                ->selectRaw("(low - quantity) as amount")
                 ->join('ingredients', 'ingredients.id', '=', 'inventories.ingredient_id')
                 ->whereRaw('quantity < low')
                 ->get();
@@ -32,7 +34,15 @@ class GroceryListController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        foreach($request->purchasedItems as $grocery) {
+            $inventoryItem = Inventory::find($grocery['id']);
+            $inventoryItem->quantity += $grocery['amount'];
+            $inventoryItem->save();
+        }
+
+        return response()->json([
+            'message' => 'Inventory items from shoppping trip updated'
+        ]);
     }
 
     /**
