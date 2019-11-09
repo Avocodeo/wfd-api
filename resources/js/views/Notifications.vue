@@ -18,9 +18,6 @@
       :loading="loading"
       loading-text="Loading Notifications... Please wait"
     >
-      <template v-slot:item.quantity="{ item }">
-        <v-chip :color="getColor(item)" dark>{{ item.quantity}}</v-chip>
-      </template>
       <template v-slot:item.action="{ item }">
         <v-icon small class="mr-2" @click="editItem(item)">mdi-pencil</v-icon>
         <v-icon small @click="deleteItem(item)">mdi-delete</v-icon>
@@ -29,22 +26,6 @@
         <v-btn color="primary" @click="initialize">Reset</v-btn>
       </template>
     </v-data-table>
-    <v-dialog v-model="dialog" max-width="500px">
-      <template v-slot:activator="{ on }">
-        <v-btn color="primary" dark class="mb-2" v-on="on">New Item</v-btn>
-      </template>
-      <v-card>
-        <v-card-title>
-          <span class="headline">{{ formTitle }}</span>
-        </v-card-title>
-
-        <v-card-actions>
-          <v-spacer></v-spacer>
-          <v-btn color="blue darken-1" text @click="close">Cancel</v-btn>
-          <v-btn color="blue darken-1" text @click="save">Save</v-btn>
-        </v-card-actions>
-      </v-card>
-    </v-dialog>
     <v-snackbar v-model="snackbar" :timeout="snackbarTimeout">
       {{ snackbarText }}
       <v-btn color="blue" text @click="snackbar = false">Close</v-btn>
@@ -58,14 +39,16 @@ export default {
     return {
       search: "",
       headers: [
-        { text: "Notifications", value: "data" },
-        { text: "Created At", value: "created_at" },
-        { text: "Read At", value: "read_at" },
         {
-          text: "Actions",
-          value: "action",
-          sortable: false
-        }
+          text: "id",
+          align: "left",
+          sortable: true,
+          value: "notifiable_id"
+        },
+        { text: "Notifications", value: "data" },
+        { text: "Created at", value: "created_at" },
+        { text: "Read at", value: "read_at" },
+        { text: "Actions", value: "action", sortable: false }
       ],
       notifications: [],
       ingredients: [],

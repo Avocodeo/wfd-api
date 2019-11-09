@@ -1,7 +1,6 @@
 <?php
 
 namespace App\Http\Controllers\API;
-//namespace App\Notifications;
 
 use App\Http\Controllers\Controller;
 
@@ -13,13 +12,21 @@ use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Facades\DB; //Needed for raw DB queries
 
 //Notification Documentation: https://laravel.com/docs/5.8/notifications#marking-notifications-as-read
-    //https://www.itsolutionstuff.com/post/laravel-57-new-notification-system-tutorial-for-beginnerexample.html
+//https://www.itsolutionstuff.com/post/laravel-57-new-notification-system-tutorial-for-beginnerexample.html
 
 
 class NotificationsController extends Controller
 {
 
     use Notifiable;
+
+    public function index()
+    {
+        if (auth()->check()) {
+            return Notifications::where('notifiable_id', auth()->id()->get());
+        }
+        return Notifications::all();
+    }
 
     public function show(Notifications $notifiable, Request $request)
     {
@@ -63,7 +70,7 @@ class NotificationsController extends Controller
 
         //Since we are returning all notifications for this particular user, we can mark them all as read now.
         //foreach ($users->unreadNotifications as $notification) {
-            //$notification->markAsRead();
+        //$notification->markAsRead();
         //}
 
         //$user->unreadNotifications()->update(['read_at' => now()]);
@@ -101,36 +108,32 @@ class NotificationsController extends Controller
         4 - OverCapacityInventory
         */
 
-        $attributes = request()->validate([
-            'id' => 'required',
-        ]);
+        // $attributes = request()->validate([
+        //     'id' => 'required',
+        // ]);
 
-        //Get all users
-        $users = User::all();
+        Notification::send(auth()->user()->get(), new NewItemAdded);
 
-        //Send every user a notification
-        foreach($user as $users){
-            dd($user);
-            if($attributes == "1"){
-                $user->notify(new NewItemAdded);
-            }
-            if($attributes == "2"){
-                $user->notify(new LowInventory);
-            }
-            if($attributes == "3"){
-                $user->notify(new NewUser);
-            }
-            if($attributes == "4"){
-                $user->notify(new OverCapacityInventory);
-            }
-        }
+        // //Send every user a notification
+        // if ($attributes == "1") {
+        //     $user->notify(new NewItemAdded);
+        // }
+        // if ($attributes == "2") {
+        //     $user->notify(new LowInventory);
+        // }
+        // if ($attributes == "3") {
+        //     $user->notify(new NewUser);
+        // }
+        // if ($attributes == "4") {
+        //     $user->notify(new OverCapacityInventory);
+        // }
 
         return response()->json([
             'user' => $user,
             'message' => 'Notification has been sent'
         ]);
     }
-    
+
     public function destroy(Notifications $notifiable)
     {
         $notifiable->delete();

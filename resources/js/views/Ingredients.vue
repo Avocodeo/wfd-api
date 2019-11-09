@@ -193,13 +193,12 @@ export default {
             name: this.editedItem.name,
             measurement_id: this.editedItem.measurement.id
           })
-          .then(function(response) {
-            console.log(response);
+          .then(response => console.log(response))
+          .then(() => {
+            axios.post("api/notifications", {
+              id: "1"
+            });
           });
-        axios
-          .post("api/notifications", {
-            id: "1"
-          })
         this.ingredients.push({
           name: this.editedItem.name,
           "measurement.name": this.editedItem.measurement.name

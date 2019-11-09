@@ -39,39 +39,3 @@ Route::group(['middleware' => 'auth'], function () {
     // Catch-all route
     Route::get('/{any}', 'HomeController@index')->where('any', '.*');
 });
-
-//// Ingredients Routes
-//Route::get('/ingredients', 'IngredientsController@index');
-//
-////Categories Routes
-//Route::get('/categories', 'CategoriesController@index');
-//Route::get('/categories/create', 'CategoriesController@create');
-//
-////Inventories Routes
-//Route::get('/inventories', 'InventoriesController@index');
-//Route::get('/inventories/create', 'InventoriesController@create');
-//
-
-// Suppliers Routes
-//Route::get('/suppliers', 'SuppliersController@index');
-//Route::get('/suppliers/create', 'SuppliersController@create');
-
-//// Recipes Routes
-//Route::get('/recipes', 'RecipesController@index');
-//Route::get('/recipes/create', 'RecipesController@create');
-//
-//// Measurements Routes
-//Route::get('/measurements', 'MeasurementsController@index');
-//Route::get('/measurement_types', 'MeasurementTypesController@index');
-//
-//// Users Routes
-//Route::get('/users', 'UsersController@index');
-//
-////Create Routes
-//Route::get('/categories/create', 'CategoriesController@create');
-//Route::get('/ingredients/create', 'IngredientsController@create');
-//Route::get('/inventories/create', 'InventoriesController@create');
-//Route::get('/measurements/create', 'MeasurementsController@create');
-//Route::get('/recipes/create', 'RecipesController@create');
-//Route::get('/users/create', 'UsersController@create');
-//Route::get('/suppliers/create', 'SuppliersController@create');
