@@ -2859,124 +2859,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 /* harmony default export */ __webpack_exports__["default"] = ({
-  data: function data() {
-    return {
-      search: "",
-      headers: [{
-        text: "id",
-        align: "left",
-        sortable: false,
-        value: "id"
-      }, {
-        text: "Name",
-        value: "name"
-      }, {
-        text: "Type",
-        value: "type"
-      }, {
-        text: "Created At",
-        value: "created_at"
-      }, {
-        text: "Updated At",
-        value: "updated_at"
-      }, {
-        text: "Actions",
-        value: "action",
-        sortable: false
-      }],
-      suppliers: [],
-      editedIndex: -1,
-      editedItem: {
-        name: "",
-        type: ""
-      },
-      defaultItem: {
-        name: "",
-        type: ""
-      },
-      loading: true,
-      dialog: false,
-      snackbar: false,
-      snackbarText: "",
-      snackbarTimeout: 2000
-    };
-  },
-  computed: {
-    formTitle: function formTitle() {
-      return this.editedIndex === -1 ? "New Supplier" : "Edit Supplier";
-    }
-  },
-  watch: {
-    dialog: function dialog(val) {
-      val || this.close();
-    }
-  },
-  created: function created() {
-    this.getSupplier();
-  },
-  methods: {
-    getSupplier: function getSupplier() {
-      var _this = this;
-
-      axios.get("api/suppliers").then(function (response) {
-        _this.suppliers = response.data;
-        _this.loading = false;
-      })["catch"](function (error) {
-        console.log(error);
-      });
-    },
-    editItem: function editItem(item) {
-      this.editedIndex = this.suppliers.indexOf(item);
-      this.editedItem = Object.assign({}, item);
-      this.dialog = true;
-    },
-    deleteItem: function deleteItem(item) {
-      var index = this.suppliers.indexOf(item);
-
-      if (confirm("Are you sure you want to delete this supplier?")) {
-        if (this.suppliers.splice(index, 1)) {
-          axios["delete"]("api/suppliers/" + item.id);
-          this.snackbarText = "Supplier deleted";
-          this.snackbar = true;
-        }
-      }
-    },
-    close: function close() {
-      var _this2 = this;
-
-      this.dialog = false;
-      setTimeout(function () {
-        _this2.editedItem = Object.assign({}, _this2.defaultItem);
-        _this2.editedIndex = -1;
-      }, 300);
-    },
-    save: function save() {
-      if (this.editedIndex > -1) {
-        Object.assign(this.suppliers[this.editedIndex], this.editedItem);
-        this.snackbarText = "Supplier updated";
-        this.snackbar = true;
-        axios.patch("api/suppliers/" + this.editedItem.id, {
-          name: this.editedItem.name
-        }).then(function (response) {
-          console.log(response);
-        });
-      } else {
-        axios.post("api/suppliers", {
-          name: this.editedItem.name
-        }).then(function (response) {
-          console.log(response);
-        });
-        this.suppliers.push({
-          name: this.editedItem.name,
-          "supplier.name": this.editedItem.supplier.name
-        });
-        this.snackbar = true;
-        this.snackbarText = "Supplier created";
-      }
-
-      this.close();
-    }
-  }
+  name: "Home"
 });
 
 /***/ }),
@@ -80143,8 +80026,8 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! /Users/tylerouellette/Documents/GitHub/Agile/wfd-api/resources/js/app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! /Users/tylerouellette/Documents/GitHub/Agile/wfd-api/resources/sass/app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! /Users/jamesm/Documents/laravel-sites/wfd-api/resources/js/app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! /Users/jamesm/Documents/laravel-sites/wfd-api/resources/sass/app.scss */"./resources/sass/app.scss");
 
 
 /***/ })
