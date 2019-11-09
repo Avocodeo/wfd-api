@@ -26,6 +26,12 @@ Route::get('/', function () {
 // Home Page After Login
 Route::get('/home', 'HomeController@index')->name('home');
 
+// Notifications Routes
+Route::get('/notifications', 'NotificationsController@index');
+Route::post('/notifications', 'NotificationsController@store');
+Route::get('/notifications/{notification}', 'NotificationsController@index');
+Route::delete('/notifications/{notification}', 'NotificationsController@destroy');
+
 // Authenticated routes
 Route::group(['middleware' => 'auth'], function () {
     //    Route::prefix('api')->group(function () {

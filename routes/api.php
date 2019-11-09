@@ -75,8 +75,4 @@ Route::get('/users/{user}', 'API\UsersController@show');
 Route::patch('/users/{user}', 'API\UsersController@update');
 Route::delete('/users/{user}', 'API\UsersController@destroy');
 
-// Notifications Routes
-Route::get('/notifications', 'API\NotificationsController@index');
-Route::post('/notifications', 'API\NotificationsController@store');
-Route::get('/notifications/{notification}', 'API\NotificationsController@index');
-Route::delete('/notifications/{notification}', 'API\NotificationsController@destroy');
+

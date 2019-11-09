@@ -88,7 +88,7 @@ export default {
   methods: {
     getNotifications: function() {
       axios
-        .get("api/notifications")
+        .get("/notifications")
         .then(response => {
           this.notifications = response.data;
           this.loading = false;

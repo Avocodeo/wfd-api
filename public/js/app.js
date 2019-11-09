@@ -2862,10 +2862,11 @@ __webpack_require__.r(__webpack_exports__);
           name: this.editedItem.name,
           measurement_id: this.editedItem.measurement.id
         }).then(function (response) {
-          console.log(response);
-        });
-        axios.post("api/notifications", {
-          id: "1"
+          return console.log(response);
+        }).then(function () {
+          axios.post("api/notifications", {
+            id: "1"
+          });
         });
         this.ingredients.push({
           name: this.editedItem.name,
@@ -3410,37 +3411,23 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
       search: "",
       headers: [{
+        text: "id",
+        align: "left",
+        sortable: true,
+        value: "notifiable_id"
+      }, {
         text: "Notifications",
         value: "data"
       }, {
-        text: "Created At",
+        text: "Created at",
         value: "created_at"
       }, {
-        text: "Read At",
+        text: "Read at",
         value: "read_at"
       }, {
         text: "Actions",
@@ -3486,7 +3473,7 @@ __webpack_require__.r(__webpack_exports__);
     getNotifications: function getNotifications() {
       var _this = this;
 
-      axios.get("api/notifications").then(function (response) {
+      axios.get("/notifications").then(function (response) {
         _this.notifications = response.data;
         _this.loading = false;
       })["catch"](function (error) {
@@ -3551,13 +3538,6 @@ __webpack_require__.r(__webpack_exports__);
       }
 
       this.close();
-    },
-    getColor: function getColor(inventoryItem) {
-      if (inventoryItem.quantity < inventoryItem.low) {
-        return "red";
-      } else if (inventoryItem.quantity > inventoryItem.high) {
-        return "orange";
-      } else return "green";
     }
   }
 });
@@ -24484,19 +24464,6 @@ var render = function() {
         },
         scopedSlots: _vm._u([
           {
-            key: "item.quantity",
-            fn: function(ref) {
-              var item = ref.item
-              return [
-                _c(
-                  "v-chip",
-                  { attrs: { color: _vm.getColor(item), dark: "" } },
-                  [_vm._v(_vm._s(item.quantity))]
-                )
-              ]
-            }
-          },
-          {
             key: "item.action",
             fn: function(ref) {
               var item = ref.item
@@ -24548,82 +24515,6 @@ var render = function() {
           }
         ])
       }),
-      _vm._v(" "),
-      _c(
-        "v-dialog",
-        {
-          attrs: { "max-width": "500px" },
-          scopedSlots: _vm._u([
-            {
-              key: "activator",
-              fn: function(ref) {
-                var on = ref.on
-                return [
-                  _c(
-                    "v-btn",
-                    _vm._g(
-                      {
-                        staticClass: "mb-2",
-                        attrs: { color: "primary", dark: "" }
-                      },
-                      on
-                    ),
-                    [_vm._v("New Item")]
-                  )
-                ]
-              }
-            }
-          ]),
-          model: {
-            value: _vm.dialog,
-            callback: function($$v) {
-              _vm.dialog = $$v
-            },
-            expression: "dialog"
-          }
-        },
-        [
-          _vm._v(" "),
-          _c(
-            "v-card",
-            [
-              _c("v-card-title", [
-                _c("span", { staticClass: "headline" }, [
-                  _vm._v(_vm._s(_vm.formTitle))
-                ])
-              ]),
-              _vm._v(" "),
-              _c(
-                "v-card-actions",
-                [
-                  _c("v-spacer"),
-                  _vm._v(" "),
-                  _c(
-                    "v-btn",
-                    {
-                      attrs: { color: "blue darken-1", text: "" },
-                      on: { click: _vm.close }
-                    },
-                    [_vm._v("Cancel")]
-                  ),
-                  _vm._v(" "),
-                  _c(
-                    "v-btn",
-                    {
-                      attrs: { color: "blue darken-1", text: "" },
-                      on: { click: _vm.save }
-                    },
-                    [_vm._v("Save")]
-                  )
-                ],
-                1
-              )
-            ],
-            1
-          )
-        ],
-        1
-      ),
       _vm._v(" "),
       _c(
         "v-snackbar",
@@ -79225,8 +79116,8 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! D:\Github_Projects\COMP4220-Laravel\wfd-api-2\resources\js\app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! D:\Github_Projects\COMP4220-Laravel\wfd-api-2\resources\sass\app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! /Users/tylerouellette/Documents/GitHub/Agile/wfd-api/resources/js/app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! /Users/tylerouellette/Documents/GitHub/Agile/wfd-api/resources/sass/app.scss */"./resources/sass/app.scss");
 
 
 /***/ })

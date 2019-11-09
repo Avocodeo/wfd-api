@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
-
+    
 use App\Notifications;
 use App\User;
 use Illuminate\Support\Facades\Auth; //Needed to pull current logged in user
