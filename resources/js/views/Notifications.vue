@@ -60,11 +60,12 @@ export default {
       headers: [
         { text: "Notifications", value: "data" },
         { text: "Created At", value: "created_at" },
-        { text: "Read At", value: "read_at"},
-        { 
-          text: "Actions", 
-          value: "action", 
-          sortable: false }
+        { text: "Read At", value: "read_at" },
+        {
+          text: "Actions",
+          value: "action",
+          sortable: false
+        }
       ],
       notifications: [],
       ingredients: [],
@@ -175,13 +176,6 @@ export default {
         this.snackbarText = "Item created";
       }
       this.close();
-    },
-    getColor(inventoryItem) {
-      if (inventoryItem.quantity < inventoryItem.low) {
-        return "red";
-      } else if (inventoryItem.quantity > inventoryItem.high) {
-        return "orange";
-      } else return "green";
     }
   }
 };
