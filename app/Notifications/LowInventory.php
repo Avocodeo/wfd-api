@@ -11,6 +11,9 @@ class LowInventory extends Notification
 {
     use Queueable;
 
+    public $mail_title = "Low Inventory";
+    public $mail_message = "An item in your inventory has been seen below the set threshold, in other words: you're running out. We've gone ahead and added this to your shopping list!";
+
     /**
      * Create a new notification instance.
      *
@@ -42,8 +45,6 @@ class LowInventory extends Notification
      */
     public function toMail($notifiable)
     {
-        $mail_title = "Low Inventory";
-        $mail_message = "An item in your inventory has been seen below the set threshold, in other words: you're running out. We've gone ahead and added this to your shopping list!";
         return (new MailMessage)
                     ->subject($mail_title)
                     ->line($mail_message)

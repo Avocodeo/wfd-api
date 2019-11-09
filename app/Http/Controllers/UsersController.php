@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+use Illuminate\Notifications\Notifiable;
 
 class UsersController extends Controller
 {

@@ -58,8 +58,9 @@ export default {
     return {
       search: "",
       headers: [
-        { text: "Notifications", value: "ingredient.name" },
+        { text: "Notifications", value: "data" },
         { text: "Created At", value: "created_at" },
+        { text: "Read At", value: "read_at"},
         { 
           text: "Actions", 
           value: "action", 

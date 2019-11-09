@@ -2864,6 +2864,9 @@ __webpack_require__.r(__webpack_exports__);
         }).then(function (response) {
           console.log(response);
         });
+        axios.post("api/notifications", {
+          id: "1"
+        });
         this.ingredients.push({
           name: this.editedItem.name,
           "measurement.name": this.editedItem.measurement.name
@@ -3105,8 +3108,14 @@ __webpack_require__.r(__webpack_exports__);
     },
     getColor: function getColor(inventoryItem) {
       if (inventoryItem.quantity < inventoryItem.low) {
+        axios.post("api/notifications", {
+          id: "2"
+        });
         return 'red';
       } else if (inventoryItem.quantity > inventoryItem.high) {
+        axios.post("api/notifications", {
+          id: "4"
+        });
         return 'orange';
       } else return 'green';
     }
@@ -3426,10 +3435,13 @@ __webpack_require__.r(__webpack_exports__);
       search: "",
       headers: [{
         text: "Notifications",
-        value: "ingredient.name"
+        value: "data"
       }, {
         text: "Created At",
         value: "created_at"
+      }, {
+        text: "Read At",
+        value: "read_at"
       }, {
         text: "Actions",
         value: "action",

@@ -2,9 +2,18 @@
 
 namespace App\Http\Controllers\API;
 use App\Http\Controllers\Controller;
-
 use App\Ingredient;
+use App\Notifications\NewItemAdded;
+
+
+//Trying to get notifications to work
 use App\Notifications;
+use Notification;
+use App\User;
+//use \Auth;
+use Illuminate\Support\Facades\Auth; //May need this to use auth() ???????
+
+
 
 class IngredientsController extends Controller
 {
@@ -33,10 +42,22 @@ class IngredientsController extends Controller
         $ingredient = Ingredient::create($attributes);
 
         //Get current user
-        $user = $auth->user();
+        //$user = $auth->user();
+        //$user = \Auth::user();
+        //$user = User::all();
+        //$user = \User::all();
+        //$user = Auth::user();
+        //$user = auth();
         
+        //spit out this user for debugging
+        //dd($user);
+
         //Send this user a notification
-        $user->notify(new NewItemAdded);
+        //$user->notify(new NewItemAdded);
+        //$test = \App\User::all()
+        //$users = User::whereIn(request()->users)->get();
+        $users = \App\User::all();
+        Notification::send($users, new NewItemAdded);
 
         return response()->json([
             'id' => $ingredient->id,

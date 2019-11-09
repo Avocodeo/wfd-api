@@ -11,6 +11,9 @@ class NewUser extends Notification
 {
     use Queueable;
 
+    public $mail_title = "Hey! Listen!";
+    public $mail_message = "A new user has been registered with WFD.";
+
     /**
      * Create a new notification instance.
      *
@@ -40,8 +43,6 @@ class NewUser extends Notification
      */
     public function toMail($notifiable)
     {
-        $mail_title = "Hey! Listen!";
-        $mail_message = "A new user has been registered with WFD.";
         return (new MailMessage)
                     ->subject($mail_title)
                     ->line($mail_message)

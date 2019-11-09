@@ -11,6 +11,9 @@ class OverCapacityInventory extends Notification
 {
     use Queueable;
 
+    public $mail_title = "Overflowing Inventory";
+    public $mail_message = "Hey! Something has been seen above the set threshold in your inventory. You should check it out and make sure you don't order anymore!";
+
     /**
      * Create a new notification instance.
      *
@@ -40,8 +43,6 @@ class OverCapacityInventory extends Notification
      */
     public function toMail($notifiable)
     {
-        $mail_title = "Overflowing Inventory";
-        $mail_message = "Hey! Something has been seen above the set threshold in your inventory. You should check it out and make sure you don't order anymore!";
         return (new MailMessage)
                     ->subject($mail_title)
                     ->line($mail_message)

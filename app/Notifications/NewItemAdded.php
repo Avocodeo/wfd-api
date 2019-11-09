@@ -11,6 +11,10 @@ class NewItemAdded extends Notification
 {
     use Queueable;
 
+    //public $mail_title;
+    //$mail_title = "New Item Added";
+    //public $mail_message = "Someone added a new item to your inventory! You should login and check it out :^)";
+
     /**
      * Create a new notification instance.
      *
@@ -40,11 +44,9 @@ class NewItemAdded extends Notification
      */
     public function toMail($notifiable)
     {
-        $mail_title = "New Item Added";
-        $mail_message = "Someone added a new item to your inventory! You should login and check it out :)";
         return (new MailMessage)
-                    ->subject($mail_title)
-                    ->line($mail_message)
+                    ->subject("New Item Added")
+                    ->line("Someone added a new item to your inventory! You should login and check it out :^)")
                     ->action('Check your Notifications', url('/notifications'))
                     ->line('-The WFD Team');
     }
@@ -57,10 +59,6 @@ class NewItemAdded extends Notification
      */
     public function toArray($notifiable)
     {
-        return [
-            //
-            'title' => $mail_title,
-            'message' => $mail_message,
-        ];
+        return 'A new item has been added to your inventory';
     }
 }
