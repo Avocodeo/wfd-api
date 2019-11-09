@@ -8,7 +8,11 @@ import Inventories from './views/Inventories'
 import Recipes from './views/Recipes'
 import Categories from './views/Categories'
 import Suppliers from './views/Suppliers'
+<<<<<<< HEAD
 import Notifications from './views/Notifications'
+=======
+import GroceryList from './views/GroceryList'
+>>>>>>> master
 
 export default [{
         path: '/home',
@@ -56,9 +60,15 @@ export default [{
         component: Inventories
     },
     {
+<<<<<<< HEAD
         path: '/notifications',
         name: 'notifications',
         component: Notifications
+=======
+        path: '/groceries',
+        name: 'groceries',
+        component: GroceryList
+>>>>>>> master
     },
     {
         path: '*',
