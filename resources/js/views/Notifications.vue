@@ -40,11 +40,12 @@ export default {
       search: "",
       headers: [
         {
-          text: "id",
+          text: "User id",
           align: "left",
           sortable: true,
           value: "notifiable_id"
         },
+        { text: "Notification Id", value: "id" },
         { text: "Notifications", value: "data" },
         { text: "Created at", value: "created_at" },
         { text: "Read at", value: "read_at" },
@@ -88,7 +89,7 @@ export default {
   methods: {
     getNotifications: function() {
       axios
-        .get("/notifications")
+        .get("/api/notifications")
         .then(response => {
           this.notifications = response.data;
           this.loading = false;

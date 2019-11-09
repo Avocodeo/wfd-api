@@ -27,8 +27,8 @@ Route::get('/', function () {
 Route::get('/home', 'HomeController@index')->name('home');
 
 // Notifications Routes
-Route::get('/notifications', 'NotificationsController@index');
-Route::post('/notifications', 'NotificationsController@store');
+Route::get('/api/notifications', 'NotificationsController@index');
+Route::post('/api/notifications', 'NotificationsController@store');
 Route::get('/notifications/{notification}', 'NotificationsController@index');
 Route::delete('/notifications/{notification}', 'NotificationsController@destroy');
 
