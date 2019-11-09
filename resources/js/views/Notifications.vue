@@ -19,8 +19,7 @@
       loading-text="Loading Notifications... Please wait"
     >
       <template v-slot:item.action="{ item }">
-        <v-icon small class="mr-2" @click="editItem(item)">mdi-pencil</v-icon>
-        <v-icon small @click="deleteItem(item)">mdi-delete</v-icon>
+         <v-icon small @click="deleteItem(item)">mdi-delete</v-icon>
       </template>
       <template v-slot:no-data>
         <v-btn color="primary" @click="initialize">Reset</v-btn>
