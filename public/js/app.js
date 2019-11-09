@@ -2415,18 +2415,159 @@ module.exports = function isBuffer (obj) {
       MAX_ARRAY_INDEX = MAX_ARRAY_LENGTH - 1,
       HALF_MAX_ARRAY_LENGTH = MAX_ARRAY_LENGTH >>> 1;
 
-  /** Used to associate wrap methods with their bit flags. */
-  var wrapFlags = [
-    ['ary', WRAP_ARY_FLAG],
-    ['bind', WRAP_BIND_FLAG],
-    ['bindKey', WRAP_BIND_KEY_FLAG],
-    ['curry', WRAP_CURRY_FLAG],
-    ['curryRight', WRAP_CURRY_RIGHT_FLAG],
-    ['flip', WRAP_FLIP_FLAG],
-    ['partial', WRAP_PARTIAL_FLAG],
-    ['partialRight', WRAP_PARTIAL_RIGHT_FLAG],
-    ['rearg', WRAP_REARG_FLAG]
-  ];
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+/* harmony default export */ __webpack_exports__["default"] = ({
+  data: function data() {
+    return {
+      search: "",
+      headers: [{
+        text: "id",
+        align: "left",
+        sortable: false,
+        value: "id"
+      }, {
+        text: "Name",
+        value: "name"
+      }, {
+        text: "Type",
+        value: "type"
+      }, {
+        text: "Created At",
+        value: "created_at"
+      }, {
+        text: "Updated At",
+        value: "updated_at"
+      }, {
+        text: "Actions",
+        value: "action",
+        sortable: false
+      }],
+      suppliers: [],
+      editedIndex: -1,
+      editedItem: {
+        name: "",
+        type: ""
+      },
+      defaultItem: {
+        name: "",
+        type: ""
+      },
+      loading: true,
+      dialog: false,
+      snackbar: false,
+      snackbarText: "",
+      snackbarTimeout: 2000
+    };
+  },
+  computed: {
+    formTitle: function formTitle() {
+      return this.editedIndex === -1 ? "New Supplier" : "Edit Supplier";
+    }
+  },
+  watch: {
+    dialog: function dialog(val) {
+      val || this.close();
+    }
+  },
+  created: function created() {
+    this.getSupplier();
+  },
+  methods: {
+    getSupplier: function getSupplier() {
+      var _this = this;
+
+      axios.get("api/suppliers").then(function (response) {
+        _this.suppliers = response.data;
+        _this.loading = false;
+      })["catch"](function (error) {
+        console.log(error);
+      });
+    },
+    editItem: function editItem(item) {
+      this.editedIndex = this.suppliers.indexOf(item);
+      this.editedItem = Object.assign({}, item);
+      this.dialog = true;
+    },
+    deleteItem: function deleteItem(item) {
+      var index = this.suppliers.indexOf(item);
+
+      if (confirm("Are you sure you want to delete this supplier?")) {
+        if (this.suppliers.splice(index, 1)) {
+          axios["delete"]("api/suppliers/" + item.id);
+          this.snackbarText = "Supplier deleted";
+          this.snackbar = true;
+        }
+      }
+    },
+    close: function close() {
+      var _this2 = this;
+
+      this.dialog = false;
+      setTimeout(function () {
+        _this2.editedItem = Object.assign({}, _this2.defaultItem);
+        _this2.editedIndex = -1;
+      }, 300);
+    },
+    save: function save() {
+      if (this.editedIndex > -1) {
+        Object.assign(this.suppliers[this.editedIndex], this.editedItem);
+        this.snackbarText = "Supplier updated";
+        this.snackbar = true;
+        axios.patch("api/suppliers/" + this.editedItem.id, {
+          name: this.editedItem.name
+        }).then(function (response) {
+          console.log(response);
+        });
+      } else {
+        axios.post("api/suppliers", {
+          name: this.editedItem.name
+        }).then(function (response) {
+          console.log(response);
+        });
+        this.suppliers.push({
+          name: this.editedItem.name,
+          "supplier.name": this.editedItem.supplier.name
+        });
+        this.snackbar = true;
+        this.snackbarText = "Supplier created";
+      }
+
+      this.close();
+    }
+  }
+});
 
   /** `Object#toString` result references. */
   var argsTag = '[object Arguments]',
@@ -2441,7 +2582,6 @@ module.exports = function isBuffer (obj) {
       mapTag = '[object Map]',
       numberTag = '[object Number]',
       nullTag = '[object Null]',
-      objectTag = '[object Object]',
       promiseTag = '[object Promise]',
       proxyTag = '[object Proxy]',
       regexpTag = '[object RegExp]',
@@ -2456,7 +2596,6 @@ module.exports = function isBuffer (obj) {
       dataViewTag = '[object DataView]',
       float32Tag = '[object Float32Array]',
       float64Tag = '[object Float64Array]',
-      int8Tag = '[object Int8Array]',
       int16Tag = '[object Int16Array]',
       int32Tag = '[object Int32Array]',
       uint8Tag = '[object Uint8Array]',
@@ -2615,8 +2754,427 @@ module.exports = function isBuffer (obj) {
   /** Used to detect strings with [zero-width joiners or code points from the astral planes](http://eev.ee/blog/2015/09/12/dark-corners-of-unicode/). */
   var reHasUnicode = RegExp('[' + rsZWJ + rsAstralRange  + rsComboRange + rsVarRange + ']');
 
-  /** Used to detect strings that need a more robust regexp to match words. */
-  var reHasUnicodeWord = /[a-z][A-Z]|[A-Z]{2}[a-z]|[0-9][a-zA-Z]|[a-zA-Z][0-9]|[^a-zA-Z0-9 ]/;
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+/* harmony default export */ __webpack_exports__["default"] = ({
+  data: function data() {
+    return {
+      fileName: "",
+      search: "",
+      headers: [{
+        text: "Name",
+        align: "left",
+        sortable: false,
+        value: "name"
+      }, {
+        text: "Category",
+        value: "category.name"
+      }, {
+        text: "Created At",
+        value: "created_at"
+      }, {
+        text: "Updated At",
+        value: "updated_at"
+      }, {
+        text: "Actions",
+        value: "action",
+        sortable: false
+      }],
+      recipes: [],
+      categories: [{
+        text: "Salt",
+        value: 1
+      }],
+      editedIndex: -1,
+      editedItem: {
+        name: "",
+        category: ""
+      },
+      defaultItem: {
+        name: "",
+        category_id: ""
+      },
+      loading: true,
+      dialog: false,
+      snackbar: false,
+      snackbarText: "",
+      snackbarTimeout: 2000
+    };
+  },
+  computed: {
+    formTitle: function formTitle() {
+      return this.editedIndex === -1 ? "New Recipe" : "Edit Recipe";
+    }
+  },
+  watch: {
+    dialog: function dialog(val) {
+      val || this.close();
+    }
+  },
+  created: function created() {
+    this.getRecipes();
+    this.getCategories();
+  },
+  methods: {
+    getRecipes: function getRecipes() {
+      var _this = this;
+
+      axios.get("api/recipes").then(function (response) {
+        _this.recipes = response.data;
+        _this.loading = false;
+      })["catch"](function (error) {
+        console.log(error);
+      });
+    },
+    getCategories: function getCategories() {
+      var _this2 = this;
+
+      axios.get("api/categories").then(function (response) {
+        _this2.categories = response.data;
+      })["catch"](function (error) {
+        console.log(error);
+      });
+    },
+    editItem: function editItem(item) {
+      this.editedIndex = this.recipes.indexOf(item);
+      this.editedItem = Object.assign({}, item);
+      this.dialog = true;
+    },
+    deleteItem: function deleteItem(item) {
+      var index = this.recipes.indexOf(item);
+      confirm("Are you sure you want to delete this recipe?") && this.recipes.splice(index, 1);
+      axios["delete"]("api/recipes/" + item.id);
+      this.snackbarText = "Recipe deleted";
+      this.snackbar = true;
+    },
+    close: function close() {
+      var _this3 = this;
+
+      this.dialog = false;
+      setTimeout(function () {
+        _this3.editedItem = Object.assign({}, _this3.defaultItem);
+        _this3.editedIndex = -1;
+      }, 300);
+    },
+    download: function download(item) {
+      var blob = new Blob(["Recipe Name: ", item.name], {
+        type: "text/plain"
+      }),
+          anchor = document.createElement("a");
+      anchor.download = _.kebabCase(item.name) + ".txt";
+      anchor.href = (window.webkitURL || window.URL).createObjectURL(blob);
+      anchor.dataset.downloadurl = ["text/plain", anchor.download, anchor.href].join(":");
+      anchor.click();
+      this.snackbar = true;
+      this.snackbarText = "Recipe Downloaded";
+    },
+    save: function save() {
+      if (this.editedIndex > -1) {
+        Object.assign(this.recipes[this.editedIndex], this.editedItem);
+        this.snackbarText = "Recipe updated";
+        this.snackbar = true;
+        axios.patch("api/recipes/" + this.editedItem.id, {
+          name: this.editedItem.name,
+          category_id: this.editedItem.category.id
+        }).then(function (response) {
+          console.log(response);
+        });
+      } else {
+        axios.post("api/recipes", {
+          name: this.editedItem.name,
+          category_id: this.editedItem.category.id
+        }).then(function (response) {
+          console.log(response);
+        });
+        this.recipes.push({
+          name: this.editedItem.name,
+          "category.name": this.editedItem.category.name
+        });
+        this.snackbar = true;
+        this.snackbarText = "Recipe created";
+      }
+
+      this.close();
+    }
+  }
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/Suppliers.vue?vue&type=script&lang=js&":
+/*!***************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/views/Suppliers.vue?vue&type=script&lang=js& ***!
+  \***************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+/* harmony default export */ __webpack_exports__["default"] = ({
+  data: function data() {
+    return {
+      search: "",
+      headers: [{
+        text: "id",
+        align: "left",
+        sortable: false,
+        value: "id"
+      }, {
+        text: "Name",
+        value: "name"
+      }, {
+        text: "Type",
+        value: "type"
+      }, {
+        text: "Created At",
+        value: "created_at"
+      }, {
+        text: "Updated At",
+        value: "updated_at"
+      }, {
+        text: "Actions",
+        value: "action",
+        sortable: false
+      }],
+      suppliers: [],
+      editedIndex: -1,
+      editedItem: {
+        name: "",
+        type: ""
+      },
+      defaultItem: {
+        name: "",
+        type: ""
+      },
+      loading: true,
+      dialog: false,
+      snackbar: false,
+      snackbarText: "",
+      snackbarTimeout: 2000
+    };
+  },
+  computed: {
+    formTitle: function formTitle() {
+      return this.editedIndex === -1 ? "New Supplier" : "Edit Supplier";
+    }
+  },
+  watch: {
+    dialog: function dialog(val) {
+      val || this.close();
+    }
+  },
+  created: function created() {
+    this.getSupplier();
+  },
+  methods: {
+    getSupplier: function getSupplier() {
+      var _this = this;
+
+      axios.get("api/suppliers").then(function (response) {
+        _this.suppliers = response.data;
+        _this.loading = false;
+      })["catch"](function (error) {
+        console.log(error);
+      });
+    },
+    editItem: function editItem(item) {
+      this.editedIndex = this.suppliers.indexOf(item);
+      this.editedItem = Object.assign({}, item);
+      this.dialog = true;
+    },
+    deleteItem: function deleteItem(item) {
+      var index = this.suppliers.indexOf(item);
+
+      if (confirm("Are you sure you want to delete this supplier?")) {
+        if (this.suppliers.splice(index, 1)) {
+          axios["delete"]("api/suppliers/" + item.id);
+          this.snackbarText = "Supplier deleted";
+          this.snackbar = true;
+        }
+      }
+    },
+    close: function close() {
+      var _this2 = this;
+
+      this.dialog = false;
+      setTimeout(function () {
+        _this2.editedItem = Object.assign({}, _this2.defaultItem);
+        _this2.editedIndex = -1;
+      }, 300);
+    },
+    save: function save() {
+      if (this.editedIndex > -1) {
+        Object.assign(this.suppliers[this.editedIndex], this.editedItem);
+        this.snackbarText = "Supplier updated";
+        this.snackbar = true;
+        axios.patch("api/suppliers/" + this.editedItem.id, {
+          name: this.editedItem.name
+        }).then(function (response) {
+          console.log(response);
+        });
+      } else {
+        axios.post("api/suppliers", {
+          name: this.editedItem.name
+        }).then(function (response) {
+          console.log(response);
+        });
+        this.suppliers.push({
+          name: this.editedItem.name,
+          "supplier.name": this.editedItem.supplier.name
+        });
+        this.snackbar = true;
+        this.snackbarText = "Supplier created";
+      }
+
+      this.close();
+    }
+  }
+});
 
   /** Used to assign default `context` object properties. */
   var contextProps = [
@@ -20670,6 +21228,194 @@ var render = function() {
                       _c("v-text-field", {
                         attrs: {
                           color: "white",
+                          label: "Email",
+                          filled: "",
+                          "prepend-inner-icon": "mdi-email",
+                          id: "email",
+                          name: "email",
+                          type: "text",
+                          required: ""
+                        }
+                      }),
+                      _vm._v(" "),
+                      _c("v-text-field", {
+                        attrs: {
+                          color: "white",
+                          label: "Password",
+                          filled: "",
+                          "prepend-inner-icon": "mdi-lock",
+                          id: "password",
+                          name: "password",
+                          type: "password",
+                          required: ""
+                        }
+                      }),
+                      _vm._v(" "),
+                      _c("v-checkbox", {
+                        attrs: {
+                          color: "white",
+                          id: "remember",
+                          name: "remember",
+                          label: "Remember Me",
+                          value: "on"
+                        }
+                      }),
+                      _vm._v(" "),
+                      _c(
+                        "div",
+                        { staticClass: "text-center" },
+                        [
+                          _c(
+                            "v-btn",
+                            { attrs: { outlined: "", type: "submit" } },
+                            [_vm._v("Login")]
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "v-btn",
+                            { attrs: { text: "", href: "/register" } },
+                            [_vm._v("Register")]
+                          )
+                        ],
+                        1
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "div",
+                        { staticClass: "text-center mt-5" },
+                        [
+                          _c(
+                            "v-btn",
+                            { attrs: { text: "", href: "/password/reset" } },
+                            [_vm._v("Forgot your password?")]
+                          )
+                        ],
+                        1
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "v-container",
+                        [
+                          _c(
+                            "v-layout",
+                            {
+                              staticClass: "mt-2",
+                              attrs: { "align-center": "" }
+                            },
+                            [
+                              _c(
+                                "v-flex",
+                                { attrs: { xs12: "" } },
+                                [
+                                  _c("v-divider"),
+                                  _vm._v(" "),
+                                  _c(
+                                    "div",
+                                    { staticClass: "mt-4 text-center" },
+                                    [
+                                      _vm._v(
+                                        "\n                                    © " +
+                                          _vm._s(_vm.title) +
+                                          " " +
+                                          _vm._s(new Date().getFullYear()) +
+                                          "\n                                "
+                                      )
+                                    ]
+                                  )
+                                ],
+                                1
+                              )
+                            ],
+                            1
+                          )
+                        ],
+                        1
+                      )
+                    ],
+                    1
+                  )
+                ],
+                1
+              )
+            ],
+            1
+          )
+        ],
+        1
+      )
+    ],
+    1
+  )
+}
+var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/auth/Register.vue?vue&type=template&id=d4f9cbe2&":
+/*!****************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/auth/Register.vue?vue&type=template&id=d4f9cbe2& ***!
+  \****************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "v-app",
+    { attrs: { id: "inspire", dark: "" } },
+    [
+      _c(
+        "v-content",
+        [
+          _c(
+            "v-container",
+            { attrs: { fluid: "", "fill-height": "" } },
+            [
+              _c(
+                "v-layout",
+                {
+                  attrs: { "align-center": "", "justify-center": "", wrap: "" }
+                },
+                [
+                  _c(
+                    "v-flex",
+                    { attrs: { xs12: "", sm10: "", md5: "" } },
+                    [
+                      _c("div", { staticClass: "text-center mb-3" }, [
+                        _c("h1", { staticClass: "display-1 logo" }, [
+                          _vm._v("What's For Dinner")
+                        ]),
+                        _vm._v(" "),
+                        _c("h2", { staticClass: "title mt-2" }, [
+                          _vm._v("Sign up to do something great!")
+                        ])
+                      ]),
+                      _vm._v(" "),
+                      _vm.errorMessages.length > 0
+                        ? _c(
+                            "div",
+                            { staticClass: "mt-3 mb-5" },
+                            [
+                              _c("Errors", {
+                                attrs: { errors: _vm.errorMessages }
+                              })
+                            ],
+                            1
+                          )
+                        : _vm._e(),
+                      _vm._v(" "),
+                      _c("v-text-field", {
+                        attrs: {
+                          color: "white",
                           label: "Full Name",
                           filled: "",
                           "prepend-inner-icon": "mdi-account",
@@ -21331,61 +22077,99 @@ var View = {
       }
     }
 
-    // also register instance in prepatch hook
-    // in case the same component instance is reused across different routes
-    ;(data.hook || (data.hook = {})).prepatch = function (_, vnode) {
-      matched.instances[name] = vnode.componentInstance;
-    };
-
-    // register instance in init hook
-    // in case kept-alive component be actived when routes changed
-    data.hook.init = function (vnode) {
-      if (vnode.data.keepAlive &&
-        vnode.componentInstance &&
-        vnode.componentInstance !== matched.instances[name]
-      ) {
-        matched.instances[name] = vnode.componentInstance;
-      }
-    };
-
-    // resolve props
-    var propsToPass = data.props = resolveProps(route, matched.props && matched.props[name]);
-    if (propsToPass) {
-      // clone to prevent mutation
-      propsToPass = data.props = extend({}, propsToPass);
-      // pass non-declared props as attrs
-      var attrs = data.attrs = data.attrs || {};
-      for (var key in propsToPass) {
-        if (!component.props || !(key in component.props)) {
-          attrs[key] = propsToPass[key];
-          delete propsToPass[key];
-        }
-      }
-    }
-
-    return h(component, data, children)
-  }
-};
-
-function resolveProps (route, config) {
-  switch (typeof config) {
-    case 'undefined':
-      return
-    case 'object':
-      return config
-    case 'function':
-      return config(route)
-    case 'boolean':
-      return config ? route.params : undefined
-    default:
-      if (true) {
-        warn(
-          false,
-          "props in \"" + (route.path) + "\" is a " + (typeof config) + ", " +
-          "expecting an object, function or boolean."
-        );
-      }
-  }
+                        "v-btn",
+                        { attrs: { color: "primary", to: "/suppliers" } },
+                        [_vm._v("Rest of List")]
+                      )
+                    ],
+                    1
+                  )
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c(
+                "v-card",
+                { staticClass: "elevation-12 mb-6" },
+                [
+                  _c(
+                    "v-toolbar",
+                    { attrs: { color: "primary", dark: "", flat: "" } },
+                    [
+                      _c("v-toolbar-title", [_vm._v("Groceries")]),
+                      _vm._v(" "),
+                      _c("v-spacer")
+                    ],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _c("v-card-text", [
+                    _vm._v(
+                      "\n          Looks like you have some grocery shopping to do !\n        "
+                    )
+                  ]),
+                  _vm._v(" "),
+                  _c(
+                    "v-card-actions",
+                    [
+                      _c("v-spacer"),
+                      _vm._v(" "),
+                      _c(
+                        "v-btn",
+                        { attrs: { color: "primary", to: "/groceries" } },
+                        [_vm._v("List")]
+                      )
+                    ],
+                    1
+                  )
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c(
+                "v-card",
+                { staticClass: "elevation-12" },
+                [
+                  _c(
+                    "v-toolbar",
+                    { attrs: { color: "primary", dark: "", flat: "" } },
+                    [
+                      _c("v-toolbar-title", [_vm._v("Things You Can Make")]),
+                      _vm._v(" "),
+                      _c("v-spacer")
+                    ],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _c("v-card-text", [
+                    _vm._v(
+                      "\n          Here is the meals you can make with what you have\n        "
+                    )
+                  ]),
+                  _vm._v(" "),
+                  _c(
+                    "v-card-actions",
+                    [
+                      _c("v-spacer"),
+                      _vm._v(" "),
+                      _c("v-btn", { attrs: { color: "primary" } }, [
+                        _vm._v("Meals")
+                      ])
+                    ],
+                    1
+                  )
+                ],
+                1
+              )
+            ],
+            1
+          )
+        ],
+        1
+      )
+    ],
+    1
+  )
 }
 
 /*  */
@@ -21443,7 +22227,6 @@ function parseQuery (query) {
     if (res[key] === undefined) {
       res[key] = val;
     } else if (Array.isArray(res[key])) {
-      res[key].push(val);
     } else {
       res[key] = [res[key], val];
     }
@@ -21553,33 +22336,294 @@ function getFullPath (
   var query = ref.query; if ( query === void 0 ) query = {};
   var hash = ref.hash; if ( hash === void 0 ) hash = '';
 
-  var stringify = _stringifyQuery || stringifyQuery;
-  return (path || '/') + stringify(query) + hash
+              label: "Search",
+              "single-line": "",
+              "hide-details": ""
+            },
+            model: {
+              value: _vm.search,
+              callback: function($$v) {
+                _vm.search = $$v
+              },
+              expression: "search"
+            }
+          })
+        ],
+        1
+      ),
+      _vm._v(" "),
+      _c("v-data-table", {
+        attrs: {
+          headers: _vm.headers,
+          items: _vm.recipes,
+          search: _vm.search,
+          loading: _vm.loading,
+          "loading-text": "Loading Recipes... Please wait"
+        },
+        scopedSlots: _vm._u([
+          {
+            key: "item.action",
+            fn: function(ref) {
+              var item = ref.item
+              return [
+                _c(
+                  "v-icon",
+                  {
+                    staticClass: "mr-2",
+                    attrs: { small: "" },
+                    on: {
+                      click: function($event) {
+                        return _vm.editItem(item)
+                      }
+                    }
+                  },
+                  [_vm._v("mdi-pencil")]
+                ),
+                _vm._v(" "),
+                _c(
+                  "v-icon",
+                  {
+                    attrs: { small: "" },
+                    on: {
+                      click: function($event) {
+                        return _vm.deleteItem(item)
+                      }
+                    }
+                  },
+                  [_vm._v("mdi-delete")]
+                ),
+                _vm._v(" "),
+                _c(
+                  "v-btn",
+                  {
+                    staticClass: "ml-4",
+                    attrs: { color: "primary" },
+                    on: {
+                      click: function($event) {
+                        return _vm.download(item)
+                      }
+                    },
+                    model: {
+                      value: _vm.editedItem,
+                      callback: function($$v) {
+                        _vm.editedItem = $$v
+                      },
+                      expression: "editedItem"
+                    }
+                  },
+                  [_vm._v("Download")]
+                )
+              ]
+            }
+          },
+          {
+            key: "no-data",
+            fn: function() {
+              return [
+                _c(
+                  "v-btn",
+                  {
+                    attrs: { color: "primary" },
+                    on: { click: _vm.initialize }
+                  },
+                  [_vm._v("Reset")]
+                )
+              ]
+            },
+            proxy: true
+          }
+        ])
+      }),
+      _vm._v(" "),
+      _c(
+        "v-dialog",
+        {
+          attrs: { "max-width": "500px" },
+          scopedSlots: _vm._u([
+            {
+              key: "activator",
+              fn: function(ref) {
+                var on = ref.on
+                return [
+                  _c(
+                    "v-btn",
+                    _vm._g(
+                      {
+                        staticClass: "mb-2",
+                        attrs: { color: "primary", dark: "" }
+                      },
+                      on
+                    ),
+                    [_vm._v("New Item")]
+                  )
+                ]
+              }
+            }
+          ]),
+          model: {
+            value: _vm.dialog,
+            callback: function($$v) {
+              _vm.dialog = $$v
+            },
+            expression: "dialog"
+          }
+        },
+        [
+          _vm._v(" "),
+          _c(
+            "v-card",
+            [
+              _c("v-card-title", [
+                _c("span", { staticClass: "headline" }, [
+                  _vm._v(_vm._s(_vm.formTitle))
+                ])
+              ]),
+              _vm._v(" "),
+              _c(
+                "v-card-text",
+                [
+                  _c(
+                    "v-container",
+                    [
+                      _c(
+                        "v-row",
+                        [
+                          _c(
+                            "v-col",
+                            { attrs: { cols: "12", md: "6" } },
+                            [
+                              _c("v-text-field", {
+                                attrs: { label: "Recipe Name" },
+                                model: {
+                                  value: _vm.editedItem.name,
+                                  callback: function($$v) {
+                                    _vm.$set(_vm.editedItem, "name", $$v)
+                                  },
+                                  expression: "editedItem.name"
+                                }
+                              })
+                            ],
+                            1
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "v-col",
+                            { attrs: { cols: "12", md: "6" } },
+                            [
+                              _c("v-select", {
+                                attrs: {
+                                  items: _vm.categories,
+                                  label: "Category",
+                                  "item-text": "name",
+                                  "item-value": "id",
+                                  "return-object": "",
+                                  "prepend-icon": "mdi-scale-balance"
+                                },
+                                model: {
+                                  value: _vm.editedItem.category,
+                                  callback: function($$v) {
+                                    _vm.$set(_vm.editedItem, "category", $$v)
+                                  },
+                                  expression: "editedItem.category"
+                                }
+                              })
+                            ],
+                            1
+                          )
+                        ],
+                        1
+                      )
+                    ],
+                    1
+                  )
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c(
+                "v-card-actions",
+                [
+                  _c("v-spacer"),
+                  _vm._v(" "),
+                  _c(
+                    "v-btn",
+                    {
+                      attrs: { color: "blue darken-1", text: "" },
+                      on: { click: _vm.close }
+                    },
+                    [_vm._v("Cancel")]
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "v-btn",
+                    {
+                      attrs: { color: "blue darken-1", text: "" },
+                      on: { click: _vm.save }
+                    },
+                    [_vm._v("Save")]
+                  )
+                ],
+                1
+              )
+            ],
+            1
+          )
+        ],
+        1
+      ),
+      _vm._v(" "),
+      _c(
+        "v-snackbar",
+        {
+          attrs: { timeout: _vm.snackbarTimeout },
+          model: {
+            value: _vm.snackbar,
+            callback: function($$v) {
+              _vm.snackbar = $$v
+            },
+            expression: "snackbar"
+          }
+        },
+        [
+          _vm._v("\n    " + _vm._s(_vm.snackbarText) + "\n    "),
+          _c(
+            "v-btn",
+            {
+              attrs: { color: "blue", text: "" },
+              on: {
+                click: function($event) {
+                  _vm.snackbar = false
+                }
+              }
+            },
+            [_vm._v("Close")]
+          )
+        ],
+        1
+      )
+    ],
+    1
+  )
 }
 
 function isSameRoute (a, b) {
   if (b === START) {
-    return a === b
   } else if (!b) {
     return false
   } else if (a.path && b.path) {
     return (
-      a.path.replace(trailingSlashRE, '') === b.path.replace(trailingSlashRE, '') &&
       a.hash === b.hash &&
       isObjectEqual(a.query, b.query)
     )
   } else if (a.name && b.name) {
-    return (
       a.name === b.name &&
       a.hash === b.hash &&
       isObjectEqual(a.query, b.query) &&
       isObjectEqual(a.params, b.params)
-    )
   } else {
     return false
   }
 }
-
 function isObjectEqual (a, b) {
   if ( a === void 0 ) a = {};
   if ( b === void 0 ) b = {};

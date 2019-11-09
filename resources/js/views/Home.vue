@@ -4,6 +4,26 @@
       <v-flex>
         <v-card class="elevation-12 mb-6">
           <v-toolbar color="primary" dark flat>
+            <v-toolbar-title>Suppliers</v-toolbar-title>
+            <v-spacer></v-spacer>
+          </v-toolbar>
+          <v-card-text>
+            <strong>
+              <h2>This is a list of our top suppliers.</h2>
+              <h3>
+                <br />1. Tromp-Gleichner
+                <br />2. Gerlach-Luettgen
+                <br />3. Hagenes Group
+              </h3>
+            </strong>
+          </v-card-text>
+          <v-card-actions>
+            <v-spacer></v-spacer>
+            <v-btn color="primary" to="/suppliers">Rest of List</v-btn>
+          </v-card-actions>
+        </v-card>
+        <v-card class="elevation-12 mb-6">
+          <v-toolbar color="primary" dark flat>
             <v-toolbar-title>Groceries</v-toolbar-title>
             <v-spacer></v-spacer>
           </v-toolbar>
@@ -36,11 +56,13 @@
   </v-container>
 </template>
 
+
 <script>
 export default {
   name: "Home"
 };
 </script>
+
 
 <style lang="scss" scoped>
 </style>
