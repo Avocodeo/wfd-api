@@ -35,6 +35,14 @@
               <v-list-item-title>Inventory</v-list-item-title>
             </v-list-item-content>
           </v-list-item>
+            <v-list-item to="/groceries" class="text-decoration-none">
+            <v-list-item-action>
+              <v-icon color="red" size="48">mdi-format-list-bulleted</v-icon>
+            </v-list-item-action>
+            <v-list-item-content>
+              <v-list-item-title>Groceries</v-list-item-title>
+            </v-list-item-content>
+          </v-list-item>
           <v-list-item to="measurements" class="text-decoration-none">
             <v-list-item-action>
               <v-icon color="grey" size="48">mdi-scale-balance</v-icon>
@@ -77,7 +85,20 @@
 
         <v-spacer></v-spacer>
 
-        <v-btn text to="/account">
+        <v-btn text to="/" class="text-decoration-none">
+          <!-- https://vuetifyjs.com/en/components/badges -->
+          <v-badge
+            color="red"
+            overlap
+          >
+            <template v-slot:badge>
+              5
+            </template>
+            <v-icon>mdi-bell</v-icon>
+          </v-badge>
+        </v-btn>
+
+        <v-btn text to="/account" class="text-decoration-none">
           <v-icon>mdi-account-circle</v-icon>
           <span class="ml-3" v-if="$vuetify.breakpoint.mdAndUp">My Account</span>
         </v-btn>

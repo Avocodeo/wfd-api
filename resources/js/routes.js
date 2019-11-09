@@ -8,6 +8,7 @@ import Inventories from './views/Inventories'
 import Recipes from './views/Recipes'
 import Categories from './views/Categories'
 import Suppliers from './views/Suppliers'
+import GroceryList from './views/GroceryList'
 
 export default [{
         path: '/home',
@@ -53,6 +54,11 @@ export default [{
         path: '/inventories',
         name: 'inventories',
         component: Inventories
+    },
+    {
+        path: '/groceries',
+        name: 'groceries',
+        component: GroceryList
     },
     {
         path: '*',
