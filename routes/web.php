@@ -1,5 +1,18 @@
 <?php
+use App\Events\InventoryUpdate;
 
+
+class Order {
+    public $id;
+
+    public function __construct($id)
+    {
+        $this->id = $id;
+    }
+}
+Route::get('/inventory-update', function () {
+   InventoryUpdate::dispatch(new Order(8));
+});
 /*
 |--------------------------------------------------------------------------
 | Web Routes
