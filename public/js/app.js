@@ -1982,12 +1982,17 @@ __webpack_require__.r(__webpack_exports__);
         timeout: 5000,
         color: ""
       },
+      notifications: 0,
       mini: true
     };
   },
   created: function created() {
     var _this = this;
 
+    window.Echo.channel('inventory').listen('InventoryUpdate', function (e) {
+      console.log('Order status with an id of ' + e.order.id + ' has been updated behind the scenes.');
+      _this.notifications++;
+    });
     _events__WEBPACK_IMPORTED_MODULE_0__["default"].$on("success", function (message) {
       _this.snackbar.message = message;
       _this.snackbar.color = "success";
@@ -32611,7 +32616,13 @@ var render = function() {
                         {
                           key: "badge",
                           fn: function() {
-                            return [_vm._v("\n            5\n          ")]
+                            return [
+                              _vm.notifications > 0
+                                ? _c("span", [
+                                    _vm._v(_vm._s(_vm.notifications))
+                                  ])
+                                : _vm._e()
+                            ]
                           },
                           proxy: true
                         }
@@ -88503,10 +88514,6 @@ window.Echo = new laravel_echo__WEBPACK_IMPORTED_MODULE_0__["default"]({
   key: '118c0f9922364667dc61',
   cluster: 'us2',
   encrypted: true
-});
-window.Echo.channel('inventory').listen('InventoryUpdate', function (e) {
-  console.log('Order status with an id of ' + e.order.id + ' has been updated behind the scenes.');
-  console.log(e);
 });
 
 /***/ }),

@@ -41,12 +41,3 @@ window.Echo = new Echo({
     cluster: 'us2',
     encrypted: true
 });
-
-window.Echo.channel('inventory').listen('InventoryUpdate' , e => {
-   console.log(
-       'Order status with an id of ' +
-       e.order.id +
-       ' has been updated behind the scenes.'
-   );
-   console.log(e);
-});

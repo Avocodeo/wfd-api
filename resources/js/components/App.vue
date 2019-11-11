@@ -92,7 +92,7 @@
             overlap
           >
             <template v-slot:badge>
-              5
+              <span v-if="notifications > 0">{{ notifications }}</span>
             </template>
             <v-icon>mdi-bell</v-icon>
           </v-badge>
@@ -143,10 +143,21 @@ export default {
         timeout: 5000,
         color: ""
       },
+      notifications: 0,
       mini: true
     };
   },
   created() {
+
+    window.Echo.channel('inventory').listen('InventoryUpdate', e => {
+      console.log(
+              'Order status with an id of ' +
+              e.order.id +
+              ' has been updated behind the scenes.'
+      );
+      this.notifications++;
+    });
+
     Event.$on("success", message => {
       this.snackbar.message = message;
       this.snackbar.color = "success";
