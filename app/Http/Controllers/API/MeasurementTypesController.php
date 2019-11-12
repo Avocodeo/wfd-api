@@ -4,6 +4,7 @@ namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
 use App\MeasurementType;
+use App\Events\SystemUpdate;
 
 class MeasurementTypesController extends Controller
 {
@@ -37,6 +38,9 @@ class MeasurementTypesController extends Controller
         ]);
 
         $measurementType->update($attributes);
+
+        SystemUpdate::dispatch("Measurement Type Updated!");
+
 
         return response()->json([
             'measurementType' => $measurementType->name,

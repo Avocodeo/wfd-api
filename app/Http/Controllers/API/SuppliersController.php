@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
-
+use App\Events\SystemUpdate;
 use App\Supplier;
 
 class SuppliersController extends Controller
@@ -31,6 +31,9 @@ class SuppliersController extends Controller
         ]);
 
         $supplier = Supplier::create($attributes);
+
+        SystemUpdate::dispatch("Supplier Created!");
+
         return response()->json([
             'id' => $supplier->id,
             'message' => 'supplier was successfully created'
@@ -45,6 +48,9 @@ class SuppliersController extends Controller
         ]);
 
         $supplier->update($attributes);
+
+        SystemUpdate::dispatch("Supplier Updated!");
+
 
         return response()->json([
             'supplier' => $supplier->name,

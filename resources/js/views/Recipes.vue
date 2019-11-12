@@ -18,7 +18,6 @@
       :loading="loading"
       loading-text="Loading Recipes... Please wait"
     >
-
       <template v-slot:item.action="{ item }">
         <v-icon small class="mr-2" @click="editItem(item)">mdi-pencil</v-icon>
         <v-icon small @click="deleteItem(item)">mdi-delete</v-icon>
@@ -29,8 +28,6 @@
         <v-btn color="primary" @click="initialize">Reset</v-btn>
       </template>
     </v-data-table>
-
-
 
     <v-dialog v-model="dialog" max-width="500px">
       <template v-slot:activator="{ on }">
@@ -60,20 +57,16 @@
             </v-row>
           </v-container>
         </v-card-text>
-    <v-card-actions>
+        <v-card-actions>
           <v-spacer></v-spacer>
           <v-btn color="blue darken-1" text @click="close">Cancel</v-btn>
           <v-btn color="blue darken-1" text @click="save">Save</v-btn>
-    </v-card-actions>
+        </v-card-actions>
       </v-card>
     </v-dialog>
 
-
-
-
     <v-dialog v-model="dialog2" max-width="700px">
-      <template v-slot:activator="{ on }">
-      </template>
+      <template v-slot:activator="{ on }"></template>
       <v-card>
         <v-card-title>
           <span class="headline">Send Email</span>
@@ -94,10 +87,6 @@
         </v-card-actions>
       </v-card>
     </v-dialog>
-
-
-
-
 
     <v-snackbar v-model="snackbar" :timeout="snackbarTimeout">
       {{ snackbarText }}
@@ -122,18 +111,13 @@ export default {
           sortable: false,
           value: "name"
         },
-        { text: "Category", value: "category.name" },
+        // { text: "Category", value: "categories.name" },
         { text: "Created At", value: "created_at" },
         { text: "Updated At", value: "updated_at" },
         { text: "Actions", value: "action", sortable: false }
       ],
       recipes: [],
-      categories: [
-        {
-          text: "Salt",
-          value: 1
-        }
-      ],
+      categories: [],
       editedIndex: -1,
       editedItem: {
         name: "",
@@ -235,7 +219,7 @@ export default {
       this.snackbarText = "Recipe Downloaded";
     },
     email() {
-      axios.post('/api/email', {
+      axios.post("/api/email", {
         email: this.sendEmail.email,
         recipe: this.sendEmail.name
       });
@@ -255,6 +239,13 @@ export default {
             name: this.editedItem.name,
             category_id: this.editedItem.category.id
           })
+          .then(function() {
+            axios
+              .post("api/notifications", {
+                body: "Recipe Updated"
+              })
+              .then(response => console.log(response));
+          })
           .then(function(response) {
             console.log(response);
           });
@@ -263,6 +254,13 @@ export default {
           .post("api/recipes", {
             name: this.editedItem.name,
             category_id: this.editedItem.category.id
+          })
+          .then(function() {
+            axios
+              .post("api/notifications", {
+                body: "Recipe Added"
+              })
+              .then(response => console.log(response));
           })
           .then(function(response) {
             console.log(response);

@@ -1987,8 +1987,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "App",
@@ -2009,7 +2007,13 @@ __webpack_require__.r(__webpack_exports__);
   created: function created() {
     var _this = this;
 
-    window.Echo.channel('inventory').listen('InventoryUpdate', function (e) {
+    // this.getNotifications();
+    window.Echo.channel("system").listen("SystemUpdate", function (e) {
+      _this.notifications.push({
+        message: e.message
+      });
+    });
+    window.Echo.channel("users").listen("NewUser", function (e) {
       _this.notifications.push({
         message: e.message
       });
@@ -2031,6 +2035,16 @@ __webpack_require__.r(__webpack_exports__);
     });
   },
   methods: {
+    getNotifications: function getNotifications() {
+      var _this2 = this;
+
+      axios.get("api/notifications").then(function (response) {
+        _this2.notifications = response.data;
+        _this2.loading = false;
+      })["catch"](function (error) {
+        console.log(error);
+      });
+    },
     logout: function logout() {
       axios.get("/api/logout").then(function () {
         location.reload();
@@ -2653,12 +2667,24 @@ __webpack_require__.r(__webpack_exports__);
         this.snackbar = true;
         axios.patch("api/categories/" + this.editedItem.id, {
           name: this.editedItem.name
+        }).then(function () {
+          axios.post("api/notifications", {
+            body: "Category Updated"
+          }).then(function (response) {
+            return console.log(response);
+          });
         }).then(function (response) {
           console.log(response);
         });
       } else {
         axios.post("api/categories", {
           name: this.editedItem.name
+        }).then(function () {
+          axios.post("api/notifications", {
+            body: "Category Added"
+          }).then(function (response) {
+            return console.log(response);
+          });
         }).then(function (response) {
           console.log(response);
         });
@@ -2685,6 +2711,8 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+//
+//
 //
 //
 //
@@ -2789,6 +2817,12 @@ __webpack_require__.r(__webpack_exports__);
     save: function save() {
       axios.post("api/groceries", {
         purchasedItems: this.selected
+      }).then(function () {
+        axios.post("api/notifications", {
+          body: "Grocery List Updated"
+        }).then(function (response) {
+          return console.log(response);
+        });
       }).then(function (response) {
         console.log(response);
         window.location = "/inventories";
@@ -3002,10 +3036,7 @@ __webpack_require__.r(__webpack_exports__);
         sortable: false
       }],
       ingredients: [],
-      measurements: [{
-        text: "Gallons",
-        value: 1
-      }],
+      measurements: [],
       editedIndex: -1,
       editedItem: {
         name: "",
@@ -3089,6 +3120,12 @@ __webpack_require__.r(__webpack_exports__);
         axios.patch("api/ingredients/" + this.editedItem.id, {
           name: this.editedItem.name,
           measurement_id: this.editedItem.measurement.id
+        }).then(function () {
+          axios.post("api/notifications", {
+            body: "Ingredient Updated"
+          }).then(function (response) {
+            return console.log(response);
+          });
         }).then(function (response) {
           console.log(response);
         });
@@ -3096,8 +3133,12 @@ __webpack_require__.r(__webpack_exports__);
         axios.post("api/ingredients", {
           name: this.editedItem.name,
           measurement_id: this.editedItem.measurement.id
-        }).then(function (response) {
-          console.log(response);
+        }).then(function () {
+          axios.post("api/notifications", {
+            body: "Ingredient Added"
+          }).then(function (response) {
+            return console.log(response);
+          });
         });
         this.ingredients.push({
           name: this.editedItem.name,
@@ -3123,6 +3164,13 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -3279,6 +3327,13 @@ __webpack_require__.r(__webpack_exports__);
         console.log(error);
       });
     },
+    sendNotification: function sendNotification() {
+      axios.post("api/notifications", {
+        body: "Inventory Updated"
+      }).then(function (response) {
+        return console.log(response);
+      });
+    },
     editItem: function editItem(item) {
       this.editedIndex = this.inventories.indexOf(item);
       this.editedItem = Object.assign({}, item);
@@ -3314,6 +3369,10 @@ __webpack_require__.r(__webpack_exports__);
           quantity: this.editedItem.quantity,
           low: this.editedItem.low,
           high: this.editedItem.high
+        }).then(function () {
+          axios.post("api/notifications", {
+            body: "Inventory Updated"
+          });
         }).then(function (response) {
           console.log(response);
         });
@@ -3323,11 +3382,17 @@ __webpack_require__.r(__webpack_exports__);
           quantity: this.editedItem.quantity,
           low: this.editedItem.low,
           high: this.editedItem.high
+        }).then(function () {
+          axios.post("api/notifications", {
+            body: "New Item Added"
+          }).then(function (response) {
+            return console.log(response);
+          });
         }).then(function (response) {
           console.log(response);
         });
         this.inventories.push({
-          'ingredient.name': this.editedItem.ingredient.name,
+          "ingredient.name": this.editedItem.ingredient.name,
           quantity: this.editedItem.quantity,
           low: this.editedItem.low,
           high: this.editedItem.high
@@ -3340,10 +3405,10 @@ __webpack_require__.r(__webpack_exports__);
     },
     getColor: function getColor(inventoryItem) {
       if (inventoryItem.quantity < inventoryItem.low) {
-        return 'red';
+        return "red";
       } else if (inventoryItem.quantity > inventoryItem.high) {
-        return 'orange';
-      } else return 'green';
+        return "orange";
+      } else return "green";
     }
   }
 });
@@ -3359,6 +3424,17 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -3537,6 +3613,12 @@ __webpack_require__.r(__webpack_exports__);
           name: this.editedItem.name,
           abbreviation: this.editedItem.abbreviation,
           type_id: this.editedItem.type.id
+        }).then(function () {
+          axios.post("api/notifications", {
+            body: "Item Updated"
+          }).then(function (response) {
+            return console.log(response);
+          });
         }).then(function (response) {
           console.log(response);
         });
@@ -3545,6 +3627,10 @@ __webpack_require__.r(__webpack_exports__);
           name: this.editedItem.name,
           abbreviation: this.editedItem.abbreviation,
           type_id: this.editedItem.type.id
+        }).then(function () {
+          axios.post("api/notifications", {
+            body: "Measurement Added"
+          });
         }).then(function (response) {
           console.log(response);
         });
@@ -3674,6 +3760,33 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -3684,10 +3797,8 @@ __webpack_require__.r(__webpack_exports__);
         align: "left",
         sortable: false,
         value: "name"
-      }, {
-        text: "Category",
-        value: "category.name"
-      }, {
+      }, // { text: "Category", value: "categories.name" },
+      {
         text: "Created At",
         value: "created_at"
       }, {
@@ -3699,14 +3810,15 @@ __webpack_require__.r(__webpack_exports__);
         sortable: false
       }],
       recipes: [],
-      categories: [{
-        text: "Salt",
-        value: 1
-      }],
+      categories: [],
       editedIndex: -1,
       editedItem: {
         name: "",
         category: ""
+      },
+      sendEmail: {
+        name: "",
+        email: ""
       },
       defaultItem: {
         name: "",
@@ -3714,6 +3826,7 @@ __webpack_require__.r(__webpack_exports__);
       },
       loading: true,
       dialog: false,
+      dialog2: false,
       snackbar: false,
       snackbarText: "",
       snackbarTimeout: 2000
@@ -3758,6 +3871,11 @@ __webpack_require__.r(__webpack_exports__);
       this.editedItem = Object.assign({}, item);
       this.dialog = true;
     },
+    storeEmail: function storeEmail(item) {
+      this.editedIndex = this.recipes.indexOf(item);
+      this.sendEmail = Object.assign({}, item);
+      this.dialog2 = true;
+    },
     deleteItem: function deleteItem(item) {
       var index = this.recipes.indexOf(item);
       confirm("Are you sure you want to delete this recipe?") && this.recipes.splice(index, 1);
@@ -3769,6 +3887,7 @@ __webpack_require__.r(__webpack_exports__);
       var _this3 = this;
 
       this.dialog = false;
+      this.dialog2 = false;
       setTimeout(function () {
         _this3.editedItem = Object.assign({}, _this3.defaultItem);
         _this3.editedIndex = -1;
@@ -3786,6 +3905,15 @@ __webpack_require__.r(__webpack_exports__);
       this.snackbar = true;
       this.snackbarText = "Recipe Downloaded";
     },
+    email: function email() {
+      axios.post("/api/email", {
+        email: this.sendEmail.email,
+        recipe: this.sendEmail.name
+      });
+      this.snackbar = true;
+      this.snackbarText = "Email Submitted";
+      this.close();
+    },
     save: function save() {
       if (this.editedIndex > -1) {
         Object.assign(this.recipes[this.editedIndex], this.editedItem);
@@ -3794,6 +3922,12 @@ __webpack_require__.r(__webpack_exports__);
         axios.patch("api/recipes/" + this.editedItem.id, {
           name: this.editedItem.name,
           category_id: this.editedItem.category.id
+        }).then(function () {
+          axios.post("api/notifications", {
+            body: "Recipe Updated"
+          }).then(function (response) {
+            return console.log(response);
+          });
         }).then(function (response) {
           console.log(response);
         });
@@ -3801,6 +3935,12 @@ __webpack_require__.r(__webpack_exports__);
         axios.post("api/recipes", {
           name: this.editedItem.name,
           category_id: this.editedItem.category.id
+        }).then(function () {
+          axios.post("api/notifications", {
+            body: "Recipe Added"
+          }).then(function (response) {
+            return console.log(response);
+          });
         }).then(function (response) {
           console.log(response);
         });
@@ -3998,19 +4138,29 @@ __webpack_require__.r(__webpack_exports__);
         this.snackbarText = "Supplier updated";
         this.snackbar = true;
         axios.patch("api/suppliers/" + this.editedItem.id, {
-          name: this.editedItem.name
+          name: this.editedItem.name,
+          type: this.editedItem.suppliers.type
+        }).then(function () {
+          axios.post("api/notifications", {
+            body: "Supplier Updated"
+          });
         }).then(function (response) {
           console.log(response);
         });
       } else {
         axios.post("api/suppliers", {
-          name: this.editedItem.name
+          name: this.editedItem.name,
+          type: this.editedItem.suppliers.type
+        }).then(function () {
+          axios.post("api/notifications", {
+            body: "Supplier Added"
+          });
         }).then(function (response) {
           console.log(response);
         });
         this.suppliers.push({
           name: this.editedItem.name,
-          "supplier.name": this.editedItem.supplier.name
+          "supplier.name": this.editedItem.name
         });
         this.snackbar = true;
         this.snackbarText = "Supplier created";
@@ -4189,6 +4339,12 @@ __webpack_require__.r(__webpack_exports__);
         axios.patch("api/users/" + this.editedItem.id, {
           name: this.editedItem.name,
           email: this.editedItem.email
+        }).then(function () {
+          axios.post("api/notifications", {
+            body: "User Updated"
+          }).then(function (response) {
+            return console.log(response);
+          });
         }).then(function (response) {
           console.log(response);
         });
@@ -6203,7 +6359,7 @@ exports.push([module.i, "\n.notification-item[data-v-332fccf4]:hover {\n  backgr
 
 exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loader/dist/runtime/api.js */ "./node_modules/css-loader/dist/runtime/api.js")(false);
 // Module
-exports.push([module.i, "\n.fixed-button {\n    position: fixed;\n    bottom: 0px;\n    right: 0px;\n}\n", ""]);
+exports.push([module.i, "\n.fixed-button {\n  position: fixed;\n  bottom: 0px;\n  right: 0px;\n}\n", ""]);
 
 
 /***/ }),
@@ -32720,7 +32876,8 @@ var render = function() {
                           staticStyle: {
                             width: "260px",
                             height: "280px",
-                            color: "black"
+                            color: "black",
+                            "overflow-y": "scroll"
                           }
                         },
                         [
@@ -32732,14 +32889,16 @@ var render = function() {
                           _vm._v(" "),
                           _c(
                             "div",
+                            { staticStyle: { margin: "5px" } },
                             _vm._l(_vm.notifications, function(notification) {
                               return _c(
                                 "div",
                                 {
+                                  key: notification.id,
                                   staticClass:
                                     "border-bottom notification-item m-2",
                                   staticStyle: {
-                                    "font-size": "22px",
+                                    "font-size": "15px",
                                     cursor: "pointer"
                                   },
                                   on: {
@@ -32750,13 +32909,7 @@ var render = function() {
                                     }
                                   }
                                 },
-                                [
-                                  _vm._v(
-                                    "\n              " +
-                                      _vm._s(notification.message) +
-                                      "\n            "
-                                  )
-                                ]
+                                [_vm._v(_vm._s(notification.message))]
                               )
                             }),
                             0
@@ -34155,7 +34308,7 @@ var render = function() {
   return _c(
     "v-card",
     [
-      _c("v-card-title", [_vm._v("\n        Grocery List\n    ")]),
+      _c("v-card-title", [_vm._v("Grocery List")]),
       _vm._v(" "),
       _c("v-data-table", {
         attrs: {
@@ -34294,6 +34447,7 @@ var render = function() {
         "button",
         {
           staticClass: "btn-primary fixed-button py-4 px-5 rounded-pill",
+          staticStyle: { right: "20px", bottom: "20px" },
           on: { click: _vm.save }
         },
         [_vm._v("Finish Shopping")]
@@ -34358,11 +34512,11 @@ var render = function() {
                       _vm._v(" "),
                       _c("h3", [
                         _c("br"),
-                        _vm._v("1. Tromp-Gleichner\n              "),
+                        _vm._v("1. Pearl Produce\n              "),
                         _c("br"),
-                        _vm._v("2. Gerlach-Luettgen\n              "),
+                        _vm._v("2. Costco Farms\n              "),
                         _c("br"),
-                        _vm._v("3. Hagenes Group\n            ")
+                        _vm._v("3. Mr. Meats\n            ")
                       ])
                     ])
                   ]),
@@ -35282,6 +35436,31 @@ var render = function() {
                               })
                             ],
                             1
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "v-col",
+                            { attrs: { cols: "12", md: "6" } },
+                            [
+                              _c("v-select", {
+                                attrs: {
+                                  items: _vm.types,
+                                  label: "Type",
+                                  "item-text": "name",
+                                  "item-value": "id",
+                                  "return-object": "",
+                                  "prepend-icon": "mdi-scale-balance"
+                                },
+                                model: {
+                                  value: _vm.editedItem.type,
+                                  callback: function($$v) {
+                                    _vm.$set(_vm.editedItem, "type", $$v)
+                                  },
+                                  expression: "editedItem.type"
+                                }
+                              })
+                            ],
+                            1
                           )
                         ],
                         1
@@ -35510,6 +35689,27 @@ var render = function() {
                     }
                   },
                   [_vm._v("Download")]
+                ),
+                _vm._v(" "),
+                _c(
+                  "v-btn",
+                  {
+                    staticClass: "ml-4",
+                    attrs: { color: "primary" },
+                    on: {
+                      click: function($event) {
+                        return _vm.storeEmail(item)
+                      }
+                    },
+                    model: {
+                      value: _vm.sendEmail,
+                      callback: function($$v) {
+                        _vm.sendEmail = $$v
+                      },
+                      expression: "sendEmail"
+                    }
+                  },
+                  [_vm._v("Email")]
                 )
               ]
             }
@@ -35591,7 +35791,7 @@ var render = function() {
                             { attrs: { cols: "12", md: "6" } },
                             [
                               _c("v-text-field", {
-                                attrs: { label: "Recipe Name" },
+                                attrs: { label: "Edit Recipe" },
                                 model: {
                                   value: _vm.editedItem.name,
                                   callback: function($$v) {
@@ -35659,6 +35859,104 @@ var render = function() {
                       on: { click: _vm.save }
                     },
                     [_vm._v("Save")]
+                  )
+                ],
+                1
+              )
+            ],
+            1
+          )
+        ],
+        1
+      ),
+      _vm._v(" "),
+      _c(
+        "v-dialog",
+        {
+          attrs: { "max-width": "700px" },
+          scopedSlots: _vm._u([
+            {
+              key: "activator",
+              fn: function(ref) {
+                var on = ref.on
+                return undefined
+              }
+            }
+          ]),
+          model: {
+            value: _vm.dialog2,
+            callback: function($$v) {
+              _vm.dialog2 = $$v
+            },
+            expression: "dialog2"
+          }
+        },
+        [
+          _vm._v(" "),
+          _c(
+            "v-card",
+            [
+              _c("v-card-title", [
+                _c("span", { staticClass: "headline" }, [_vm._v("Send Email")])
+              ]),
+              _vm._v(" "),
+              _c(
+                "v-card-text",
+                [
+                  _c(
+                    "v-container",
+                    [
+                      _c(
+                        "v-row",
+                        [
+                          _c(
+                            "v-col",
+                            { attrs: { cols: "12", md: "6" } },
+                            [
+                              _c("v-text-field", {
+                                attrs: { label: "Email Address" },
+                                model: {
+                                  value: _vm.sendEmail.email,
+                                  callback: function($$v) {
+                                    _vm.$set(_vm.sendEmail, "email", $$v)
+                                  },
+                                  expression: "sendEmail.email"
+                                }
+                              })
+                            ],
+                            1
+                          )
+                        ],
+                        1
+                      )
+                    ],
+                    1
+                  )
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c(
+                "v-card-actions",
+                [
+                  _c("v-spacer"),
+                  _vm._v(" "),
+                  _c(
+                    "v-btn",
+                    {
+                      attrs: { color: "blue darken-1", text: "" },
+                      on: { click: _vm.close }
+                    },
+                    [_vm._v("Cancel")]
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "v-btn",
+                    {
+                      attrs: { color: "blue darken-1", text: "" },
+                      on: { click: _vm.email }
+                    },
+                    [_vm._v("Send Email")]
                   )
                 ],
                 1
@@ -35900,11 +36198,11 @@ var render = function() {
                                   "prepend-icon": "mdi-cube-outline"
                                 },
                                 model: {
-                                  value: _vm.editedItem.measurement,
+                                  value: _vm.editedItem.suppliers,
                                   callback: function($$v) {
-                                    _vm.$set(_vm.editedItem, "measurement", $$v)
+                                    _vm.$set(_vm.editedItem, "suppliers", $$v)
                                   },
-                                  expression: "editedItem.measurement"
+                                  expression: "editedItem.suppliers"
                                 }
                               })
                             ],
@@ -36013,7 +36311,7 @@ var render = function() {
       _c(
         "v-card-title",
         [
-          _vm._v("\n      Users\n      "),
+          _vm._v("\n    Users\n    "),
           _c("v-spacer"),
           _vm._v(" "),
           _c("v-text-field", {
@@ -88634,17 +88932,17 @@ if (token) {
   console.error('CSRF token not found: https://laravel.com/docs/csrf#csrf-x-csrf-token');
 }
 /*
-* Echo exposes expressive api for subscribing to channels and listening for events
-* that are broadcast by laravel. echo and event broadcasting allows
-* your team to easily build robust real time web applications
-* */
+ * Echo exposes expressive api for subscribing to channels and listening for events
+ * that are broadcast by laravel. echo and event broadcasting allows
+ * your team to easily build robust real time web applications
+ * */
 
 
 
 window.Pusher = __webpack_require__(/*! pusher-js */ "./node_modules/pusher-js/dist/web/pusher.js");
 window.Echo = new laravel_echo__WEBPACK_IMPORTED_MODULE_0__["default"]({
   broadcaster: 'pusher',
-  key: '118c0f9922364667dc61',
+  key: '47cde7e5985f5f95aac3',
   cluster: 'us2',
   encrypted: true
 });
@@ -89240,6 +89538,10 @@ __webpack_require__.r(__webpack_exports__);
   path: '/groceries',
   name: 'groceries',
   component: _views_GroceryList__WEBPACK_IMPORTED_MODULE_10__["default"]
+}, {
+  path: '/notifications',
+  name: 'notifications',
+  component: _views_Home__WEBPACK_IMPORTED_MODULE_0__["default"]
 }, {
   path: '*',
   component: _views_NotFound__WEBPACK_IMPORTED_MODULE_2__["default"]
@@ -90042,8 +90344,8 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! C:\Users\jmoore\Code\wfd-api\resources\js\app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! C:\Users\jmoore\Code\wfd-api\resources\sass\app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! /Users/tylerouellette/Documents/GitHub/Agile/wfd-api/resources/js/app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! /Users/tylerouellette/Documents/GitHub/Agile/wfd-api/resources/sass/app.scss */"./resources/sass/app.scss");
 
 
 /***/ })

@@ -89,12 +89,7 @@ export default {
         { text: "Actions", value: "action", sortable: false }
       ],
       ingredients: [],
-      measurements: [
-        {
-          text: "Gallons",
-          value: 1
-        }
-      ],
+      measurements: [],
       editedIndex: -1,
       editedItem: {
         name: "",
@@ -184,6 +179,13 @@ export default {
             name: this.editedItem.name,
             measurement_id: this.editedItem.measurement.id
           })
+          .then(function() {
+            axios
+              .post("api/notifications", {
+                body: "Ingredient Updated"
+              })
+              .then(response => console.log(response));
+          })
           .then(function(response) {
             console.log(response);
           });
@@ -193,8 +195,12 @@ export default {
             name: this.editedItem.name,
             measurement_id: this.editedItem.measurement.id
           })
-          .then(function(response) {
-            console.log(response);
+          .then(function() {
+            axios
+              .post("api/notifications", {
+                body: "Ingredient Added"
+              })
+              .then(response => console.log(response));
           });
         this.ingredients.push({
           name: this.editedItem.name,

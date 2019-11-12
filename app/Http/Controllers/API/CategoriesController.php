@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
-
+use App\Events\SystemUpdate;
 use App\Category;
 
 class CategoriesController extends Controller
@@ -30,6 +30,9 @@ class CategoriesController extends Controller
         ]);
 
         $category = Category::create($attributes);
+
+        SystemUpdate::dispatch("Category Created!");
+
         return response()->json([
             'id' => $category->id,
             'message' => 'category was successfully created'
@@ -43,6 +46,9 @@ class CategoriesController extends Controller
         ]);
 
         $category->update($attributes);
+
+        SystemUpdate::dispatch("Category Updated!");
+
 
         return response()->json([
             'category' => $category->name,
