@@ -2667,12 +2667,24 @@ __webpack_require__.r(__webpack_exports__);
         this.snackbar = true;
         axios.patch("api/categories/" + this.editedItem.id, {
           name: this.editedItem.name
+        }).then(function () {
+          axios.post("api/notifications", {
+            body: "Category Updated"
+          }).then(function (response) {
+            return console.log(response);
+          });
         }).then(function (response) {
           console.log(response);
         });
       } else {
         axios.post("api/categories", {
           name: this.editedItem.name
+        }).then(function () {
+          axios.post("api/notifications", {
+            body: "Category Added"
+          }).then(function (response) {
+            return console.log(response);
+          });
         }).then(function (response) {
           console.log(response);
         });
@@ -2699,8 +2711,6 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-//
-//
 //
 //
 //
@@ -2803,6 +2813,12 @@ __webpack_require__.r(__webpack_exports__);
     save: function save() {
       axios.post("api/groceries", {
         purchasedItems: this.selected
+      }).then(function () {
+        axios.post("api/notifications", {
+          body: "Grocery List Updated"
+        }).then(function (response) {
+          return console.log(response);
+        });
       }).then(function (response) {
         console.log(response);
         window.location = "/inventories";
@@ -3103,6 +3119,12 @@ __webpack_require__.r(__webpack_exports__);
         axios.patch("api/ingredients/" + this.editedItem.id, {
           name: this.editedItem.name,
           measurement_id: this.editedItem.measurement.id
+        }).then(function () {
+          axios.post("api/notifications", {
+            body: "Ingredient Updated"
+          }).then(function (response) {
+            return console.log(response);
+          });
         }).then(function (response) {
           console.log(response);
         });
@@ -3110,6 +3132,13 @@ __webpack_require__.r(__webpack_exports__);
         axios.post("api/ingredients", {
           name: this.editedItem.name,
           measurement_id: this.editedItem.measurement.id
+        });
+        then(function () {
+          axios.post("api/notifications", {
+            body: "Ingredient Added"
+          }).then(function (response) {
+            return console.log(response);
+          });
         }).then(function (response) {
           console.log(response);
         });
@@ -3591,6 +3620,13 @@ __webpack_require__.r(__webpack_exports__);
           name: this.editedItem.name,
           abbreviation: this.editedItem.abbreviation,
           type_id: this.editedItem.type.id
+        });
+        then(function () {
+          axios.post("api/notifications", {
+            body: "Measurement Added"
+          }).then(function (response) {
+            return console.log(response);
+          });
         }).then(function (response) {
           console.log(response);
         });
@@ -3842,7 +3878,7 @@ __webpack_require__.r(__webpack_exports__);
           category_id: this.editedItem.category.id
         }).then(function () {
           axios.post("api/notifications", {
-            body: "Item Updated"
+            body: "Recipe Updated"
           }).then(function (response) {
             return console.log(response);
           });
@@ -3853,6 +3889,13 @@ __webpack_require__.r(__webpack_exports__);
         axios.post("api/recipes", {
           name: this.editedItem.name,
           category_id: this.editedItem.category.id
+        });
+        then(function () {
+          axios.post("api/notifications", {
+            body: "Recipe Added"
+          }).then(function (response) {
+            return console.log(response);
+          });
         }).then(function (response) {
           console.log(response);
         });
@@ -4050,10 +4093,11 @@ __webpack_require__.r(__webpack_exports__);
         this.snackbarText = "Supplier updated";
         this.snackbar = true;
         axios.patch("api/suppliers/" + this.editedItem.id, {
-          name: this.editedItem.name
+          name: this.editedItem.name,
+          type: "food"
         }).then(function () {
           axios.post("api/notifications", {
-            body: "Item Updated"
+            body: "Supplier Updated"
           }).then(function (response) {
             return console.log(response);
           });
@@ -4063,6 +4107,13 @@ __webpack_require__.r(__webpack_exports__);
       } else {
         axios.post("api/suppliers", {
           name: this.editedItem.name
+        });
+        then(function () {
+          axios.post("api/notifications", {
+            body: "Supplier Added"
+          }).then(function (response) {
+            return console.log(response);
+          });
         }).then(function (response) {
           console.log(response);
         });
@@ -6267,7 +6318,7 @@ exports.push([module.i, "\n.notification-item[data-v-332fccf4]:hover {\n  backgr
 
 exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loader/dist/runtime/api.js */ "./node_modules/css-loader/dist/runtime/api.js")(false);
 // Module
-exports.push([module.i, "\n.fixed-button {\n    position: fixed;\n    bottom: 0px;\n    right: 0px;\n}\n", ""]);
+exports.push([module.i, "\n.fixed-button {\n  position: fixed;\n  bottom: 0px;\n  right: 0px;\n}\n", ""]);
 
 
 /***/ }),
@@ -34216,7 +34267,7 @@ var render = function() {
   return _c(
     "v-card",
     [
-      _c("v-card-title", [_vm._v("\n        Grocery List\n    ")]),
+      _c("v-card-title", [_vm._v("Grocery List")]),
       _vm._v(" "),
       _c("v-data-table", {
         attrs: {
@@ -35961,11 +36012,11 @@ var render = function() {
                                   "prepend-icon": "mdi-cube-outline"
                                 },
                                 model: {
-                                  value: _vm.editedItem.measurement,
+                                  value: _vm.editedItem.type,
                                   callback: function($$v) {
-                                    _vm.$set(_vm.editedItem, "measurement", $$v)
+                                    _vm.$set(_vm.editedItem, "type", $$v)
                                   },
-                                  expression: "editedItem.measurement"
+                                  expression: "editedItem.type"
                                 }
                               })
                             ],

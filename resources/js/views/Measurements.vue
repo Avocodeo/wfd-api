@@ -181,15 +181,20 @@ export default {
             console.log(response);
           });
       } else {
-        axios
-          .post("api/measurements", {
-            name: this.editedItem.name,
-            abbreviation: this.editedItem.abbreviation,
-            type_id: this.editedItem.type.id
-          })
-          .then(function(response) {
-            console.log(response);
-          });
+        axios.post("api/measurements", {
+          name: this.editedItem.name,
+          abbreviation: this.editedItem.abbreviation,
+          type_id: this.editedItem.type.id
+        });
+        then(function() {
+          axios
+            .post("api/notifications", {
+              body: "Measurement Added"
+            })
+            .then(response => console.log(response));
+        }).then(function(response) {
+          console.log(response);
+        });
         this.measurements.push({
           name: this.editedItem.name,
           abbreviation: this.editedItem.abbreviation,

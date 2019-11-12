@@ -177,13 +177,18 @@ export default {
             console.log(response);
           });
       } else {
-        axios
-          .post("api/suppliers", {
-            name: this.editedItem.name
-          })
-          .then(function(response) {
-            console.log(response);
-          });
+        axios.post("api/suppliers", {
+          name: this.editedItem.name
+        });
+        then(function() {
+          axios
+            .post("api/notifications", {
+              body: "Supplier Added"
+            })
+            .then(response => console.log(response));
+        }).then(function(response) {
+          console.log(response);
+        });
         this.suppliers.push({
           name: this.editedItem.name,
           "supplier.name": this.editedItem.supplier.name

@@ -166,6 +166,12 @@ export default {
         axios
           .post("api/categories", {
             name: this.editedItem.name
+          }).then(function() {
+            axios
+              .post("api/notifications", {
+                body: "Category Added"
+              })
+              .then(response => console.log(response));
           })
           .then(function(response) {
             console.log(response);

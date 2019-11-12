@@ -205,14 +205,19 @@ export default {
             console.log(response);
           });
       } else {
-        axios
-          .post("api/recipes", {
-            name: this.editedItem.name,
-            category_id: this.editedItem.category.id
-          })
-          .then(function(response) {
-            console.log(response);
-          });
+        axios.post("api/recipes", {
+          name: this.editedItem.name,
+          category_id: this.editedItem.category.id
+        });
+        then(function() {
+          axios
+            .post("api/notifications", {
+              body: "Recipe Added"
+            })
+            .then(response => console.log(response));
+        }).then(function(response) {
+          console.log(response);
+        });
         this.recipes.push({
           name: this.editedItem.name,
           "category.name": this.editedItem.category.name

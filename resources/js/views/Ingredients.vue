@@ -195,14 +195,19 @@ export default {
             console.log(response);
           });
       } else {
-        axios
-          .post("api/ingredients", {
-            name: this.editedItem.name,
-            measurement_id: this.editedItem.measurement.id
-          })
-          .then(function(response) {
-            console.log(response);
-          });
+        axios.post("api/ingredients", {
+          name: this.editedItem.name,
+          measurement_id: this.editedItem.measurement.id
+        });
+        then(function() {
+          axios
+            .post("api/notifications", {
+              body: "Ingredient Added"
+            })
+            .then(response => console.log(response));
+        }).then(function(response) {
+          console.log(response);
+        });
         this.ingredients.push({
           name: this.editedItem.name,
           "measurement.name": this.editedItem.measurement.name
