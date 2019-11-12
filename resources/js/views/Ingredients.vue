@@ -89,12 +89,7 @@ export default {
         { text: "Actions", value: "action", sortable: false }
       ],
       ingredients: [],
-      measurements: [
-        {
-          text: "Gallons",
-          value: 1
-        }
-      ],
+      measurements: [],
       editedIndex: -1,
       editedItem: {
         name: "",

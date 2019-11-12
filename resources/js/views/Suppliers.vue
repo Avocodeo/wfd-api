@@ -43,7 +43,7 @@
               </v-col>
               <v-col cols="12" md="6">
                 <v-select
-                  v-model="editedItem.type"
+                  v-model="editedItem.suppliers"
                   :items="suppliers"
                   label="Supplier"
                   item-text="type"
@@ -164,34 +164,33 @@ export default {
         axios
           .patch("api/suppliers/" + this.editedItem.id, {
             name: this.editedItem.name,
-            type: "food"
+            type: this.editedItem.suppliers.type
           })
           .then(function() {
-            axios
-              .post("api/notifications", {
-                body: "Supplier Updated"
-              })
-              .then(response => console.log(response));
+            axios.post("api/notifications", {
+              body: "Supplier Updated"
+            });
           })
           .then(function(response) {
             console.log(response);
           });
       } else {
-        axios.post("api/suppliers", {
-          name: this.editedItem.name
-        });
-        then(function() {
-          axios
-            .post("api/notifications", {
+        axios
+          .post("api/suppliers", {
+            name: this.editedItem.name,
+            type: this.editedItem.suppliers.type
+          })
+          .then(function() {
+            axios.post("api/notifications", {
               body: "Supplier Added"
-            })
-            .then(response => console.log(response));
-        }).then(function(response) {
-          console.log(response);
-        });
+            });
+          })
+          .then(function(response) {
+            console.log(response);
+          });
         this.suppliers.push({
           name: this.editedItem.name,
-          "supplier.name": this.editedItem.supplier.name
+          "supplier.name": this.editedItem.name
         });
         this.snackbar = true;
         this.snackbarText = "Supplier created";
