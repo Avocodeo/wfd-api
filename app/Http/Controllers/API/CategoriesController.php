@@ -30,6 +30,9 @@ class CategoriesController extends Controller
         ]);
 
         $category = Category::create($attributes);
+
+        SystemUpdate::dispatch("Category Created!");
+
         return response()->json([
             'id' => $category->id,
             'message' => 'category was successfully created'

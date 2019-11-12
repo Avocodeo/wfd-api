@@ -31,6 +31,9 @@ class IngredientsController extends Controller
         ]);
 
         $ingredient = Ingredient::create($attributes);
+
+        SystemUpdate::dispatch("Ingredient Created!");
+
         return response()->json([
             'id' => $ingredient->id,
             'message' => 'ingredient was successfully created'

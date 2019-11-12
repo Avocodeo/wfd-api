@@ -32,6 +32,9 @@ class MeasurementsController extends Controller
         ]);
 
         $measurement = Measurement::create($attributes);
+
+        SystemUpdate::dispatch("Measurement Created!");
+
         return response()->json([
             'id' => $measurement->id,
             'message' => 'measurement was successfully created'

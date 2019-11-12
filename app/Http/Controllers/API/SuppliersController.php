@@ -31,6 +31,9 @@ class SuppliersController extends Controller
         ]);
 
         $supplier = Supplier::create($attributes);
+
+        SystemUpdate::dispatch("Supplier Created!");
+
         return response()->json([
             'id' => $supplier->id,
             'message' => 'supplier was successfully created'

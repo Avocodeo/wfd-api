@@ -32,6 +32,9 @@ class RecipesController extends Controller
 
         $recipe = Recipe::create($attributes);
 
+        SystemUpdate::dispatch("Recipe Created!");
+
+
         return response()->json([
             'id' => $recipe->id,
             'message' => 'recipe was successfully created'
