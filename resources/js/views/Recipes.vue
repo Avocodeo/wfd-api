@@ -197,7 +197,7 @@ export default {
           .then(function() {
             axios
               .post("api/notifications", {
-                body: "Item Updated"
+                body: "Recipe Updated"
               })
               .then(response => console.log(response));
           })

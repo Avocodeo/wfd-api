@@ -43,7 +43,7 @@
               </v-col>
               <v-col cols="12" md="6">
                 <v-select
-                  v-model="editedItem.measurement"
+                  v-model="editedItem.type"
                   :items="suppliers"
                   label="Supplier"
                   item-text="type"
@@ -163,12 +163,13 @@ export default {
         this.snackbar = true;
         axios
           .patch("api/suppliers/" + this.editedItem.id, {
-            name: this.editedItem.name
+            name: this.editedItem.name,
+            type: "food"
           })
           .then(function() {
             axios
               .post("api/notifications", {
-                body: "Item Updated"
+                body: "Supplier Updated"
               })
               .then(response => console.log(response));
           })
