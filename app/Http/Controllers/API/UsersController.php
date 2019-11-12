@@ -4,7 +4,7 @@ namespace App\Http\Controllers\API;
 
 use App\User;
 use App\Http\Controllers\Controller;
-use App\Events\InventoryUpdate;
+use App\Events\SystemUpdate;
 
 class UsersController extends Controller
 {
@@ -32,7 +32,7 @@ class UsersController extends Controller
 
         $user->update($attributes);
 
-        InventoryUpdate::dispatch("User Updated!");
+        SystemUpdate::dispatch("User Updated!");
 
 
         return response()->json([

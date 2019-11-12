@@ -10,7 +10,7 @@ use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
 
-class InventoryUpdate implements ShouldBroadcast
+class SystemUpdate implements ShouldBroadcast
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
@@ -33,6 +33,6 @@ class InventoryUpdate implements ShouldBroadcast
      */
     public function broadcastOn()
     {
-        return new Channel('inventory');
+        return new Channel('system');
     }
 }

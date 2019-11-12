@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
-use App\Events\InventoryUpdate;
+use App\Events\SystemUpdate;
 use App\Category;
 
 class CategoriesController extends Controller
@@ -44,7 +44,7 @@ class CategoriesController extends Controller
 
         $category->update($attributes);
 
-        InventoryUpdate::dispatch("Category Updated!");
+        SystemUpdate::dispatch("Category Updated!");
 
 
         return response()->json([

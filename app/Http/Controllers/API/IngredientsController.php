@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
-use App\Events\InventoryUpdate;
+use App\Events\SystemUpdate;
 use App\Ingredient;
 
 class IngredientsController extends Controller
@@ -46,7 +46,7 @@ class IngredientsController extends Controller
 
         $ingredient->update($attributes);
 
-        InventoryUpdate::dispatch("Ingredient Updated!");
+        SystemUpdate::dispatch("Ingredient Updated!");
 
 
         return response()->json([

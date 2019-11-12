@@ -4,7 +4,7 @@ namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
 use App\Measurement;
-use App\Events\InventoryUpdate;
+use App\Events\SystemUpdate;
 
 class MeasurementsController extends Controller
 {
@@ -48,7 +48,7 @@ class MeasurementsController extends Controller
 
         $measurement->update($attributes);
 
-        InventoryUpdate::dispatch("Measurement Updated!");
+        SystemUpdate::dispatch("Measurement Updated!");
 
 
         return response()->json([

@@ -167,7 +167,7 @@ export default {
   },
   created() {
     // this.getNotifications();
-    window.Echo.channel("inventory").listen("InventoryUpdate", e => {
+    window.Echo.channel("system").listen("SystemUpdate", e => {
       this.notifications.push({ message: e.message });
     });
 

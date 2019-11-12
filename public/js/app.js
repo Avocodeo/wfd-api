@@ -2008,7 +2008,7 @@ __webpack_require__.r(__webpack_exports__);
     var _this = this;
 
     // this.getNotifications();
-    window.Echo.channel("inventory").listen("InventoryUpdate", function (e) {
+    window.Echo.channel("system").listen("SystemUpdate", function (e) {
       _this.notifications.push({
         message: e.message
       });
@@ -2711,6 +2711,10 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+//
+//
+//
+//
 //
 //
 //
@@ -34406,6 +34410,7 @@ var render = function() {
         "button",
         {
           staticClass: "btn-primary fixed-button py-4 px-5 rounded-pill",
+          staticStyle: { right: "20px", bottom: "20px" },
           on: { click: _vm.save }
         },
         [_vm._v("Finish Shopping")]

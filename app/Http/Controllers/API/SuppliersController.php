@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
-use App\Events\InventoryUpdate;
+use App\Events\SystemUpdate;
 use App\Supplier;
 
 class SuppliersController extends Controller
@@ -46,7 +46,7 @@ class SuppliersController extends Controller
 
         $supplier->update($attributes);
 
-        InventoryUpdate::dispatch("Supplier Updated!");
+        SystemUpdate::dispatch("Supplier Updated!");
 
 
         return response()->json([

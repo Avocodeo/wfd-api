@@ -4,7 +4,7 @@ namespace App\Http\Controllers\API;
 
 use App\Recipe;
 use App\Http\Controllers\Controller;
-use App\Events\InventoryUpdate;
+use App\Events\SystemUpdate;
 
 class RecipesController extends Controller
 {
@@ -47,7 +47,7 @@ class RecipesController extends Controller
 
         $recipe->update($attributes);
 
-        InventoryUpdate::dispatch("Recipe Updated!");
+        SystemUpdate::dispatch("Recipe Updated!");
 
 
         return response()->json([
