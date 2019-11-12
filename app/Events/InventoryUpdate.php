@@ -34,6 +34,5 @@ class InventoryUpdate implements ShouldBroadcast
     public function broadcastOn()
     {
         return new Channel('inventory');
-        //        return new PrivateChannel('channel-name');
     }
 }
