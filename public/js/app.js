@@ -3036,10 +3036,7 @@ __webpack_require__.r(__webpack_exports__);
         sortable: false
       }],
       ingredients: [],
-      measurements: [{
-        text: "Gallons",
-        value: 1
-      }],
+      measurements: [],
       editedIndex: -1,
       editedItem: {
         name: "",
@@ -3136,15 +3133,12 @@ __webpack_require__.r(__webpack_exports__);
         axios.post("api/ingredients", {
           name: this.editedItem.name,
           measurement_id: this.editedItem.measurement.id
-        });
-        then(function () {
+        }).then(function () {
           axios.post("api/notifications", {
             body: "Ingredient Added"
           }).then(function (response) {
             return console.log(response);
           });
-        }).then(function (response) {
-          console.log(response);
         });
         this.ingredients.push({
           name: this.editedItem.name,
@@ -3378,8 +3372,6 @@ __webpack_require__.r(__webpack_exports__);
         }).then(function () {
           axios.post("api/notifications", {
             body: "Inventory Updated"
-          }).then(function (response) {
-            return console.log(response);
           });
         }).then(function (response) {
           console.log(response);
@@ -3432,6 +3424,17 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -3624,12 +3627,9 @@ __webpack_require__.r(__webpack_exports__);
           name: this.editedItem.name,
           abbreviation: this.editedItem.abbreviation,
           type_id: this.editedItem.type.id
-        });
-        then(function () {
+        }).then(function () {
           axios.post("api/notifications", {
             body: "Measurement Added"
-          }).then(function (response) {
-            return console.log(response);
           });
         }).then(function (response) {
           console.log(response);
@@ -3760,6 +3760,33 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -3770,10 +3797,8 @@ __webpack_require__.r(__webpack_exports__);
         align: "left",
         sortable: false,
         value: "name"
-      }, {
-        text: "Category",
-        value: "category.name"
-      }, {
+      }, // { text: "Category", value: "categories.name" },
+      {
         text: "Created At",
         value: "created_at"
       }, {
@@ -3785,14 +3810,15 @@ __webpack_require__.r(__webpack_exports__);
         sortable: false
       }],
       recipes: [],
-      categories: [{
-        text: "Salt",
-        value: 1
-      }],
+      categories: [],
       editedIndex: -1,
       editedItem: {
         name: "",
         category: ""
+      },
+      sendEmail: {
+        name: "",
+        email: ""
       },
       defaultItem: {
         name: "",
@@ -3800,6 +3826,7 @@ __webpack_require__.r(__webpack_exports__);
       },
       loading: true,
       dialog: false,
+      dialog2: false,
       snackbar: false,
       snackbarText: "",
       snackbarTimeout: 2000
@@ -3844,6 +3871,11 @@ __webpack_require__.r(__webpack_exports__);
       this.editedItem = Object.assign({}, item);
       this.dialog = true;
     },
+    storeEmail: function storeEmail(item) {
+      this.editedIndex = this.recipes.indexOf(item);
+      this.sendEmail = Object.assign({}, item);
+      this.dialog2 = true;
+    },
     deleteItem: function deleteItem(item) {
       var index = this.recipes.indexOf(item);
       confirm("Are you sure you want to delete this recipe?") && this.recipes.splice(index, 1);
@@ -3855,6 +3887,7 @@ __webpack_require__.r(__webpack_exports__);
       var _this3 = this;
 
       this.dialog = false;
+      this.dialog2 = false;
       setTimeout(function () {
         _this3.editedItem = Object.assign({}, _this3.defaultItem);
         _this3.editedIndex = -1;
@@ -3871,6 +3904,15 @@ __webpack_require__.r(__webpack_exports__);
       anchor.click();
       this.snackbar = true;
       this.snackbarText = "Recipe Downloaded";
+    },
+    email: function email() {
+      axios.post("/api/email", {
+        email: this.sendEmail.email,
+        recipe: this.sendEmail.name
+      });
+      this.snackbar = true;
+      this.snackbarText = "Email Submitted";
+      this.close();
     },
     save: function save() {
       if (this.editedIndex > -1) {
@@ -3893,8 +3935,7 @@ __webpack_require__.r(__webpack_exports__);
         axios.post("api/recipes", {
           name: this.editedItem.name,
           category_id: this.editedItem.category.id
-        });
-        then(function () {
+        }).then(function () {
           axios.post("api/notifications", {
             body: "Recipe Added"
           }).then(function (response) {
@@ -4098,32 +4139,28 @@ __webpack_require__.r(__webpack_exports__);
         this.snackbar = true;
         axios.patch("api/suppliers/" + this.editedItem.id, {
           name: this.editedItem.name,
-          type: "food"
+          type: this.editedItem.suppliers.type
         }).then(function () {
           axios.post("api/notifications", {
             body: "Supplier Updated"
-          }).then(function (response) {
-            return console.log(response);
           });
         }).then(function (response) {
           console.log(response);
         });
       } else {
         axios.post("api/suppliers", {
-          name: this.editedItem.name
-        });
-        then(function () {
+          name: this.editedItem.name,
+          type: this.editedItem.suppliers.type
+        }).then(function () {
           axios.post("api/notifications", {
             body: "Supplier Added"
-          }).then(function (response) {
-            return console.log(response);
           });
         }).then(function (response) {
           console.log(response);
         });
         this.suppliers.push({
           name: this.editedItem.name,
-          "supplier.name": this.editedItem.supplier.name
+          "supplier.name": this.editedItem.name
         });
         this.snackbar = true;
         this.snackbarText = "Supplier created";
@@ -35399,6 +35436,31 @@ var render = function() {
                               })
                             ],
                             1
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "v-col",
+                            { attrs: { cols: "12", md: "6" } },
+                            [
+                              _c("v-select", {
+                                attrs: {
+                                  items: _vm.types,
+                                  label: "Type",
+                                  "item-text": "name",
+                                  "item-value": "id",
+                                  "return-object": "",
+                                  "prepend-icon": "mdi-scale-balance"
+                                },
+                                model: {
+                                  value: _vm.editedItem.type,
+                                  callback: function($$v) {
+                                    _vm.$set(_vm.editedItem, "type", $$v)
+                                  },
+                                  expression: "editedItem.type"
+                                }
+                              })
+                            ],
+                            1
                           )
                         ],
                         1
@@ -35627,6 +35689,27 @@ var render = function() {
                     }
                   },
                   [_vm._v("Download")]
+                ),
+                _vm._v(" "),
+                _c(
+                  "v-btn",
+                  {
+                    staticClass: "ml-4",
+                    attrs: { color: "primary" },
+                    on: {
+                      click: function($event) {
+                        return _vm.storeEmail(item)
+                      }
+                    },
+                    model: {
+                      value: _vm.sendEmail,
+                      callback: function($$v) {
+                        _vm.sendEmail = $$v
+                      },
+                      expression: "sendEmail"
+                    }
+                  },
+                  [_vm._v("Email")]
                 )
               ]
             }
@@ -35708,7 +35791,7 @@ var render = function() {
                             { attrs: { cols: "12", md: "6" } },
                             [
                               _c("v-text-field", {
-                                attrs: { label: "Recipe Name" },
+                                attrs: { label: "Edit Recipe" },
                                 model: {
                                   value: _vm.editedItem.name,
                                   callback: function($$v) {
@@ -35776,6 +35859,104 @@ var render = function() {
                       on: { click: _vm.save }
                     },
                     [_vm._v("Save")]
+                  )
+                ],
+                1
+              )
+            ],
+            1
+          )
+        ],
+        1
+      ),
+      _vm._v(" "),
+      _c(
+        "v-dialog",
+        {
+          attrs: { "max-width": "700px" },
+          scopedSlots: _vm._u([
+            {
+              key: "activator",
+              fn: function(ref) {
+                var on = ref.on
+                return undefined
+              }
+            }
+          ]),
+          model: {
+            value: _vm.dialog2,
+            callback: function($$v) {
+              _vm.dialog2 = $$v
+            },
+            expression: "dialog2"
+          }
+        },
+        [
+          _vm._v(" "),
+          _c(
+            "v-card",
+            [
+              _c("v-card-title", [
+                _c("span", { staticClass: "headline" }, [_vm._v("Send Email")])
+              ]),
+              _vm._v(" "),
+              _c(
+                "v-card-text",
+                [
+                  _c(
+                    "v-container",
+                    [
+                      _c(
+                        "v-row",
+                        [
+                          _c(
+                            "v-col",
+                            { attrs: { cols: "12", md: "6" } },
+                            [
+                              _c("v-text-field", {
+                                attrs: { label: "Email Address" },
+                                model: {
+                                  value: _vm.sendEmail.email,
+                                  callback: function($$v) {
+                                    _vm.$set(_vm.sendEmail, "email", $$v)
+                                  },
+                                  expression: "sendEmail.email"
+                                }
+                              })
+                            ],
+                            1
+                          )
+                        ],
+                        1
+                      )
+                    ],
+                    1
+                  )
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c(
+                "v-card-actions",
+                [
+                  _c("v-spacer"),
+                  _vm._v(" "),
+                  _c(
+                    "v-btn",
+                    {
+                      attrs: { color: "blue darken-1", text: "" },
+                      on: { click: _vm.close }
+                    },
+                    [_vm._v("Cancel")]
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "v-btn",
+                    {
+                      attrs: { color: "blue darken-1", text: "" },
+                      on: { click: _vm.email }
+                    },
+                    [_vm._v("Send Email")]
                   )
                 ],
                 1
@@ -36017,11 +36198,11 @@ var render = function() {
                                   "prepend-icon": "mdi-cube-outline"
                                 },
                                 model: {
-                                  value: _vm.editedItem.type,
+                                  value: _vm.editedItem.suppliers,
                                   callback: function($$v) {
-                                    _vm.$set(_vm.editedItem, "type", $$v)
+                                    _vm.$set(_vm.editedItem, "suppliers", $$v)
                                   },
-                                  expression: "editedItem.type"
+                                  expression: "editedItem.suppliers"
                                 }
                               })
                             ],
