@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
-
+use App\Events\InventoryUpdate;
 use App\Ingredient;
 
 class IngredientsController extends Controller

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\API;
 
 use App\Notification;
 use App\Http\Controllers\Controller;
+use App\Events\InventoryUpdate;
 
 
 class NotificationsController extends Controller

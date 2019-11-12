@@ -4,6 +4,7 @@ namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
 use App\MeasurementType;
+use App\Events\InventoryUpdate;
 
 class MeasurementTypesController extends Controller
 {

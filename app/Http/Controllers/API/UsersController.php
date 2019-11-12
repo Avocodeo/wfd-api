@@ -4,6 +4,7 @@ namespace App\Http\Controllers\API;
 
 use App\User;
 use App\Http\Controllers\Controller;
+use App\Events\InventoryUpdate;
 
 class UsersController extends Controller
 {
