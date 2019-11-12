@@ -223,7 +223,7 @@ export default {
           .then(function() {
             axios
               .post("api/notifications", {
-                body: "Inventory Updated"
+                body: "New Item Added"
               })
               .then(response => console.log(response));
           })
