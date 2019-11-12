@@ -167,7 +167,6 @@ export default {
   },
   created() {
     window.Echo.channel("inventory").listen("InventoryUpdate", e => {
-      this.notifications.push({ message: e.message });
       axios
         .post("api/notifications", {
           body: e.message
@@ -175,9 +174,9 @@ export default {
         .then(function(response) {
           console.log(response);
         });
+      this.notifications.push({ message: e.message });
     });
     window.Echo.channel("users").listen("NewUser", e => {
-      this.notifications.push({ message: e.message });
       axios
         .post("api/notifications", {
           body: e.message
@@ -185,6 +184,7 @@ export default {
         .then(function(response) {
           console.log(response);
         });
+      this.notifications.push({ message: e.message });
     });
 
     Event.$on("success", message => {

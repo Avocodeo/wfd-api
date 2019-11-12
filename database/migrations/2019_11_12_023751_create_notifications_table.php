@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateLiveNotificationsTable extends Migration
+class CreateNotificationsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class CreateLiveNotificationsTable extends Migration
      */
     public function up()
     {
-        Schema::create('live_notifications', function (Blueprint $table) {
+        Schema::create('notifications', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->text('body');
             $table->timestamps();
@@ -27,6 +27,6 @@ class CreateLiveNotificationsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('live_notifications');
+        Schema::dropIfExists('notifications');
     }
 }

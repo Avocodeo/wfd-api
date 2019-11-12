@@ -25,7 +25,6 @@ class NotificationsController extends Controller
     public function store()
     {
         $attributes = request()->validate([
-            'id' => 'required',
             'body' => 'required',
         ]);
 
