@@ -11,9 +11,9 @@
             <strong>
               <h2>This is a list of our top suppliers.</h2>
               <h3>
-                <br />1. Tromp-Gleichner
-                <br />2. Gerlach-Luettgen
-                <br />3. Hagenes Group
+                <br />1. Pearl Produce
+                <br />2. Costco Farms
+                <br />3. Mr. Meats
               </h3>
             </strong>
           </v-card-text>
