@@ -185,8 +185,8 @@ export default {
           name: this.editedItem.name,
           abbreviation: this.editedItem.abbreviation,
           type_id: this.editedItem.type.id
-        });
-        then(function() {
+        })
+        .then(function() {
           axios
             .post("api/notifications", {
               body: "Measurement Added"
