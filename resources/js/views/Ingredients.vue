@@ -206,9 +206,6 @@ export default {
                 body: "Ingredient Added"
               })
               .then(response => console.log(response));
-          })
-          .then(function(response) {
-            console.log(response);
           });
         this.ingredients.push({
           name: this.editedItem.name,
