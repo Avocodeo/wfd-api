@@ -82,3 +82,5 @@ Route::post('/groceries', 'API\GroceryListController@store');
 // Notifications Routes
 Route::get('/notifications', 'API\NotificationsController@index');
 Route::post('/notifications', 'API\NotificationsController@store');
+// Mail Routes
+Route::post('/email', 'API\EmailController@store');
