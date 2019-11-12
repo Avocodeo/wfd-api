@@ -1,7 +1,7 @@
 @component('mail::message')
-# What's for Dinner !!!
+# What's for Dinner!
 
-Hey! Click on the button below to view the recipe within the WFD app.
+Hey, you should check out this recipe! Click on the button below to view the recipe within the WFD app.
 
 Recipe: {{ $recipe }}
 
