@@ -203,11 +203,9 @@ export default {
             high: this.editedItem.high
           })
           .then(function() {
-            axios
-              .post("api/notifications", {
-                body: "Inventory Updated"
-              })
-              .then(response => console.log(response));
+            axios.post("api/notifications", {
+              body: "Inventory Updated"
+            });
           })
           .then(function(response) {
             console.log(response);
