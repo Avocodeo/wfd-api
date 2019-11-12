@@ -167,25 +167,12 @@ export default {
   },
   created() {
     window.Echo.channel("inventory").listen("InventoryUpdate", e => {
-      axios
-        .post("api/notifications", {
-          body: e.message
-        })
-        .then(function(response) {
-          console.log(response);
-        });
-      this.notifications.push({ message: e.message });
-    });
-    window.Echo.channel("users").listen("NewUser", e => {
-      axios
-        .post("api/notifications", {
-          body: e.message
-        })
-        .then(function(response) {
-          console.log(response);
-        });
-      this.notifications.push({ message: e.message });
-    });
+        this.notifications.push({ message: e.message });
+      });
+      
+    window.Echo.channel("users").listen("NewUser", e => { 
+        this.notifications.push({ message: e.message });
+      });
 
     Event.$on("success", message => {
       this.snackbar.message = message;
@@ -212,7 +199,8 @@ export default {
     removeNotification(notification) {
       const index = this.notifications.indexOf(notification);
       this.notifications.splice(index, 1);
-    }
+    },
+   
   }
 };
 </script>

@@ -2011,22 +2011,10 @@ __webpack_require__.r(__webpack_exports__);
       _this.notifications.push({
         message: e.message
       });
-
-      axios.post("api/notifications", {
-        body: e.message
-      }).then(function (response) {
-        console.log(response);
-      });
     });
     window.Echo.channel("users").listen("NewUser", function (e) {
       _this.notifications.push({
         message: e.message
-      });
-
-      axios.post("api/notifications", {
-        body: e.message
-      }).then(function (response) {
-        console.log(response);
       });
     });
     _events__WEBPACK_IMPORTED_MODULE_0__["default"].$on("success", function (message) {
@@ -3211,6 +3199,13 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -3294,6 +3289,13 @@ __webpack_require__.r(__webpack_exports__);
         console.log(error);
       });
     },
+    sendNotification: function sendNotification() {
+      axios.post("api/notifications", {
+        body: "Inventory Updated"
+      }).then(function (response) {
+        return console.log(response);
+      });
+    },
     editItem: function editItem(item) {
       this.editedIndex = this.inventories.indexOf(item);
       this.editedItem = Object.assign({}, item);
@@ -3329,6 +3331,12 @@ __webpack_require__.r(__webpack_exports__);
           quantity: this.editedItem.quantity,
           low: this.editedItem.low,
           high: this.editedItem.high
+        }).then(function () {
+          axios.post("api/notifications", {
+            body: "Inventory Updated"
+          }).then(function (response) {
+            return console.log(response);
+          });
         }).then(function (response) {
           console.log(response);
         });
@@ -3338,11 +3346,17 @@ __webpack_require__.r(__webpack_exports__);
           quantity: this.editedItem.quantity,
           low: this.editedItem.low,
           high: this.editedItem.high
+        }).then(function () {
+          axios.post("api/notifications", {
+            body: "Inventory Updated"
+          }).then(function (response) {
+            return console.log(response);
+          });
         }).then(function (response) {
           console.log(response);
         });
         this.inventories.push({
-          'ingredient.name': this.editedItem.ingredient.name,
+          "ingredient.name": this.editedItem.ingredient.name,
           quantity: this.editedItem.quantity,
           low: this.editedItem.low,
           high: this.editedItem.high
@@ -3355,10 +3369,10 @@ __webpack_require__.r(__webpack_exports__);
     },
     getColor: function getColor(inventoryItem) {
       if (inventoryItem.quantity < inventoryItem.low) {
-        return 'red';
+        return "red";
       } else if (inventoryItem.quantity > inventoryItem.high) {
-        return 'orange';
-      } else return 'green';
+        return "orange";
+      } else return "green";
     }
   }
 });
@@ -34369,11 +34383,11 @@ var render = function() {
                       _vm._v(" "),
                       _c("h3", [
                         _c("br"),
-                        _vm._v("1. Tromp-Gleichner\n              "),
+                        _vm._v("1. Pearl Produce\n              "),
                         _c("br"),
-                        _vm._v("2. Gerlach-Luettgen\n              "),
+                        _vm._v("2. Costco Farms\n              "),
                         _c("br"),
-                        _vm._v("3. Hagenes Group\n            ")
+                        _vm._v("3. Mr. Meats\n            ")
                       ])
                     ])
                   ]),
@@ -89251,6 +89265,10 @@ __webpack_require__.r(__webpack_exports__);
   path: '/groceries',
   name: 'groceries',
   component: _views_GroceryList__WEBPACK_IMPORTED_MODULE_10__["default"]
+}, {
+  path: '/notifications',
+  name: 'notifications',
+  component: _views_Home__WEBPACK_IMPORTED_MODULE_0__["default"]
 }, {
   path: '*',
   component: _views_NotFound__WEBPACK_IMPORTED_MODULE_2__["default"]
