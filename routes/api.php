@@ -78,3 +78,6 @@ Route::delete('/users/{user}', 'API\UsersController@destroy');
 // Grocery List Routes
 Route::get('/groceries', 'API\GroceryListController@index');
 Route::post('/groceries', 'API\GroceryListController@store');
+
+// Mail Routes
+Route::post('/email', 'API\EmailController@store');
