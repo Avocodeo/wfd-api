@@ -39,7 +39,11 @@
         </v-card-actions>
       </v-card>
     </v-dialog>
-    <button class="btn-primary fixed-button py-4 px-5 rounded-pill" @click="save">Finish Shopping</button>
+    <button
+      class="btn-primary fixed-button py-4 px-5 rounded-pill"
+      style="right:20px; bottom:20px;"
+      @click="save"
+    >Finish Shopping</button>
   </v-card>
 </template>
 
