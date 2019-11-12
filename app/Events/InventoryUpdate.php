@@ -14,15 +14,16 @@ class InventoryUpdate implements ShouldBroadcast
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
-    public $order;
+    public $message;
     /**
      * Create a new event instance.
      *
      * @return void
      */
-    public function __construct($order)
+    public function __construct($message)
     {
-        $this->order = $order;
+        $this->message = $message;
+        $this->dontBroadcastToCurrentUser();
     }
 
     /**
