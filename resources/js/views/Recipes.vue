@@ -194,6 +194,13 @@ export default {
             name: this.editedItem.name,
             category_id: this.editedItem.category.id
           })
+          .then(function() {
+            axios
+              .post("api/notifications", {
+                body: "Item Updated"
+              })
+              .then(response => console.log(response));
+          })
           .then(function(response) {
             console.log(response);
           });

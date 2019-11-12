@@ -165,6 +165,13 @@ export default {
           .patch("api/suppliers/" + this.editedItem.id, {
             name: this.editedItem.name
           })
+          .then(function() {
+            axios
+              .post("api/notifications", {
+                body: "Item Updated"
+              })
+              .then(response => console.log(response));
+          })
           .then(function(response) {
             console.log(response);
           });

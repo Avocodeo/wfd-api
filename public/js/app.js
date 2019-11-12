@@ -2007,6 +2007,7 @@ __webpack_require__.r(__webpack_exports__);
   created: function created() {
     var _this = this;
 
+    // this.getNotifications();
     window.Echo.channel("inventory").listen("InventoryUpdate", function (e) {
       _this.notifications.push({
         message: e.message
@@ -2034,6 +2035,16 @@ __webpack_require__.r(__webpack_exports__);
     });
   },
   methods: {
+    getNotifications: function getNotifications() {
+      var _this2 = this;
+
+      axios.get("api/notifications").then(function (response) {
+        _this2.notifications = response.data;
+        _this2.loading = false;
+      })["catch"](function (error) {
+        console.log(error);
+      });
+    },
     logout: function logout() {
       axios.get("/api/logout").then(function () {
         location.reload();
@@ -3348,7 +3359,7 @@ __webpack_require__.r(__webpack_exports__);
           high: this.editedItem.high
         }).then(function () {
           axios.post("api/notifications", {
-            body: "Inventory Updated"
+            body: "New Item Added"
           }).then(function (response) {
             return console.log(response);
           });
@@ -3566,6 +3577,12 @@ __webpack_require__.r(__webpack_exports__);
           name: this.editedItem.name,
           abbreviation: this.editedItem.abbreviation,
           type_id: this.editedItem.type.id
+        }).then(function () {
+          axios.post("api/notifications", {
+            body: "Item Updated"
+          }).then(function (response) {
+            return console.log(response);
+          });
         }).then(function (response) {
           console.log(response);
         });
@@ -3823,6 +3840,12 @@ __webpack_require__.r(__webpack_exports__);
         axios.patch("api/recipes/" + this.editedItem.id, {
           name: this.editedItem.name,
           category_id: this.editedItem.category.id
+        }).then(function () {
+          axios.post("api/notifications", {
+            body: "Item Updated"
+          }).then(function (response) {
+            return console.log(response);
+          });
         }).then(function (response) {
           console.log(response);
         });
@@ -4028,6 +4051,12 @@ __webpack_require__.r(__webpack_exports__);
         this.snackbar = true;
         axios.patch("api/suppliers/" + this.editedItem.id, {
           name: this.editedItem.name
+        }).then(function () {
+          axios.post("api/notifications", {
+            body: "Item Updated"
+          }).then(function (response) {
+            return console.log(response);
+          });
         }).then(function (response) {
           console.log(response);
         });
@@ -4218,6 +4247,12 @@ __webpack_require__.r(__webpack_exports__);
         axios.patch("api/users/" + this.editedItem.id, {
           name: this.editedItem.name,
           email: this.editedItem.email
+        }).then(function () {
+          axios.post("api/notifications", {
+            body: "User Updated"
+          }).then(function (response) {
+            return console.log(response);
+          });
         }).then(function (response) {
           console.log(response);
         });
@@ -32749,7 +32784,8 @@ var render = function() {
                           staticStyle: {
                             width: "260px",
                             height: "280px",
-                            color: "black"
+                            color: "black",
+                            "overflow-y": "scroll"
                           }
                         },
                         [
@@ -32761,6 +32797,7 @@ var render = function() {
                           _vm._v(" "),
                           _c(
                             "div",
+                            { staticStyle: { margin: "5px" } },
                             _vm._l(_vm.notifications, function(notification) {
                               return _c(
                                 "div",
@@ -32769,9 +32806,8 @@ var render = function() {
                                   staticClass:
                                     "border-bottom notification-item m-2",
                                   staticStyle: {
-                                    "font-size": "22px",
-                                    cursor: "pointer",
-                                    margin: "20px"
+                                    "font-size": "15px",
+                                    cursor: "pointer"
                                   },
                                   on: {
                                     click: function($event) {
@@ -36038,7 +36074,7 @@ var render = function() {
       _c(
         "v-card-title",
         [
-          _vm._v("\n      Users\n      "),
+          _vm._v("\n    Users\n    "),
           _c("v-spacer"),
           _vm._v(" "),
           _c("v-text-field", {
