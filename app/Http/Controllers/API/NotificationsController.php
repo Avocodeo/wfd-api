@@ -25,33 +25,17 @@ class NotificationsController extends Controller
     public function store()
     {
         $attributes = request()->validate([
-            'name' => 'required',
-            'abbreviation' => 'required',
-            'type_id' => 'sometimes'
+            'id' => 'required',
+            'body' => 'required',
         ]);
 
         $notification = Notification::create($attributes);
         return response()->json([
             'id' => $notification->id,
-            'message' => 'measurement was successfully created'
+            'message' => 'Notification was successfully created'
         ]);
     }
 
-    public function update(Notification $measurement)
-    {
-        $attributes = request()->validate([
-            'name' => 'required',
-            'abbreviation' => 'required',
-            'type_id' => 'sometimes'
-        ]);
-
-        $measurement->update($attributes);
-
-        return response()->json([
-            'measurement' => $measurement->name,
-            'message' => 'measurement updated'
-        ]);
-    }
 
     public function destroy(Notification $notification)
     {
