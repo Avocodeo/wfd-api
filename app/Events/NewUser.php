@@ -10,18 +10,21 @@ use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
 
-class InventoryUpdate implements ShouldBroadcast
+class NewUser implements ShouldBroadcast
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
+
+    public $user;
     public $message;
     /**
      * Create a new event instance.
      *
      * @return void
      */
-    public function __construct($message)
+    public function __construct($user, $message)
     {
+        $this->user = $user;
         $this->message = $message;
         // $this->dontBroadcastToCurrentUser();
     }
@@ -33,7 +36,6 @@ class InventoryUpdate implements ShouldBroadcast
      */
     public function broadcastOn()
     {
-        return new Channel('inventory');
-        //        return new PrivateChannel('channel-name');
+        return new Channel('users');
     }
 }

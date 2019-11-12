@@ -35,7 +35,7 @@
               <v-list-item-title>Inventory</v-list-item-title>
             </v-list-item-content>
           </v-list-item>
-            <v-list-item to="/groceries" class="text-decoration-none">
+          <v-list-item to="/groceries" class="text-decoration-none">
             <v-list-item-action>
               <v-icon color="red" size="48">mdi-format-list-bulleted</v-icon>
             </v-list-item-action>
@@ -86,36 +86,34 @@
         <v-spacer></v-spacer>
 
         <div>
-          <v-btn @click="displayNotificationsToggle = !displayNotificationsToggle"
-                 class="text-decoration-none bg-primary"
+          <v-btn
+            @click="displayNotificationsToggle = !displayNotificationsToggle"
+            class="text-decoration-none bg-primary"
           >
-            <v-badge
-              color="red"
-              overlap
-            >
+            <v-badge color="red" overlap>
               <template v-slot:badge>
                 <span v-if="notifications.length > 0">{{ notifications.length }}</span>
               </template>
               <v-icon>mdi-bell</v-icon>
             </v-badge>
           </v-btn>
-          <div class="position-absolute v-sheet v-card bg-light"
-               style="width: 260px; height: 280px; color: black;"
-               v-if="displayNotificationsToggle"
+          <div
+            class="position-absolute v-sheet v-card bg-light"
+            style="width: 260px; height: 280px; color: black;"
+            v-if="displayNotificationsToggle"
           >
             <h3 class="border-bottom py-2 text-center">Notifications</h3>
             <div>
-              <div class="border-bottom notification-item m-2"
-                  style="font-size: 22px; cursor: pointer;"
+              <div
+                class="border-bottom notification-item m-2"
+                style="font-size: 22px; cursor: pointer; margin:20px;"
                 v-for="notification in notifications"
+                v-bind:key="notification.id"
                 @click="removeNotification(notification)"
-              >
-                {{notification.message}}
-              </div>
+              >{{ notification.message }}</div>
             </div>
           </div>
         </div>
-
 
         <v-btn text to="/account" class="text-decoration-none">
           <v-icon>mdi-account-circle</v-icon>
@@ -160,7 +158,7 @@ export default {
         enabled: false,
         message: "",
         timeout: 5000,
-        color: "",
+        color: ""
       },
       displayNotificationsToggle: false,
       notifications: [],
@@ -168,9 +166,25 @@ export default {
     };
   },
   created() {
-
-    window.Echo.channel('inventory').listen('InventoryUpdate', e => {
-      this.notifications.push({message: e.message});
+    window.Echo.channel("inventory").listen("InventoryUpdate", e => {
+      this.notifications.push({ message: e.message });
+      axios
+        .post("api/notifications", {
+          body: e.message
+        })
+        .then(function(response) {
+          console.log(response);
+        });
+    });
+    window.Echo.channel("users").listen("NewUser", e => {
+      this.notifications.push({ message: e.message });
+      axios
+        .post("api/notifications", {
+          body: e.message
+        })
+        .then(function(response) {
+          console.log(response);
+        });
     });
 
     Event.$on("success", message => {
@@ -203,8 +217,7 @@ export default {
 };
 </script>
 <style scoped>
-  .notification-item:hover {
-    background-color: lightskyblue;
-  }
+.notification-item:hover {
+  background-color: lightskyblue;
+}
 </style>
-

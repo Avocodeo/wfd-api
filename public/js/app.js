@@ -1987,8 +1987,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "App",
@@ -2009,9 +2007,26 @@ __webpack_require__.r(__webpack_exports__);
   created: function created() {
     var _this = this;
 
-    window.Echo.channel('inventory').listen('InventoryUpdate', function (e) {
+    window.Echo.channel("inventory").listen("InventoryUpdate", function (e) {
       _this.notifications.push({
         message: e.message
+      });
+
+      axios.post("api/notifications", {
+        body: e.message
+      }).then(function (response) {
+        console.log(response);
+      });
+    });
+    window.Echo.channel("users").listen("NewUser", function (e) {
+      _this.notifications.push({
+        message: e.message
+      });
+
+      axios.post("api/notifications", {
+        body: e.message
+      }).then(function (response) {
+        console.log(response);
       });
     });
     _events__WEBPACK_IMPORTED_MODULE_0__["default"].$on("success", function (message) {
@@ -32736,11 +32751,13 @@ var render = function() {
                               return _c(
                                 "div",
                                 {
+                                  key: notification.id,
                                   staticClass:
                                     "border-bottom notification-item m-2",
                                   staticStyle: {
                                     "font-size": "22px",
-                                    cursor: "pointer"
+                                    cursor: "pointer",
+                                    margin: "20px"
                                   },
                                   on: {
                                     click: function($event) {
@@ -32750,13 +32767,7 @@ var render = function() {
                                     }
                                   }
                                 },
-                                [
-                                  _vm._v(
-                                    "\n              " +
-                                      _vm._s(notification.message) +
-                                      "\n            "
-                                  )
-                                ]
+                                [_vm._v(_vm._s(notification.message))]
                               )
                             }),
                             0
@@ -88634,17 +88645,17 @@ if (token) {
   console.error('CSRF token not found: https://laravel.com/docs/csrf#csrf-x-csrf-token');
 }
 /*
-* Echo exposes expressive api for subscribing to channels and listening for events
-* that are broadcast by laravel. echo and event broadcasting allows
-* your team to easily build robust real time web applications
-* */
+ * Echo exposes expressive api for subscribing to channels and listening for events
+ * that are broadcast by laravel. echo and event broadcasting allows
+ * your team to easily build robust real time web applications
+ * */
 
 
 
 window.Pusher = __webpack_require__(/*! pusher-js */ "./node_modules/pusher-js/dist/web/pusher.js");
 window.Echo = new laravel_echo__WEBPACK_IMPORTED_MODULE_0__["default"]({
   broadcaster: 'pusher',
-  key: '118c0f9922364667dc61',
+  key: '47cde7e5985f5f95aac3',
   cluster: 'us2',
   encrypted: true
 });
@@ -90042,8 +90053,8 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! C:\Users\jmoore\Code\wfd-api\resources\js\app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! C:\Users\jmoore\Code\wfd-api\resources\sass\app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! /Users/tylerouellette/Documents/GitHub/Agile/wfd-api/resources/js/app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! /Users/tylerouellette/Documents/GitHub/Agile/wfd-api/resources/sass/app.scss */"./resources/sass/app.scss");
 
 
 /***/ })

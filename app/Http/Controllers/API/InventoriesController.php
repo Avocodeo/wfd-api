@@ -52,7 +52,7 @@ class InventoriesController extends Controller
 
         $inventory->update($attributes);
 
-        InventoryUpdate::dispatch("Inventory Updated !");
+        InventoryUpdate::dispatch("Inventory Updated!");
 
         return response()->json([
             'id' => $inventory->id,
