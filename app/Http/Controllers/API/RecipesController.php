@@ -46,6 +46,9 @@ class RecipesController extends Controller
 
         $recipe->update($attributes);
 
+        InventoryUpdate::dispatch("Recipe Updated!");
+
+
         return response()->json([
             'recipe' => $recipe->name,
             'message' => 'recipe updated'

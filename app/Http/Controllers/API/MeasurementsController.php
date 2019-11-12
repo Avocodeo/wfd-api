@@ -47,6 +47,9 @@ class MeasurementsController extends Controller
 
         $measurement->update($attributes);
 
+        InventoryUpdate::dispatch("Measurement Updated!");
+
+
         return response()->json([
             'measurement' => $measurement->name,
             'message' => 'measurement updated'

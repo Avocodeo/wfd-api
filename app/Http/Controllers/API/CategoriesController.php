@@ -44,6 +44,9 @@ class CategoriesController extends Controller
 
         $category->update($attributes);
 
+        InventoryUpdate::dispatch("Category Updated!");
+
+
         return response()->json([
             'category' => $category->name,
             'message' => 'category updated'

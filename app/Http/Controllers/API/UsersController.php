@@ -31,13 +31,16 @@ class UsersController extends Controller
 
         $user->update($attributes);
 
+        InventoryUpdate::dispatch("User Updated!");
+
+
         return response()->json([
             'user' => $user->name,
             'message' => 'user updated'
         ]);
     }
-    
-     public function destroy(User $user)
+
+    public function destroy(User $user)
     {
         $user->delete();
 

@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers\API;
+
 use App\Http\Controllers\Controller;
 
 use App\Ingredient;
@@ -44,6 +45,9 @@ class IngredientsController extends Controller
         ]);
 
         $ingredient->update($attributes);
+
+        InventoryUpdate::dispatch("Ingredient Updated!");
+
 
         return response()->json([
             'ingredient' => $ingredient->name,

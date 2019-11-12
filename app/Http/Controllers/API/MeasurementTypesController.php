@@ -38,6 +38,9 @@ class MeasurementTypesController extends Controller
 
         $measurementType->update($attributes);
 
+        InventoryUpdate::dispatch("Measurement Type Updated!");
+
+
         return response()->json([
             'measurementType' => $measurementType->name,
             'message' => 'measurement type updated'

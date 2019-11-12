@@ -46,6 +46,9 @@ class SuppliersController extends Controller
 
         $supplier->update($attributes);
 
+        InventoryUpdate::dispatch("Supplier Updated!");
+
+
         return response()->json([
             'supplier' => $supplier->name,
             'message' => 'supplier updated'
