@@ -4,6 +4,7 @@ namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
 use App\Measurement;
+use App\Events\SystemUpdate;
 
 class MeasurementsController extends Controller
 {
@@ -31,6 +32,9 @@ class MeasurementsController extends Controller
         ]);
 
         $measurement = Measurement::create($attributes);
+
+        SystemUpdate::dispatch("Measurement Created!");
+
         return response()->json([
             'id' => $measurement->id,
             'message' => 'measurement was successfully created'
@@ -46,6 +50,9 @@ class MeasurementsController extends Controller
         ]);
 
         $measurement->update($attributes);
+
+        SystemUpdate::dispatch("Measurement Updated!");
+
 
         return response()->json([
             'measurement' => $measurement->name,

@@ -35,7 +35,7 @@
               <v-list-item-title>Inventory</v-list-item-title>
             </v-list-item-content>
           </v-list-item>
-            <v-list-item to="/groceries" class="text-decoration-none">
+          <v-list-item to="/groceries" class="text-decoration-none">
             <v-list-item-action>
               <v-icon color="red" size="48">mdi-format-list-bulleted</v-icon>
             </v-list-item-action>
@@ -85,18 +85,35 @@
 
         <v-spacer></v-spacer>
 
-        <v-btn text to="/" class="text-decoration-none">
-          <!-- https://vuetifyjs.com/en/components/badges -->
-          <v-badge
-            color="red"
-            overlap
+        <div>
+          <v-btn
+            @click="displayNotificationsToggle = !displayNotificationsToggle"
+            class="text-decoration-none bg-primary"
           >
-            <template v-slot:badge>
-              5
-            </template>
-            <v-icon>mdi-bell</v-icon>
-          </v-badge>
-        </v-btn>
+            <v-badge color="red" overlap>
+              <template v-slot:badge>
+                <span v-if="notifications.length > 0">{{ notifications.length }}</span>
+              </template>
+              <v-icon>mdi-bell</v-icon>
+            </v-badge>
+          </v-btn>
+          <div
+            class="position-absolute v-sheet v-card bg-light"
+            style="width: 260px; height: 280px; color: black; overflow-y:scroll;"
+            v-if="displayNotificationsToggle"
+          >
+            <h3 class="border-bottom py-2 text-center">Notifications</h3>
+            <div style="margin:5px;">
+              <div
+                class="border-bottom notification-item m-2"
+                style="font-size: 15px; cursor: pointer;"
+                v-for="notification in notifications"
+                v-bind:key="notification.id"
+                @click="removeNotification(notification)"
+              >{{ notification.message }}</div>
+            </div>
+          </div>
+        </div>
 
         <v-btn text to="/account" class="text-decoration-none">
           <v-icon>mdi-account-circle</v-icon>
@@ -143,10 +160,21 @@ export default {
         timeout: 5000,
         color: ""
       },
+      displayNotificationsToggle: false,
+      notifications: [],
       mini: true
     };
   },
   created() {
+    // this.getNotifications();
+    window.Echo.channel("system").listen("SystemUpdate", e => {
+      this.notifications.push({ message: e.message });
+    });
+
+    window.Echo.channel("users").listen("NewUser", e => {
+      this.notifications.push({ message: e.message });
+    });
+
     Event.$on("success", message => {
       this.snackbar.message = message;
       this.snackbar.color = "success";
@@ -164,11 +192,31 @@ export default {
     });
   },
   methods: {
+    getNotifications: function() {
+      axios
+        .get("api/notifications")
+        .then(response => {
+          this.notifications = response.data;
+          this.loading = false;
+        })
+        .catch(function(error) {
+          console.log(error);
+        });
+    },
     logout() {
       axios.get("/api/logout").then(function() {
         location.reload();
       });
+    },
+    removeNotification(notification) {
+      const index = this.notifications.indexOf(notification);
+      this.notifications.splice(index, 1);
     }
   }
 };
 </script>
+<style scoped>
+.notification-item:hover {
+  background-color: lightskyblue;
+}
+</style>

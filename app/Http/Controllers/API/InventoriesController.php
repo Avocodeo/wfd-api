@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers\API;
 
+use App\Events\SystemUpdate;
 use App\Http\Controllers\Controller;
-
 use App\Inventory;
 
 class InventoriesController extends Controller
@@ -51,6 +51,8 @@ class InventoriesController extends Controller
         ]);
 
         $inventory->update($attributes);
+
+        SystemUpdate::dispatch("Inventory Updated!");
 
         return response()->json([
             'id' => $inventory->id,

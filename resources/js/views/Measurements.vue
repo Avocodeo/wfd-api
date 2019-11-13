@@ -44,6 +44,17 @@
               <v-col cols="12" md="6">
                 <v-text-field v-model="editedItem.abbreviation" label="Abbreviation"></v-text-field>
               </v-col>
+              <v-col cols="12" md="6">
+                <v-select
+                  v-model="editedItem.type"
+                  :items="types"
+                  label="Type"
+                  item-text="name"
+                  item-value="id"
+                  return-object
+                  prepend-icon="mdi-scale-balance"
+                ></v-select>
+              </v-col>
             </v-row>
           </v-container>
         </v-card-text>
@@ -170,6 +181,13 @@ export default {
             abbreviation: this.editedItem.abbreviation,
             type_id: this.editedItem.type.id
           })
+          .then(function() {
+            axios
+              .post("api/notifications", {
+                body: "Item Updated"
+              })
+              .then(response => console.log(response));
+          })
           .then(function(response) {
             console.log(response);
           });
@@ -179,6 +197,11 @@ export default {
             name: this.editedItem.name,
             abbreviation: this.editedItem.abbreviation,
             type_id: this.editedItem.type.id
+          })
+          .then(function() {
+            axios.post("api/notifications", {
+              body: "Measurement Added"
+            });
           })
           .then(function(response) {
             console.log(response);

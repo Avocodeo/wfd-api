@@ -13,11 +13,11 @@ class SuppliersTableSeeder extends Seeder
     public function run()
     {
         $suppliers = collect([
-            ['name' => 'Pearl Produce', 'type' => 'food'],
-            ['name' => 'Costco Farms', 'type' => 'food'],
-            ['name' => 'Mr. Meats', 'type' => 'food'],
-            ['name' => 'Dairy Delight', 'type' => 'food'],
-            ['name' => 'Marks Cutlery', 'type' => 'food'],
+            ['name' => 'Pearl Produce', 'type' => 'Produce'],
+            ['name' => 'Costco Farms', 'type' => 'General'],
+            ['name' => 'Mr. Meats', 'type' => 'Meats'],
+            ['name' => 'Dairy Delight', 'type' => 'Dairy'],
+            ['name' => 'Marks Cutlery', 'type' => 'Utensils'],
         ]);
 
         $suppliers->each(function ($supplier) {

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\API;
 
 use App\Recipe;
 use App\Http\Controllers\Controller;
+use App\Events\SystemUpdate;
 
 class RecipesController extends Controller
 {
@@ -31,6 +32,9 @@ class RecipesController extends Controller
 
         $recipe = Recipe::create($attributes);
 
+        SystemUpdate::dispatch("Recipe Created!");
+
+
         return response()->json([
             'id' => $recipe->id,
             'message' => 'recipe was successfully created'
@@ -45,6 +49,9 @@ class RecipesController extends Controller
         ]);
 
         $recipe->update($attributes);
+
+        SystemUpdate::dispatch("Recipe Updated!");
+
 
         return response()->json([
             'recipe' => $recipe->name,

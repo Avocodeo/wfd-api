@@ -1,8 +1,9 @@
 <?php
 
 namespace App\Http\Controllers\API;
-use App\Http\Controllers\Controller;
 
+use App\Http\Controllers\Controller;
+use App\Events\SystemUpdate;
 use App\Ingredient;
 
 class IngredientsController extends Controller
@@ -30,6 +31,9 @@ class IngredientsController extends Controller
         ]);
 
         $ingredient = Ingredient::create($attributes);
+
+        SystemUpdate::dispatch("Ingredient Created!");
+
         return response()->json([
             'id' => $ingredient->id,
             'message' => 'ingredient was successfully created'
@@ -44,6 +48,9 @@ class IngredientsController extends Controller
         ]);
 
         $ingredient->update($attributes);
+
+        SystemUpdate::dispatch("Ingredient Updated!");
+
 
         return response()->json([
             'ingredient' => $ingredient->name,

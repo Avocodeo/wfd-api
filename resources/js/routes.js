@@ -61,6 +61,11 @@ export default [{
         component: GroceryList
     },
     {
+        path: '/notifications',
+        name: 'notifications',
+        component: Home
+    },
+    {
         path: '*',
         component: NotFound
     }
