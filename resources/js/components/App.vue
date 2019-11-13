@@ -59,6 +59,14 @@
               <v-list-item-title>Recipes</v-list-item-title>
             </v-list-item-content>
           </v-list-item>
+          <v-list-item to="/meals" class="text-decoration-none">
+            <v-list-item-action>
+              <v-icon color="red" size="48">mdi-pizza</v-icon>
+            </v-list-item-action>
+            <v-list-item-content>
+              <v-list-item-title>Meals Available</v-list-item-title>
+            </v-list-item-content>
+          </v-list-item>
           <v-list-item to="/suppliers" class="text-decoration-none">
             <v-list-item-action>
               <v-icon color="orange" size="48">mdi-cube-outline</v-icon>
