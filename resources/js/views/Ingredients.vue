@@ -79,7 +79,7 @@ export default {
         {
           text: "id",
           align: "left",
-          sortable: false,
+          sortable: true,
           value: "id"
         },
         { text: "Name", value: "name" },

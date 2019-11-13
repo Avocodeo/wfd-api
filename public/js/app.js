@@ -3016,7 +3016,7 @@ __webpack_require__.r(__webpack_exports__);
       headers: [{
         text: "id",
         align: "left",
-        sortable: false,
+        sortable: true,
         value: "id"
       }, {
         text: "Name",
