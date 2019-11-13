@@ -21,7 +21,7 @@
       <template v-slot:item.action="{ item }">
         <v-icon small class="mr-2" @click="editItem(item)">mdi-pencil</v-icon>
         <v-icon small @click="deleteItem(item)">mdi-delete</v-icon>
-        <a class="text-decoration-none" :href="'/recipe-ingredients/' + item.id"><v-btn color="warning">View</v-btn></a>
+        <v-btn @click="showIngredients(item)" color="warning">View</v-btn>
         <v-btn color="primary" class="ml-4" v-model="editedItem" @click="download(item)">Download</v-btn>
       </template>
       <template v-slot:no-data>
@@ -62,6 +62,27 @@
           <v-spacer></v-spacer>
           <v-btn color="blue darken-1" text @click="close">Cancel</v-btn>
           <v-btn color="blue darken-1" text @click="save">Save</v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
+
+
+    <!-- Recipe Ingredients -->
+    <v-dialog v-model="ingredientsDialog" max-width="500px">
+      <v-card>
+        <v-card-title>
+          <span class="headline">{{editedItem.name}}</span>
+        </v-card-title>
+        <ul>
+          <li class="font-weight-black" style="font-size: 16px;"
+              v-for="ingredient in editedItem.ingredients">
+            {{ingredient.name}} [{{ingredient.pivot.quantity}}] {{ingredient.measurement.abbreviation}}
+          </li>
+        </ul>
+
+        <v-card-actions>
+          <v-spacer></v-spacer>
+          <v-btn color="blue darken-1" text @click="closeOther">Cancel</v-btn>
         </v-card-actions>
       </v-card>
     </v-dialog>
@@ -108,6 +129,7 @@ export default {
       },
       loading: true,
       dialog: false,
+      ingredientsDialog: false,
       snackbar: false,
       snackbarText: "",
       snackbarTimeout: 2000
@@ -169,6 +191,9 @@ export default {
         this.editedIndex = -1;
       }, 300);
     },
+    closeOther() {
+      this.ingredientsDialog = false;
+    },
     download(item) {
       const blob = new Blob(["Recipe Name: ", item.name], {
           type: "text/plain"
@@ -215,6 +240,11 @@ export default {
         this.snackbarText = "Recipe created";
       }
       this.close();
+    },
+    showIngredients(item) {
+      this.editedIndex = this.recipes.indexOf(item);
+      this.editedItem = Object.assign({}, item);
+      this.ingredientsDialog = true;
     }
   }
 };

@@ -3645,6 +3645,27 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -3685,6 +3706,7 @@ __webpack_require__.r(__webpack_exports__);
       },
       loading: true,
       dialog: false,
+      ingredientsDialog: false,
       snackbar: false,
       snackbarText: "",
       snackbarTimeout: 2000
@@ -3745,6 +3767,9 @@ __webpack_require__.r(__webpack_exports__);
         _this3.editedIndex = -1;
       }, 300);
     },
+    closeOther: function closeOther() {
+      this.ingredientsDialog = false;
+    },
     download: function download(item) {
       var blob = new Blob(["Recipe Name: ", item.name], {
         type: "text/plain"
@@ -3784,6 +3809,11 @@ __webpack_require__.r(__webpack_exports__);
       }
 
       this.close();
+    },
+    showIngredients: function showIngredients(item) {
+      this.editedIndex = this.recipes.indexOf(item);
+      this.editedItem = Object.assign({}, item);
+      this.ingredientsDialog = true;
     }
   }
 });
@@ -25513,17 +25543,16 @@ var render = function() {
                 ),
                 _vm._v(" "),
                 _c(
-                  "a",
+                  "v-btn",
                   {
-                    staticClass: "text-decoration-none",
-                    attrs: { href: "/recipe-ingredients/" + item.id }
+                    attrs: { color: "warning" },
+                    on: {
+                      click: function($event) {
+                        return _vm.showIngredients(item)
+                      }
+                    }
                   },
-                  [
-                    _c("v-btn", { attrs: { color: "warning" } }, [
-                      _vm._v("View")
-                    ])
-                  ],
-                  1
+                  [_vm._v("View")]
                 ),
                 _vm._v(" "),
                 _c(
@@ -25694,6 +25723,76 @@ var render = function() {
                       on: { click: _vm.save }
                     },
                     [_vm._v("Save")]
+                  )
+                ],
+                1
+              )
+            ],
+            1
+          )
+        ],
+        1
+      ),
+      _vm._v(" "),
+      _c(
+        "v-dialog",
+        {
+          attrs: { "max-width": "500px" },
+          model: {
+            value: _vm.ingredientsDialog,
+            callback: function($$v) {
+              _vm.ingredientsDialog = $$v
+            },
+            expression: "ingredientsDialog"
+          }
+        },
+        [
+          _c(
+            "v-card",
+            [
+              _c("v-card-title", [
+                _c("span", { staticClass: "headline" }, [
+                  _vm._v(_vm._s(_vm.editedItem.name))
+                ])
+              ]),
+              _vm._v(" "),
+              _c(
+                "ul",
+                _vm._l(_vm.editedItem.ingredients, function(ingredient) {
+                  return _c(
+                    "li",
+                    {
+                      staticClass: "font-weight-black",
+                      staticStyle: { "font-size": "16px" }
+                    },
+                    [
+                      _vm._v(
+                        "\n          " +
+                          _vm._s(ingredient.name) +
+                          " [" +
+                          _vm._s(ingredient.pivot.quantity) +
+                          "] " +
+                          _vm._s(ingredient.measurement.abbreviation) +
+                          "\n        "
+                      )
+                    ]
+                  )
+                }),
+                0
+              ),
+              _vm._v(" "),
+              _c(
+                "v-card-actions",
+                [
+                  _c("v-spacer"),
+                  _vm._v(" "),
+                  _c(
+                    "v-btn",
+                    {
+                      attrs: { color: "blue darken-1", text: "" },
+                      on: { click: _vm.closeOther }
+                    },
+                    [_vm._v("Cancel")]
                   )
                 ],
                 1
