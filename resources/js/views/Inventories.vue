@@ -19,7 +19,7 @@
       loading-text="Loading Inventory... Please wait"
     >
       <template v-slot:item.quantity="{ item }">
-        <v-chip :color="getColor(item)" dark>{{ item.quantity}}</v-chip>
+        <v-chip :color="getColor(item)" dark>{{ item.quantity }}</v-chip>
       </template>
       <template v-slot:item.action="{ item }">
         <v-icon small class="mr-2" @click="editItem(item)">mdi-pencil</v-icon>
@@ -52,13 +52,13 @@
                 ></v-select>
               </v-col>
               <v-col cols="12" md="6">
-                <v-text-field v-model="editedItem.quantity" label="quantity"></v-text-field>
+                <v-text-field v-model="editedItem.quantity" label="Quantity"></v-text-field>
               </v-col>
               <v-col cols="12" md="6">
-                <v-text-field v-model="editedItem.low" label="low limit"></v-text-field>
+                <v-text-field v-model="editedItem.low" label="Low limit"></v-text-field>
               </v-col>
               <v-col cols="12" md="6">
-                <v-text-field v-model="editedItem.high" label="high limit"></v-text-field>
+                <v-text-field v-model="editedItem.high" label="High limit"></v-text-field>
               </v-col>
             </v-row>
           </v-container>
@@ -219,11 +219,9 @@ export default {
             high: this.editedItem.high
           })
           .then(function() {
-            axios
-              .post("api/notifications", {
-                body: "New Item Added"
-              })
-              .then(response => console.log(response));
+            axios.post("api/notifications", {
+              body: "New Item Added"
+            });
           })
           .then(function(response) {
             console.log(response);

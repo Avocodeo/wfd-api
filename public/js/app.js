@@ -3385,8 +3385,6 @@ __webpack_require__.r(__webpack_exports__);
         }).then(function () {
           axios.post("api/notifications", {
             body: "New Item Added"
-          }).then(function (response) {
-            return console.log(response);
           });
         }).then(function (response) {
           console.log(response);
@@ -35110,7 +35108,7 @@ var render = function() {
                             { attrs: { cols: "12", md: "6" } },
                             [
                               _c("v-text-field", {
-                                attrs: { label: "quantity" },
+                                attrs: { label: "Quantity" },
                                 model: {
                                   value: _vm.editedItem.quantity,
                                   callback: function($$v) {
@@ -35128,7 +35126,7 @@ var render = function() {
                             { attrs: { cols: "12", md: "6" } },
                             [
                               _c("v-text-field", {
-                                attrs: { label: "low limit" },
+                                attrs: { label: "Low limit" },
                                 model: {
                                   value: _vm.editedItem.low,
                                   callback: function($$v) {
@@ -35146,7 +35144,7 @@ var render = function() {
                             { attrs: { cols: "12", md: "6" } },
                             [
                               _c("v-text-field", {
-                                attrs: { label: "high limit" },
+                                attrs: { label: "High limit" },
                                 model: {
                                   value: _vm.editedItem.high,
                                   callback: function($$v) {
