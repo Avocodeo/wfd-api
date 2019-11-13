@@ -33131,7 +33131,7 @@ var render = function() {
                         ]),
                         _vm._v(" "),
                         _c("h2", { staticClass: "title mt-2" }, [
-                          _vm._v("Sign in to do someting great!")
+                          _vm._v("Sign in to make something great!")
                         ])
                       ]),
                       _vm._v(" "),
