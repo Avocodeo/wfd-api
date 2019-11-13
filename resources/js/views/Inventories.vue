@@ -87,7 +87,7 @@ export default {
         {
           text: "id",
           align: "left",
-          sortable: false,
+          sortable: true,
           value: "id"
         },
         { text: "Ingredient", value: "ingredient.name" },
