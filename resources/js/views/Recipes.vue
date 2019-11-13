@@ -21,6 +21,7 @@
       <template v-slot:item.action="{ item }">
         <v-icon small class="mr-2" @click="editItem(item)">mdi-pencil</v-icon>
         <v-icon small @click="deleteItem(item)">mdi-delete</v-icon>
+        <a class="text-decoration-none" :href="'/recipe-ingredients/' + item.id"><v-btn color="warning">View</v-btn></a>
         <v-btn color="primary" class="ml-4" v-model="editedItem" @click="download(item)">Download</v-btn>
       </template>
       <template v-slot:no-data>

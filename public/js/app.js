@@ -3644,6 +3644,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -25509,6 +25510,20 @@ var render = function() {
                     }
                   },
                   [_vm._v("mdi-delete")]
+                ),
+                _vm._v(" "),
+                _c(
+                  "a",
+                  {
+                    staticClass: "text-decoration-none",
+                    attrs: { href: "/recipe-ingredients/" + item.id }
+                  },
+                  [
+                    _c("v-btn", { attrs: { color: "warning" } }, [
+                      _vm._v("View")
+                    ])
+                  ],
+                  1
                 ),
                 _vm._v(" "),
                 _c(
@@ -80026,8 +80041,8 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! /Users/jamesm/Documents/laravel-sites/wfd-api/resources/js/app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! /Users/jamesm/Documents/laravel-sites/wfd-api/resources/sass/app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! C:\Users\jmoore\Code\wfd-api\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! C:\Users\jmoore\Code\wfd-api\resources\sass\app.scss */"./resources/sass/app.scss");
 
 
 /***/ })
