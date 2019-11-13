@@ -31,6 +31,6 @@ class Welcome extends Mailable
      */
     public function build()
     {
-        return $this->markdown('emails.Welcome');
+        return $this->markdown('emails/Welcome');
     }
 }
