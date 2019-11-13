@@ -1,6 +1,8 @@
 <?php
+
 use Illuminate\Database\Seeder;
 use App\Inventory;
+
 class InventoriesTableSeeder extends Seeder
 {
     /**
@@ -10,6 +12,6 @@ class InventoriesTableSeeder extends Seeder
      */
     public function run()
     {
-        factory(Inventory::class, 100)->create();
+        factory(Inventory::class, 20)->create();
     }
 }
