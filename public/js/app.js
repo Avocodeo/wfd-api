@@ -3497,6 +3497,28 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -3824,7 +3846,11 @@ __webpack_require__.r(__webpack_exports__);
       },
       loading: true,
       dialog: false,
+<<<<<<< HEAD
+      ingredientsDialog: false,
+=======
       dialog2: false,
+>>>>>>> master
       snackbar: false,
       snackbarText: "",
       snackbarTimeout: 2000
@@ -3891,6 +3917,9 @@ __webpack_require__.r(__webpack_exports__);
         _this3.editedIndex = -1;
       }, 300);
     },
+    closeOther: function closeOther() {
+      this.ingredientsDialog = false;
+    },
     download: function download(item) {
       var blob = new Blob(["Recipe Name: ", item.name], {
         type: "text/plain"
@@ -3951,6 +3980,11 @@ __webpack_require__.r(__webpack_exports__);
       }
 
       this.close();
+    },
+    showIngredients: function showIngredients(item) {
+      this.editedIndex = this.recipes.indexOf(item);
+      this.editedItem = Object.assign({}, item);
+      this.ingredientsDialog = true;
     }
   }
 });
@@ -35869,6 +35903,230 @@ var render = function() {
       ),
       _vm._v(" "),
       _c(
+<<<<<<< HEAD
+        "v-snackbar",
+        {
+          attrs: { timeout: _vm.snackbarTimeout },
+          model: {
+            value: _vm.snackbar,
+            callback: function($$v) {
+              _vm.snackbar = $$v
+            },
+            expression: "snackbar"
+          }
+        },
+        [
+          _vm._v("\n    " + _vm._s(_vm.snackbarText) + "\n    "),
+          _c(
+            "v-btn",
+            {
+              attrs: { color: "blue", text: "" },
+              on: {
+                click: function($event) {
+                  _vm.snackbar = false
+                }
+              }
+            },
+            [_vm._v("Close")]
+          )
+        ],
+        1
+      )
+    ],
+    1
+  )
+}
+var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/NotFound.vue?vue&type=template&id=5dcdfd0e&":
+/*!******************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/views/NotFound.vue?vue&type=template&id=5dcdfd0e& ***!
+  \******************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", { staticClass: "text-center display-1 mt-5" }, [
+    _vm._v("\n    Sorry, Page Not Found :(\n\n    "),
+    _c(
+      "div",
+      { staticClass: "mt-5" },
+      [
+        _c(
+          "v-btn",
+          { attrs: { "x-large": "", outlined: "", to: "/home" } },
+          [
+            _c("v-icon", [_vm._v("mdi-home")]),
+            _vm._v("\n            Return Home\n        ")
+          ],
+          1
+        )
+      ],
+      1
+    )
+  ])
+}
+var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/Recipes.vue?vue&type=template&id=d955d354&":
+/*!*****************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/views/Recipes.vue?vue&type=template&id=d955d354& ***!
+  \*****************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "v-card",
+    [
+      _c(
+        "v-card-title",
+        [
+          _vm._v("\n    Recipes\n    "),
+          _c("v-spacer"),
+          _vm._v(" "),
+          _c("v-text-field", {
+            attrs: {
+              "append-icon": "mdi-magnify",
+              label: "Search",
+              "single-line": "",
+              "hide-details": ""
+            },
+            model: {
+              value: _vm.search,
+              callback: function($$v) {
+                _vm.search = $$v
+              },
+              expression: "search"
+            }
+          })
+        ],
+        1
+      ),
+      _vm._v(" "),
+      _c("v-data-table", {
+        attrs: {
+          headers: _vm.headers,
+          items: _vm.recipes,
+          search: _vm.search,
+          loading: _vm.loading,
+          "loading-text": "Loading Recipes... Please wait"
+        },
+        scopedSlots: _vm._u([
+          {
+            key: "item.action",
+            fn: function(ref) {
+              var item = ref.item
+              return [
+                _c(
+                  "v-icon",
+                  {
+                    staticClass: "mr-2",
+                    attrs: { small: "" },
+                    on: {
+                      click: function($event) {
+                        return _vm.editItem(item)
+                      }
+                    }
+                  },
+                  [_vm._v("mdi-pencil")]
+                ),
+                _vm._v(" "),
+                _c(
+                  "v-icon",
+                  {
+                    attrs: { small: "" },
+                    on: {
+                      click: function($event) {
+                        return _vm.deleteItem(item)
+                      }
+                    }
+                  },
+                  [_vm._v("mdi-delete")]
+                ),
+                _vm._v(" "),
+                _c(
+                  "v-btn",
+                  {
+                    attrs: { color: "warning" },
+                    on: {
+                      click: function($event) {
+                        return _vm.showIngredients(item)
+                      }
+                    }
+                  },
+                  [_vm._v("View")]
+                ),
+                _vm._v(" "),
+                _c(
+                  "v-btn",
+                  {
+                    staticClass: "ml-4",
+                    attrs: { color: "primary" },
+                    on: {
+                      click: function($event) {
+                        return _vm.download(item)
+                      }
+                    },
+                    model: {
+                      value: _vm.editedItem,
+                      callback: function($$v) {
+                        _vm.editedItem = $$v
+                      },
+                      expression: "editedItem"
+                    }
+                  },
+                  [_vm._v("Download")]
+                )
+              ]
+            }
+          },
+          {
+            key: "no-data",
+            fn: function() {
+              return [
+                _c(
+                  "v-btn",
+                  {
+                    attrs: { color: "primary" },
+                    on: { click: _vm.initialize }
+                  },
+                  [_vm._v("Reset")]
+                )
+              ]
+            },
+            proxy: true
+          }
+        ])
+      }),
+      _vm._v(" "),
+      _c(
+=======
+>>>>>>> master
         "v-dialog",
         {
           attrs: { "max-width": "700px" },
@@ -35955,6 +36213,76 @@ var render = function() {
                       on: { click: _vm.email }
                     },
                     [_vm._v("Send Email")]
+                  )
+                ],
+                1
+              )
+            ],
+            1
+          )
+        ],
+        1
+      ),
+      _vm._v(" "),
+      _c(
+        "v-dialog",
+        {
+          attrs: { "max-width": "500px" },
+          model: {
+            value: _vm.ingredientsDialog,
+            callback: function($$v) {
+              _vm.ingredientsDialog = $$v
+            },
+            expression: "ingredientsDialog"
+          }
+        },
+        [
+          _c(
+            "v-card",
+            [
+              _c("v-card-title", [
+                _c("span", { staticClass: "headline" }, [
+                  _vm._v(_vm._s(_vm.editedItem.name))
+                ])
+              ]),
+              _vm._v(" "),
+              _c(
+                "ul",
+                _vm._l(_vm.editedItem.ingredients, function(ingredient) {
+                  return _c(
+                    "li",
+                    {
+                      staticClass: "font-weight-black",
+                      staticStyle: { "font-size": "16px" }
+                    },
+                    [
+                      _vm._v(
+                        "\n          " +
+                          _vm._s(ingredient.name) +
+                          " [" +
+                          _vm._s(ingredient.pivot.quantity) +
+                          "] " +
+                          _vm._s(ingredient.measurement.abbreviation) +
+                          "\n        "
+                      )
+                    ]
+                  )
+                }),
+                0
+              ),
+              _vm._v(" "),
+              _c(
+                "v-card-actions",
+                [
+                  _c("v-spacer"),
+                  _vm._v(" "),
+                  _c(
+                    "v-btn",
+                    {
+                      attrs: { color: "blue darken-1", text: "" },
+                      on: { click: _vm.closeOther }
+                    },
+                    [_vm._v("Cancel")]
                   )
                 ],
                 1
@@ -90342,8 +90670,13 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
+<<<<<<< HEAD
+__webpack_require__(/*! C:\Users\jmoore\Code\wfd-api\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! C:\Users\jmoore\Code\wfd-api\resources\sass\app.scss */"./resources/sass/app.scss");
+=======
 __webpack_require__(/*! /Users/tylerouellette/Documents/GitHub/Agile/wfd-api/resources/js/app.js */"./resources/js/app.js");
 module.exports = __webpack_require__(/*! /Users/tylerouellette/Documents/GitHub/Agile/wfd-api/resources/sass/app.scss */"./resources/sass/app.scss");
+>>>>>>> master
 
 
 /***/ })
