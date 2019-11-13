@@ -9,6 +9,7 @@ import Recipes from './views/Recipes'
 import Categories from './views/Categories'
 import Suppliers from './views/Suppliers'
 import GroceryList from './views/GroceryList'
+import Meals from './views/Meals'
 
 export default [{
         path: '/home',
@@ -44,6 +45,11 @@ export default [{
         path: '/recipes',
         name: 'recipes',
         component: Recipes
+    },
+    {
+        path: '/meals',
+        name: 'meals',
+        component: Meals
     },
     {
         path: '/suppliers',
