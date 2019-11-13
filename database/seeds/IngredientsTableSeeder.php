@@ -13,21 +13,22 @@ class IngredientsTableSeeder extends Seeder
     public function run()
     {
         $ingredients = collect([
-           ['name' => 'salt', 'measurement_id' => 1],
-           ['name' => 'pepper', 'measurement_id' => 1],
-           ['name' => 'chicken', 'measurement_id' => 1],
-           ['name' => 'fish', 'measurement_id' => 1],
-           ['name' => 'pork', 'measurement_id' => 1],
-           ['name' => 'apple', 'measurement_id' => 1],
-           ['name' => 'milk', 'measurement_id' => 1],
-           ['name' => 'cheese', 'measurement_id' => 1],
-           ['name' => 'egg', 'measurement_id' => 1],
-           ['name' => 'bread', 'measurement_id' => 1],
-           ['name' => 'orange', 'measurement_id' => 1],
-           ['name' => 'carrot', 'measurement_id' => 1],
+            ['name' => 'Salt', 'measurement_id' => 4],
+            ['name' => 'Pepper', 'measurement_id' => 4],
+            ['name' => 'Chicken', 'measurement_id' => 3],
+            ['name' => 'Fish', 'measurement_id' => 3],
+            ['name' => 'Pork', 'measurement_id' => 3],
+            ['name' => 'Apple', 'measurement_id' => 2],
+            ['name' => 'Milk', 'measurement_id' => 5],
+            ['name' => 'Cheese', 'measurement_id' => 4],
+            ['name' => 'Egg', 'measurement_id' => 1],
+            ['name' => 'Bread', 'measurement_id' => 7],
+            ['name' => 'Orange', 'measurement_id' => 2],
+            ['name' => 'Carrot', 'measurement_id' => 7],
+            ['name' => 'Oil', 'measurement_id' => 6],
         ]);
 
-        $ingredients->each(function($ingredient) {
+        $ingredients->each(function ($ingredient) {
             Ingredient::create($ingredient);
         });
     }
