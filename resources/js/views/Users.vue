@@ -70,7 +70,7 @@ export default {
           align: "left",
           value: "name"
         },
-        { text: "email", value: "email" },
+        { text: "Email", value: "email" },
         { text: "Created At", value: "created_at" },
         { text: "Updated At", value: "updated_at" },
         { text: "Actions", value: "action", sortable: false }

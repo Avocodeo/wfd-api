@@ -4252,7 +4252,7 @@ __webpack_require__.r(__webpack_exports__);
         align: "left",
         value: "name"
       }, {
-        text: "email",
+        text: "Email",
         value: "email"
       }, {
         text: "Created At",

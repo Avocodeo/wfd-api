@@ -5,7 +5,7 @@ Thanks for registering, {{ $user->name }}. We will be sure to send any awesome n
 
 Show us what you've got available to you and we'll do our best to help make the best food possible!
 
-@component('mail::button', ['url' => 'http://127.0.0.1:8000/ingredients'])
+@component('mail::button', ['url' => url('/ingredients'))
 Why not start by adding some ingredients?
 @endcomponent
 
