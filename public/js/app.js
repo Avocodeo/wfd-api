@@ -3251,7 +3251,7 @@ __webpack_require__.r(__webpack_exports__);
       headers: [{
         text: "id",
         align: "left",
-        sortable: false,
+        sortable: true,
         value: "id"
       }, {
         text: "Ingredient",
@@ -90458,8 +90458,8 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! C:\Users\jmoore\Code\wfd-api\resources\js\app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! C:\Users\jmoore\Code\wfd-api\resources\sass\app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! /Users/tylerouellette/Documents/GitHub/Agile/wfd-api/resources/js/app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! /Users/tylerouellette/Documents/GitHub/Agile/wfd-api/resources/sass/app.scss */"./resources/sass/app.scss");
 
 
 /***/ })
